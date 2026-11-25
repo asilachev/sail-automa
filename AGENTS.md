@@ -60,18 +60,20 @@ You need Node 22 or later (`.nvmrc`). Use npm.
 | `check` | `npm run check`: lint, format check, typecheck, tests and build, as CI's `check` job |
 | `test` | `npm test` (Vitest: the `engine` project on Node, the `ui` project on jsdom) |
 | `build` | `npm run build` |
-| `shots` | none yet (the guide's screenshot script comes with its issue) |
+| `shots` | `npm run site:shots`: the app screenshots the landing page shows (`site/shots.json`), into `.screenshots/<lang>/`; the flows that reach each screen come with #12 |
 | `live` | none yet (the owner connects the hosts) |
 
 | Other | What it does |
 | --- | --- |
 | `npm run dev` | Dev server (`-- --host` to open it on a phone on the same Wi-Fi) |
+| `npm run site` | The landing page into `_site/`, one page per language (`scripts/build-site.mjs`); fails on a missing text or file. Missing screenshots become marked placeholder tiles with a warning until `SITE_REQUIRE_SHOTS=1`. Preview: `npx vite preview --outDir _site` |
 | `npm run e2e` | Build, then the Playwright smoke test on a 390×844 touch screen (needs Google Chrome; `CHROME_PATH` picks another) |
 | `npm run lint` / `format` / `format:check` / `typecheck` | Oxlint (warnings fail), Prettier (Markdown excluded), `tsc -b` strict |
 | `docker build -t bosun .` | The production image (nginx on 8080) |
 
 CI (`.github/workflows/ci.yml`) runs `check` and `e2e` on every PR and push to `master`;
-`pr.yml` checks PR titles and bodies; `docker.yml` builds the image. Keep `vercel.ts` headers and
+`pr.yml` checks PR titles and bodies; `docker.yml` builds the image; `pages.yml` builds the
+landing page on PRs and deploys it from `master` (with `site/CNAME`). Keep `vercel.ts` headers and
 caching in step with `docker/nginx.conf` and `docker/security-headers.inc`.
 
 ## Code layout
@@ -88,6 +90,8 @@ src/
     styles/   global.css: the design's tokens and fonts
   test/     shared test setup
 e2e/        Playwright smoke test against the production build
+site/       the landing page: index.html template, styles.css, locales/*.json, shots.json, CNAME
+scripts/    build-site.mjs (the landing page), screenshots.mjs (its app screenshots), gen-icons.mjs
 docs/       rules, automa spec, design notes, decisions, design copy, reference PDFs
 ```
 

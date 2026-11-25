@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "how": "So funktioniert's",
+    "features": "Funktionen",
+    "languages": "Sprachen",
+    "get": "Spiel besorgen",
+    "credits": "Mitwirkende",
+    "menu": "Menü",
+    "language": "Sprache"
+  },
+  "openApp": "App öffnen",
+  "hero": {
+    "eyebrow": "SAIL · SOLO-BEGLEITER",
+    "title": "Spiel Sail allein, mit einem stummen Bootsmann.",
+    "lead": "Ein kostenloser Handy-Begleiter für Sail Solitaire von Chuck Rosselli. Der Bootsmann übernimmt die andere Seite des Schiffs: Du deckst seine Karten auf, die App führt Stiche, Krake und Stürme.",
+    "github": "Auf GitHub ansehen",
+    "note": "Kostenlos · offline · ohne Konto · 5 Sprachen"
+  },
+  "companion": {
+    "eyebrow": "DER TISCH BLEIBT DER TISCH",
+    "title": "Ein Begleiter, kein digitales Spiel",
+    "lead": "Sail bleibt auf deinem Tisch. Die App übernimmt nur das Fummelige beim Solospiel.",
+    "table": {
+      "title": "Auf deinem Tisch",
+      "items": [
+        "Der Ozeanplan, das Schiff und die Plättchen des Szenarios",
+        "Alle Karten: deine Hand, beide Stapel und die Ablage",
+        "Der verdeckte Stapel des Bootsmanns, neun Karten",
+        "Die Piratenkarten, die du gewählt hast"
+      ]
+    },
+    "app": {
+      "title": "In der App",
+      "items": [
+        "Wie der Bootsmann jeden Stich spielt",
+        "Den Befehl für jedes Symbolpaar",
+        "Den Krakenstapel: wann ihre Karte kommt und was das kostet",
+        "Sturmprüfungen, Runden und dein Logbuch"
+      ]
+    }
+  },
+  "get": {
+    "eyebrow": "BRING DEINE SCHACHTEL MIT",
+    "title": "Du brauchst Sail selbst",
+    "lead": "Bootsmann ist ein Fan-Helfer. Hol dir das Spiel beim Verlag oder in einem Laden in deiner Nähe und unterstütze die Leute, die es gemacht haben.",
+    "publisher": {
+      "text": "Der Verlag von Sail, mit Regeln und Bezugsquellen."
+    },
+    "shop": {
+      "title": "Ein Laden in deiner Nähe",
+      "text": "Ein Laden für die Sprache dieser Seite, mit Namen und der Ausgabe, die er verkauft."
+    },
+    "bgg": {
+      "text": "Sail, die Foren und Sail Solitaire von Chuck Rosselli."
+    }
+  },
+  "how": {
+    "eyebrow": "EINE FAHRT",
+    "title": "So läuft eine Fahrt",
+    "lead": "Bau auf, wie es die Regel sagt, und lass die App den Bootsmann Stich für Stich führen.",
+    "steps": [
+      {
+        "title": "Wähle Szenario und Stufe",
+        "text": "Leicht teilt zwei Piratenkarten, Mittel gibt dem Bootsmann eine eigene, Schwer keine."
+      },
+      {
+        "title": "Hake den Aufbau ab",
+        "text": "Neun Zeilen aus Regel und Variante. „Leinen los“ wartet, bis alle erledigt sind."
+      },
+      {
+        "title": "Spiel den Stich",
+        "text": "Die App sagt, wie der Bootsmann spielt: aufdecken, bis deine Farbe kommt, oder mit seiner obersten Karte ausspielen."
+      },
+      {
+        "title": "Tippe Gewinner und Symbole an",
+        "text": "Du bekommst den Befehl: wohin das Schiff fährt und wie oft die Krake angreift."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "WAS SIE SICH MERKT",
+    "title": "Alles, was du dir laut Regelheft merken musst",
+    "combo": {
+      "title": "Jede Kombi, aufgelöst",
+      "text": "Paare aus Steuerrad, Krake, Flosse und Kanone, übersetzt in einen Zug und seine Angriffe."
+    },
+    "kraken": {
+      "title": "Der Krakenstapel, gezählt",
+      "text": "Sie weiß, wann die Krakenkarte kommt und was das Rundenende kostet."
+    },
+    "storms": {
+      "title": "Stürme und Runden",
+      "text": "Die Sturmproben nach Runde II und IV und wer jede Runde ausspielt."
+    },
+    "undo": {
+      "title": "Jeden Tipp zurücknehmen",
+      "text": "Ein Patzer am Tisch ist mit einem Tipp behoben; das Protokoll zeigt jeden Schritt."
+    },
+    "offline": {
+      "title": "Offline, installierbar, wach",
+      "text": "Installiere sie auf dem Home-Bildschirm. Sie läuft ohne Netz und hält den Bildschirm an."
+    },
+    "log": {
+      "title": "Logbuch",
+      "text": "Siege und Versuche für jedes Szenario und jede Stufe, auf deinem Handy gespeichert."
+    }
+  },
+  "gallery": {
+    "eyebrow": "IN DER APP",
+    "title": "Fünf Schritte einer Fahrt"
+  },
+  "languages": {
+    "title": "Fünf Sprachen",
+    "lead": "Englisch, Spanisch, Deutsch, Russisch und Serbisch in Kyrillisch. Die App folgt deinem Handy, und du kannst jederzeit wechseln. Die Übersetzungen sind größtenteils KI: Korrekturen sind willkommen."
+  },
+  "install": {
+    "eyebrow": "DEINE EIGENE",
+    "title": "Installiere sie oder hoste deine eigene",
+    "phone": {
+      "title": "Auf deinem Handy",
+      "iphone": "iPhone: in Safari öffnen, auf „Teilen“ tippen, dann „Zum Home-Bildschirm“.",
+      "android": "Android und Chrome am Desktop: tippe auf „Installieren“ in der Karte auf der Startseite."
+    },
+    "host": {
+      "title": "Deine eigene Kopie",
+      "text": "Eine statische App ohne Server: Starte das Docker-Image oder deploye das Repository auf Vercel."
+    }
+  },
+  "credits": {
+    "game": {
+      "label": "DAS SPIEL",
+      "text": "Sail von Akiyama Koryo und Kozu Yusei, illustriert von Weberson Santiago, Verlag Allplay."
+    },
+    "variant": {
+      "label": "DIE SOLO-VARIANTE",
+      "text": "Sail Solitaire von Chuck Rosselli auf BoardGameGeek."
+    },
+    "app": {
+      "label": "DIESE APP",
+      "text": "Inoffizielle Fan-App ohne Verbindung zu Allplay; du brauchst dein eigenes Sail. Code unter MIT-Lizenz; Spiel, Regeln und Grafik gehören ihren Eigentümern."
+    },
+    "privacy": "Keine Cookies, keine Konten. Deine Fahrten bleiben auf deinem Handy."
+  },
+  "shots": {
+    "home": "Start",
+    "rules": "Regeln: die Kombis"
+  }
+}

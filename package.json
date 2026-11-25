@@ -19,7 +19,7 @@
     "icons": "node scripts/gen-icons.mjs",
     "screenshots": "vite build && node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/screenshots.mjs",
     "site": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/build-site.mjs",
-    "site:shots": "vite build && node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/screenshots.mjs --lang es,de,ru,sr",
+    "site:shots": "vite build && node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/screenshots.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "vite build && playwright test",
