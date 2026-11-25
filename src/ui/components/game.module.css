@@ -313,6 +313,7 @@
 
 /* ── Mini map: where the ship goes ── */
 .miniMap {
+  margin: 0;
   display: inline-flex;
   flex-direction: column;
   align-items: center;

@@ -40,7 +40,7 @@
   },
   "symbols": {
     "helm": "Steuerrad",
-    "hk": "Steuer & Krake",
+    "helmKraken": "Steuer & Krake",
     "tail": "Flosse",
     "cannon": "Kanone"
   },

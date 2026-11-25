@@ -1,54 +1,64 @@
 import { useCallback, useRef, useState } from 'react'
 import {
-  loadVoyage,
-  saveVoyage,
-  VOYAGE_VERSION,
-  type SavedVoyage,
-  type VoyageAdapter,
-} from './voyage.ts'
+  applyEvent,
+  newVoyage,
+  replay,
+  undo as undoEvents,
+  type Settings,
+  type VoyageEvent,
+  type VoyageState,
+} from '../../engine/index.ts'
+import { loadVoyage, saveVoyage } from './voyage.ts'
 
-export interface VoyageApi<S, E> {
-  /** The voyage in progress, or null when none is saved. */
-  readonly voyage: SavedVoyage<S, E> | null
+interface Current {
+  readonly settings: Settings
+  readonly events: readonly VoyageEvent[]
+  readonly state: VoyageState
+}
+
+export interface VoyageApi {
+  /** The voyage in progress: its settings, events and replayed state; null when none is saved. */
+  readonly voyage: Current | null
   /** A save was found but couldn't be read: Home says so (it was kept aside, not deleted). */
   readonly unreadable: boolean
   /** Starts a new voyage with no events. */
-  start(settings: S): void
-  /** Records one tap's event. */
-  dispatch(event: E): void
+  start(settings: Settings): void
+  /** Records one tap's event. Throws the engine's VoyageRuleError, changing nothing, if illegal. */
+  dispatch(event: VoyageEvent): void
   readonly canUndo: boolean
-  /** Takes back the last event and returns it, for the Undone toast. */
-  undo(): E | undefined
+  /** Takes back the last tap (the engine's `undo`) and returns the event undone, for the toast. */
+  undo(): VoyageEvent | undefined
   /** Clears the saved voyage (ended or abandoned). */
   end(): void
 }
 
 /**
  * The voyage for the UI: settings plus events, saved after every change (design 00 → Never lose
- * a voyage). The state itself is the engine's replay of these, computed by the screens.
+ * a voyage), with the engine's state alongside.
  */
-export function useVoyage<S, E>(adapter: VoyageAdapter<S, E>): VoyageApi<S, E> {
-  const [loaded] = useState(() => loadVoyage(adapter))
-  const [voyage, setVoyage] = useState<SavedVoyage<S, E> | null>(loaded.voyage)
+export function useVoyage(): VoyageApi {
+  const [loaded] = useState(() => loadVoyage())
+  const [voyage, setVoyage] = useState<Current | null>(loaded.voyage)
   // The latest voyage, so taps in quick succession each build on the one before.
   const current = useRef(voyage)
 
-  const commit = useCallback((next: SavedVoyage<S, E> | null) => {
+  const commit = useCallback((next: Current | null) => {
     current.current = next
     saveVoyage(next)
     setVoyage(next)
   }, [])
 
   const start = useCallback(
-    (settings: S) => commit({ version: VOYAGE_VERSION, settings, events: [] }),
+    (settings: Settings) => commit({ settings, events: [], state: newVoyage(settings) }),
     [commit],
   )
 
   const dispatch = useCallback(
-    (event: E) => {
+    (event: VoyageEvent) => {
       const v = current.current
       if (!v) throw new Error('No voyage in progress')
-      commit({ ...v, events: [...v.events, event] })
+      const state = applyEvent(v.state, event)
+      commit({ ...v, events: [...v.events, event], state })
     },
     [commit],
   )
@@ -56,7 +66,8 @@ export function useVoyage<S, E>(adapter: VoyageAdapter<S, E>): VoyageApi<S, E> {
   const undo = useCallback(() => {
     const v = current.current
     if (!v || v.events.length === 0) return undefined
-    commit({ ...v, events: v.events.slice(0, -1) })
+    const events = undoEvents(v.events)
+    commit({ settings: v.settings, events, state: replay(v.settings, events) })
     return v.events[v.events.length - 1]
   }, [commit])
 

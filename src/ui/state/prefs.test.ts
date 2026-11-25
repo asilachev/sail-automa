@@ -1,5 +1,22 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_PREFS, loadPrefs, savePrefs, takeLanguageFromUrl } from './prefs.ts'
+import { DEFAULT_PREFS, loadPrefs, PREFS_KEY, savePrefs, takeLanguageFromUrl } from './prefs.ts'
+
+describe('the theme preference (design A4 · THEME)', () => {
+  it('defaults to auto, also for saves from before it existed', () => {
+    const storage = memoryStorage()
+    expect(loadPrefs(storage).theme).toBe('auto')
+    storage.setItem(PREFS_KEY, JSON.stringify({ wakeLock: false, played: true }))
+    expect(loadPrefs(storage)).toEqual({ ...DEFAULT_PREFS, wakeLock: false, played: true })
+  })
+
+  it('keeps day or night once picked, and ignores anything else', () => {
+    const storage = memoryStorage()
+    savePrefs({ ...DEFAULT_PREFS, theme: 'night' }, storage)
+    expect(loadPrefs(storage).theme).toBe('night')
+    storage.setItem(PREFS_KEY, JSON.stringify({ theme: 'sepia' }))
+    expect(loadPrefs(storage).theme).toBe('auto')
+  })
+})
 
 /** An in-memory stand-in for localStorage. */
 function memoryStorage(): Storage {

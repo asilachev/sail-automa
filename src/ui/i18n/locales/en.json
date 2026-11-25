@@ -40,7 +40,7 @@
   },
   "symbols": {
     "helm": "Helm",
-    "hk": "Helm & Kraken",
+    "helmKraken": "Helm & Kraken",
     "tail": "Tail",
     "cannon": "Cannon"
   },

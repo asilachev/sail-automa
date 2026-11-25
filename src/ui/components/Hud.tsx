@@ -1,30 +1,26 @@
 import { Cloud, Skull } from '@phosphor-icons/react'
+import type { Hud as HudView } from '../../engine/index.ts'
 import { useT } from '../i18n/index.ts'
 import styles from './game.module.css'
-import { KRAKEN_TRACK, NUMERALS, numeral } from './pieces.ts'
+import { NUMERALS, numeral, TRACK } from './pieces.ts'
 
-/** The rounds the design draws a storm cloud over. */
+/**
+ * The rounds the design draws a storm cloud over: the storm checks come after rounds II and IV
+ * (docs/rules.md), so the clouds stand in front of III and V.
+ */
 const STORM_ROUNDS: readonly number[] = [3, 5]
-export interface HudProps {
-  /** The round, 1 to 5. */
-  round: number
-  /** Tricks won this round, 0 to 4 each. */
-  tricks: { you: number; bosun: number }
-  /** The Kraken deck: cards above the Kraken card, and cards under it. */
-  kraken: { above: number; below: number }
-  /** Where the Kraken stands on its track: an index into `KRAKEN_TRACK`. */
-  krakenSpace: number
-}
+
+/** The engine's HUD view, `hud(state)`: only these fields are drawn. */
+export type HudProps = Pick<HudView, 'round' | 'tricks' | 'kraken' | 'track'>
 
 /**
  * The play-area board at the top of every game step (Components → HUD · play area): black trick
  * cells with the yellow cube on the tricks won, the I to V diamond track, and the Kraken deck with
  * its dial. Read-only: it shows the table, it takes no taps.
  */
-export function Hud({ round, tricks, kraken, krakenSpace }: HudProps) {
+export function Hud({ round, tricks, kraken, track }: HudProps) {
   const t = useT()
-  const left = kraken.above + 1 + kraken.below
-  const now = KRAKEN_TRACK[krakenSpace] ?? KRAKEN_TRACK[0]
+  const now = TRACK[track]
   const nowText = now === 'skull' ? t('hud.skull') : String(now)
   return (
     <section className={styles.hud} aria-label={t('hud.label')}>
@@ -95,14 +91,14 @@ export function Hud({ round, tricks, kraken, krakenSpace }: HudProps) {
               <span key={`b${i}`} className={styles.card} data-kind="below" />
             ))}
           </span>
-          <span className={styles.left}>{t('hud.left', { n: left })}</span>
+          <span className={styles.left}>{t('hud.left', { n: kraken.cards })}</span>
         </div>
         <div className={styles.krakenRow}>
           <span className={styles.attacksLabel}>{t('hud.attacks')}</span>
           <span className={styles.srOnly}>{nowText}</span>
           <span className={styles.dial} aria-hidden="true">
-            {KRAKEN_TRACK.map((space, i) => (
-              <span key={i} className={styles.dialSpace} data-now={i === krakenSpace}>
+            {TRACK.map((space, i) => (
+              <span key={i} className={styles.dialSpace} data-now={i === track}>
                 {space === 'skull' ? <Skull size={13} weight="fill" /> : space}
               </span>
             ))}

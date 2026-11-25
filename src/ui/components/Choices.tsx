@@ -24,7 +24,8 @@ function Group({
 }: {
   label: string
   showLabel: boolean
-  layout: 'row' | 'stack'
+  /** row: side by side; wrap: side by side, onto a new line when full; stack: one per line. */
+  layout: 'row' | 'wrap' | 'stack'
   children: ReactNode
 }) {
   const id = useId()
@@ -33,7 +34,9 @@ function Group({
       <span id={id} className={showLabel ? styles.groupLabel : styles.srOnly}>
         {label}
       </span>
-      <div className={layout === 'row' ? styles.row : styles.stack}>{children}</div>
+      <div className={layout === 'stack' ? styles.stack : styles.row} data-wrap={layout === 'wrap'}>
+        {children}
+      </div>
     </div>
   )
 }
@@ -94,7 +97,7 @@ export function ChipGroup<T extends string | number>({
   onChange: (value: T) => void
 }) {
   return (
-    <Group label={label} showLabel={showLabel} layout="row">
+    <Group label={label} showLabel={showLabel} layout="wrap">
       {options.map((o) => (
         <button
           key={String(o.value)}
@@ -158,20 +161,29 @@ export function OptionCards<T extends string | number>({
   value: T | null
   onChange: (value: T) => void
 }) {
+  const id = useId()
   return (
     <Group label={label} showLabel={showLabel} layout="stack">
-      {options.map((o) => (
+      {options.map((o, i) => (
         <button
           key={String(o.value)}
           type="button"
           className={`${styles.piece} ${styles.option}`}
           aria-pressed={value === o.value}
+          aria-labelledby={`${id}-${i}`}
+          aria-describedby={o.description ? `${id}-${i}-d` : undefined}
           onClick={() => onChange(o.value)}
         >
           <span className={styles.radio} aria-hidden="true" />
           <span className={styles.optionBody}>
-            <span className={styles.optionTitle}>{o.label}</span>
-            {o.description ? <span className={styles.optionDesc}>{o.description}</span> : null}
+            <span id={`${id}-${i}`} className={styles.optionTitle}>
+              {o.label}
+            </span>
+            {o.description ? (
+              <span id={`${id}-${i}-d`} className={styles.optionDesc}>
+                {o.description}
+              </span>
+            ) : null}
           </span>
         </button>
       ))}

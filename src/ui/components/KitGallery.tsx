@@ -19,7 +19,7 @@ import { Dialog, Sheet } from './Layers.tsx'
 import { MiniMap } from './MiniMap.tsx'
 import { CheckItem, LanguageRow, ListRow, RulingRow, Step, Steps, ToggleRow } from './Rows.tsx'
 import { RuleTip } from './RuleTip.tsx'
-import type { CardSymbol } from './pieces.ts'
+import type { CardSymbol } from '../../engine/index.ts'
 import { useToasts } from './toast.ts'
 import styles from './gallery.module.css'
 
@@ -39,7 +39,7 @@ export function KitGallery() {
   const [winner, setWinner] = useState<'you' | 'bosun' | null>('you')
   const [stop, setStop] = useState<string | null>('open')
   const [scenario, setScenario] = useState<string | null>('3')
-  const [symbol, setSymbol] = useState<CardSymbol | null>('hk')
+  const [symbol, setSymbol] = useState<CardSymbol | null>('helmKraken')
   const [difficulty, setDifficulty] = useState<string | null>('medium')
   const [ticks, setTicks] = useState([false, true])
   const [awake, setAwake] = useState(true)
@@ -61,8 +61,8 @@ export function KitGallery() {
       <Hud
         round={3}
         tricks={{ you: 2, bosun: 2 }}
-        kraken={{ above: 3, below: 2 }}
-        krakenSpace={2}
+        kraken={{ above: 3, below: 2, cards: 5 }}
+        track={2}
       />
       <main className={styles.body}>
         <h1 className={styles.title}>Kit</h1>

@@ -1,5 +1,5 @@
 import { BookOpen, CaretRight, Check } from '@phosphor-icons/react'
-import type { ReactNode } from 'react'
+import { useId, type ReactNode } from 'react'
 import { useT } from '../i18n/index.ts'
 import styles from './kit.module.css'
 
@@ -66,17 +66,26 @@ export function ToggleRow({
   checked: boolean
   onChange: (checked: boolean) => void
 }) {
+  const id = useId()
   return (
     <button
       type="button"
       role="switch"
       aria-checked={checked}
+      aria-labelledby={`${id}-l`}
+      aria-describedby={hint ? `${id}-h` : undefined}
       className={`${styles.piece} ${styles.surfaceRow} ${styles.toggle}`}
       onClick={() => onChange(!checked)}
     >
       <span className={styles.rowBody}>
-        <span className={styles.rowLabel}>{label}</span>
-        {hint ? <span className={styles.rowHint}>{hint}</span> : null}
+        <span id={`${id}-l`} className={styles.rowLabel}>
+          {label}
+        </span>
+        {hint ? (
+          <span id={`${id}-h`} className={styles.rowHint}>
+            {hint}
+          </span>
+        ) : null}
       </span>
       <span className={styles.switch} aria-hidden="true" />
     </button>
@@ -96,15 +105,28 @@ export function ListRow({
   value?: string
   onClick: () => void
 }) {
+  const id = useId()
   return (
-    <button type="button" className={`${styles.piece} ${styles.surfaceRow}`} onClick={onClick}>
+    <button
+      type="button"
+      className={`${styles.piece} ${styles.surfaceRow}`}
+      aria-labelledby={`${id}-l`}
+      aria-describedby={value ? `${id}-v` : undefined}
+      onClick={onClick}
+    >
       {icon ? (
         <span className={styles.listIcon} aria-hidden="true">
           {icon}
         </span>
       ) : null}
-      <span className={styles.listLabel}>{label}</span>
-      {value ? <span className={styles.listValue}>{value}</span> : null}
+      <span id={`${id}-l`} className={styles.listLabel}>
+        {label}
+      </span>
+      {value ? (
+        <span id={`${id}-v`} className={styles.listValue}>
+          {value}
+        </span>
+      ) : null}
       <CaretRight className={styles.chevron} size={16} weight="fill" aria-hidden />
     </button>
   )

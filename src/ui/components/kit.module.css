@@ -151,6 +151,11 @@
   padding-bottom: 5px;
 }
 
+.row[data-wrap='true'] {
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+
 .stack {
   display: flex;
   flex-direction: column;
