@@ -1,0 +1,431 @@
+<!doctype html>
+<!--
+  The landing page template (#13), from the design's L1 · desktop 1440 and L2 · mobile 390
+  (~/Graphics/sail-automa.pen → Frame 4). scripts/build-site.mjs renders it once per language:
+  {{key}} is a text from site/locales/<lang>.json; {{icon.*}} a Phosphor icon; {{shot.NN}} a
+  screenshot from site/shots.json; the rest ({{base}}, {{art}}, {{links.*}}, …) comes from the
+  build. The wordmark is BOSUN in every language.
+-->
+<html lang="{{lang}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BOSUN · {{hero.title}}</title>
+    <meta name="description" content="{{hero.lead}}" />
+    <meta name="theme-color" content="#17403f" />
+    <meta name="color-scheme" content="light" />
+    <link rel="canonical" href="{{pageUrl}}" />
+    {{alternates}}
+    <link rel="icon" href="{{base}}favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="{{base}}favicon.svg" />
+    <link rel="apple-touch-icon" href="{{base}}apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="{{ogLocale}}" />
+    <meta property="og:url" content="{{pageUrl}}" />
+    <meta property="og:title" content="BOSUN · {{hero.title}}" />
+    <meta property="og:description" content="{{hero.lead}}" />
+    <meta property="og:image" content="{{siteUrl}}icon-512.png" />
+    <link rel="stylesheet" href="{{base}}styles.css?v={{cssVersion}}" />
+    {{redirect}}
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="#top">
+        <img src="{{art}}helm.svg" alt="" />
+        <span>BOSUN</span>
+      </a>
+      <span class="spacer"></span>
+      <nav class="links" aria-label="{{nav.menu}}">
+        <a href="#how">{{nav.how}}</a>
+        <a href="#features">{{nav.features}}</a>
+        <a href="#languages">{{nav.languages}}</a>
+        <a href="#get">{{nav.get}}</a>
+        <a href="#credits">{{nav.credits}}</a>
+      </nav>
+      <details class="lang drop">
+        <summary aria-label="{{nav.language}}: {{langName}}">
+          {{icon.globe-simple-fill}}
+          <span>{{langCode}}</span>
+        </summary>
+        <ul aria-label="{{nav.language}}">
+          {{langMenu}}
+        </ul>
+      </details>
+      <a class="button small" href="{{links.app}}">{{openApp}} {{icon.arrow-up-right-fill}}</a>
+      <details class="menu drop">
+        <summary aria-label="{{nav.menu}}">{{icon.list-bold}}</summary>
+        <ul aria-label="{{nav.menu}}">
+          <li><a href="#how">{{nav.how}}</a></li>
+          <li><a href="#features">{{nav.features}}</a></li>
+          <li><a href="#languages">{{nav.languages}}</a></li>
+          <li><a href="#get">{{nav.get}}</a></li>
+          <li><a href="#credits">{{nav.credits}}</a></li>
+          <li><a href="{{links.app}}">{{openApp}}</a></li>
+        </ul>
+      </details>
+    </header>
+
+    <main id="top">
+      <!-- Top · the ocean board: the hero text on a cream tile, never on the busy sea (Taste). -->
+      <section class="hero sea">
+        <div class="board desktop" aria-hidden="true">
+          <span class="cell" style="--x: 0; --y: 670">K0</span>
+          <span class="cell" style="--x: 64; --y: 606">J1</span>
+          <span class="cell" style="--x: 0; --y: 542">I0</span>
+          <span class="cell" style="--x: 64; --y: 94">B1</span>
+          <span class="cell" style="--x: 0; --y: 158">C0</span>
+          <span class="cell" style="--x: 640; --y: 30">A10</span>
+          <span class="cell" style="--x: 768; --y: 30">A12</span>
+          <span class="cell" style="--x: 896; --y: 30">A14</span>
+          <span class="cell" style="--x: 640; --y: 158">C10</span>
+          <span class="cell" style="--x: 1024; --y: 158">C16</span>
+          <span class="cell" style="--x: 704; --y: 222">D11</span>
+          <span class="cell" style="--x: 832; --y: 222">D13</span>
+          <span class="cell" style="--x: 960; --y: 222">D15</span>
+          <span class="cell" style="--x: 704; --y: 350">F11</span>
+          <span class="cell" style="--x: 960; --y: 350">F15</span>
+          <span class="cell" style="--x: 640; --y: 414">G10</span>
+          <span class="cell" style="--x: 768; --y: 414">G12</span>
+          <span class="cell" style="--x: 896; --y: 414">G14</span>
+          <span class="cell" style="--x: 704; --y: 478">H11</span>
+          <span class="cell" style="--x: 832; --y: 478">H13</span>
+          <span class="cell" style="--x: 960; --y: 478">H15</span>
+          <span class="cell" style="--x: 640; --y: 542">I10</span>
+          <span class="cell" style="--x: 896; --y: 542">I14</span>
+          <span class="cell" style="--x: 704; --y: 606">J11</span>
+          <span class="cell" style="--x: 832; --y: 606">J13</span>
+          <span class="cell" style="--x: 640; --y: 670">K10</span>
+          <span class="cell" style="--x: 768; --y: 670">K12</span>
+          <span class="cell" style="--x: 896; --y: 670">K14</span>
+          <span class="tile kraken" style="--x: 766; --y: 126"></span>
+          <img class="piece" src="{{art}}tentacle.svg" alt="" style="--x: 778; --y: 124; --w: 61" />
+          <span class="tile kraken" style="--x: 894; --y: 254"></span>
+          <img class="piece" src="{{art}}tentacle.svg" alt="" style="--x: 906; --y: 252; --w: 61" />
+          <span class="tile island" style="--x: 830; --y: 318"></span>
+          <img class="piece" src="{{art}}cloud.svg" alt="" style="--x: 830; --y: 6; --w: 150" />
+          <img
+            class="piece"
+            src="{{art}}tentacle.svg"
+            alt=""
+            style="--x: -25; --y: 508; --w: 170"
+          />
+          <span class="tile anchor" style="--x: 766; --y: 510">{{icon.anchor-bold}}</span>
+          <img
+            class="piece"
+            src="{{art}}tentacle.svg"
+            alt=""
+            style="--x: 1311; --y: -6; --w: 150"
+          />
+          <img class="piece" src="{{art}}ship.svg" alt="" style="--x: 697; --y: 362; --w: 206" />
+          <span class="move" style="--x: 899; --y: 413">{{icon.arrow-fat-right-fill}}</span>
+          <img class="piece" src="{{art}}island.svg" alt="" style="--x: 834; --y: 324; --w: 75" />
+          <span class="phone large" style="--x: 1232; --y: 108; --r: -5deg">{{shot.04}}</span>
+          <span class="phone large" style="--x: 1027; --y: 61; --r: 3deg">{{shot.05}}</span>
+        </div>
+
+        <div class="panel-wrap">
+          <div class="text-panel">
+            <div class="printed">
+              <div class="symbols" aria-hidden="true">
+                <img src="{{art}}sym-helm.svg" alt="" />
+                <img src="{{art}}sym-hk.svg" alt="" />
+                <img src="{{art}}sym-tail.svg" alt="" />
+                <img src="{{art}}sym-cannon.svg" alt="" />
+              </div>
+              <p class="pennant">{{hero.eyebrow}}</p>
+              <h1>{{hero.title}}</h1>
+              <p class="lead">{{hero.lead}}</p>
+              <div class="actions">
+                <a class="button" href="{{links.app}}">{{openApp}} {{icon.arrow-up-right-fill}}</a>
+                <a class="button secondary" href="{{links.github}}"
+                  >{{icon.github-logo-fill}} {{hero.github}}</a
+                >
+              </div>
+              <p class="note">{{hero.note}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="board mobile" aria-hidden="true">
+          <span class="tile anchor" style="--x: 42.5; --y: 141.5">{{icon.anchor-bold}}</span>
+          <span class="tile kraken" style="--x: 282.5; --y: -2.5"></span>
+          <img class="piece" src="{{art}}tentacle.svg" alt="" style="--x: 289; --y: -6; --w: 46" />
+          <img class="piece" src="{{art}}ship.svg" alt="" style="--x: 40; --y: -2; --w: 168" />
+          <span class="move" style="--x: 194.5; --y: 37.5">{{icon.arrow-fat-right-fill}}</span>
+          <img
+            class="piece"
+            src="{{art}}tentacle.svg"
+            alt=""
+            style="--x: 303; --y: 373; --w: 130"
+          />
+          <img
+            class="piece"
+            src="{{art}}tentacle.svg"
+            alt=""
+            style="--x: -34; --y: 509; --w: 120"
+          />
+          <img class="piece" src="{{art}}cloud.svg" alt="" style="--x: 265; --y: 101; --w: 118" />
+          <span class="phone large" style="--x: 37; --y: 201; --r: 0deg">{{shot.05}}</span>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="companion-title">
+        <div class="wrap">
+          <header class="heading">
+            <p class="eyebrow">{{companion.eyebrow}}</p>
+            <h2 id="companion-title">{{companion.title}}</h2>
+            <p class="section-lead">{{companion.lead}}</p>
+          </header>
+          <div class="panels">
+            <div class="panel">
+              <h3><img src="{{art}}ship.svg" alt="" />{{companion.table.title}}</h3>
+              <ul class="ticks">
+                <li>{{icon.circle-fill}}{{companion.table.items.0}}</li>
+                <li>{{icon.circle-fill}}{{companion.table.items.1}}</li>
+                <li>{{icon.circle-fill}}{{companion.table.items.2}}</li>
+                <li>{{icon.circle-fill}}{{companion.table.items.3}}</li>
+              </ul>
+            </div>
+            <div class="panel app">
+              <h3><img src="{{art}}helm.svg" alt="" />{{companion.app.title}}</h3>
+              <ul class="ticks">
+                <li>{{icon.check-circle-fill}}{{companion.app.items.0}}</li>
+                <li>{{icon.check-circle-fill}}{{companion.app.items.1}}</li>
+                <li>{{icon.check-circle-fill}}{{companion.app.items.2}}</li>
+                <li>{{icon.check-circle-fill}}{{companion.app.items.3}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="get" class="section tinted" aria-labelledby="get-title">
+        <div class="wrap">
+          <header class="heading">
+            <p class="eyebrow">{{get.eyebrow}}</p>
+            <h2 id="get-title">{{get.title}}</h2>
+            <p class="section-lead">{{get.lead}}</p>
+          </header>
+          <ul class="cards three">
+            <li>
+              <a class="card link-card" href="{{links.publisher}}">
+                {{icon.storefront-fill}}
+                <h3>Allplay</h3>
+                <p>{{get.publisher.text}}</p>
+                <span class="url">allplay.com {{icon.arrow-up-right-fill}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="card link-card" href="{{links.store}}">
+                {{icon.map-pin-fill}}
+                <h3>{{get.shop.title}}</h3>
+                <p>{{get.shop.text}}</p>
+                <span class="url">{{links.storeHost}} {{icon.arrow-up-right-fill}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="card link-card" href="{{links.bgg}}">
+                {{icon.users-three-fill}}
+                <h3>BoardGameGeek</h3>
+                <p>{{get.bgg.text}}</p>
+                <span class="url">boardgamegeek.com {{icon.arrow-up-right-fill}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="how" class="section" aria-labelledby="how-title">
+        <div class="wrap">
+          <header class="heading">
+            <p class="eyebrow">{{how.eyebrow}}</p>
+            <h2 id="how-title">{{how.title}}</h2>
+            <p class="section-lead">{{how.lead}}</p>
+          </header>
+          <ol class="steps">
+            <li>
+              <span class="phone small">{{shot.02}}</span>
+              <span class="number" aria-hidden="true">1</span>
+              <h3>{{how.steps.0.title}}</h3>
+              <p>{{how.steps.0.text}}</p>
+            </li>
+            <li>
+              <span class="phone small">{{shot.03}}</span>
+              <span class="number" aria-hidden="true">2</span>
+              <h3>{{how.steps.1.title}}</h3>
+              <p>{{how.steps.1.text}}</p>
+            </li>
+            <li>
+              <span class="phone small">{{shot.04}}</span>
+              <span class="number" aria-hidden="true">3</span>
+              <h3>{{how.steps.2.title}}</h3>
+              <p>{{how.steps.2.text}}</p>
+            </li>
+            <li>
+              <span class="phone small">{{shot.05}}</span>
+              <span class="number" aria-hidden="true">4</span>
+              <h3>{{how.steps.3.title}}</h3>
+              <p>{{how.steps.3.text}}</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="features" class="section tinted" aria-labelledby="features-title">
+        <div class="wrap">
+          <header class="heading wide">
+            <p class="eyebrow">{{features.eyebrow}}</p>
+            <h2 id="features-title">{{features.title}}</h2>
+          </header>
+          <ul class="cards three features">
+            <li class="card">
+              <span class="visual pair" aria-hidden="true">
+                <img src="{{art}}sym-helm.svg" alt="" /><span>+</span
+                ><img src="{{art}}sym-hk.svg" alt="" />
+              </span>
+              <h3>{{features.combo.title}}</h3>
+              <p>{{features.combo.text}}</p>
+            </li>
+            <li class="card">
+              <span class="visual deck" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i class="kraken"></i>
+              </span>
+              <h3>{{features.kraken.title}}</h3>
+              <p>{{features.kraken.text}}</p>
+            </li>
+            <li class="card">
+              <span class="visual" aria-hidden="true"><img src="{{art}}cloud.svg" alt="" /></span>
+              <h3>{{features.storms.title}}</h3>
+              <p>{{features.storms.text}}</p>
+            </li>
+            <li class="card">
+              <span class="visual">{{icon.arrow-counter-clockwise-fill}}</span>
+              <h3>{{features.undo.title}}</h3>
+              <p>{{features.undo.text}}</p>
+            </li>
+            <li class="card">
+              <span class="visual">{{icon.wifi-slash-fill}}</span>
+              <h3>{{features.offline.title}}</h3>
+              <p>{{features.offline.text}}</p>
+            </li>
+            <li class="card">
+              <span class="visual">{{icon.scroll-fill}}</span>
+              <h3>{{features.log.title}}</h3>
+              <p>{{features.log.text}}</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section sea gallery-section" aria-labelledby="gallery-title">
+        <div class="wrap">
+          <header class="heading wide">
+            <p class="eyebrow ink">{{gallery.eyebrow}}</p>
+            <h2 id="gallery-title">{{gallery.title}}</h2>
+          </header>
+          <ul class="gallery">
+            <li class="phone small">{{shot.01}}</li>
+            <li class="phone small">{{shot.04}}</li>
+            <li class="phone small">{{shot.06}}</li>
+            <li class="phone small">{{shot.07}}</li>
+            <li class="phone small">{{shot.08}}</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="languages" class="section" aria-labelledby="languages-title">
+        <div class="wrap languages-row">
+          <header class="heading">
+            <p class="eyebrow">EN · ES · DE · RU · SR</p>
+            <h2 id="languages-title">{{languages.title}}</h2>
+            <p class="section-lead">{{languages.lead}}</p>
+          </header>
+          <ul class="chips">
+            {{langChips}}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section tinted" aria-labelledby="install-title">
+        <div class="wrap">
+          <header class="heading wide">
+            <p class="eyebrow">{{install.eyebrow}}</p>
+            <h2 id="install-title">{{install.title}}</h2>
+          </header>
+          <div class="cards two">
+            <div class="card column">
+              <h3>{{icon.device-mobile-fill}}{{install.phone.title}}</h3>
+              <p>{{install.phone.iphone}}</p>
+              <p>{{install.phone.android}}</p>
+            </div>
+            <div class="card column">
+              <h3>{{icon.hard-drives-fill}}{{install.host.title}}</h3>
+              <p>{{install.host.text}}</p>
+              <pre><code>docker run -p 8080:8080 ghcr.io/asilachev/sail-automa</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="credits" class="credits">
+      <div class="wrap">
+        <a class="brand" href="#top">
+          <img src="{{art}}helm.svg" alt="" />
+          <span>BOSUN</span>
+        </a>
+        <div class="credit-columns">
+          <div>
+            <h2>{{credits.game.label}}</h2>
+            <p>{{credits.game.text}}</p>
+          </div>
+          <div>
+            <h2>{{credits.variant.label}}</h2>
+            <p>{{credits.variant.text}}</p>
+          </div>
+          <div>
+            <h2>{{credits.app.label}}</h2>
+            <p>{{credits.app.text}}</p>
+          </div>
+        </div>
+        <div class="bottom">
+          <p>{{credits.privacy}}</p>
+          <span class="spacer"></span>
+          <a href="{{links.github}}">GitHub</a>
+          <a href="{{links.bgg}}">BoardGameGeek</a>
+          <a href="{{links.publisher}}">Allplay</a>
+          <a href="{{links.app}}">{{openApp}}</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Remember a language picked here, so the root page stops sending you elsewhere.
+      for (const link of document.querySelectorAll('a[data-lang]')) {
+        link.addEventListener('click', () => {
+          try {
+            localStorage.setItem('{{storageKey}}', link.dataset.lang)
+          } catch {
+            // Storage blocked: the choice just isn't remembered.
+          }
+        })
+      }
+      // The language and section menus close on Escape, a click elsewhere or a pick.
+      const menus = [...document.querySelectorAll('details.drop')]
+      document.addEventListener('click', (event) => {
+        for (const menu of menus) {
+          const inside = menu.contains(event.target)
+          if (menu.open && (!inside || event.target.closest('a'))) menu.open = false
+        }
+      })
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return
+        for (const menu of menus) {
+          if (!menu.open) continue
+          menu.open = false
+          menu.querySelector('summary').focus()
+        }
+      })
+    </script>
+  </body>
+</html>
