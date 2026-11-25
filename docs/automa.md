@@ -68,7 +68,45 @@ When the Bosun uses the Cannon + Wheel Pirate card:
 - **Round-end attacks** use the number under the meeple when the round ends, even if it moves
   during them (rules.md → A round).
 - **Storm checks** ask the user after rounds II and IV (only after II in the Learning scenario),
-  naming the storm's column from the scenario.
+  naming the storm's column from the scenario. A round whose attacks already lost asks nothing.
+
+### Steps and events (`src/engine/voyage.ts`, #1)
+
+The voyage starts at round I's exchange (the setup checklist, deal included, is screen-only). Each
+step waits for the events the user taps; `orderDone` and `roundEndDone` commit what the step
+previews, so the screen can show each attack's effect before the user does it at the table.
+
+| Step | Shows | Events |
+| --- | --- | --- |
+| exchange | the round, who leads, cards each | `exchange` |
+| trick | the trick number, who leads (you in I, III, V and the Bosun in II, IV first; then the winner) | `trick` {winner, yours, bosuns}: the winner's cube advances |
+| order | the move, the attacks and their effects, cards to the Kraken deck, the flips so far, the Pirate reminder | `flip` {symbol} while a flip is due, `ship` {onto} when the order moves the ship, then `orderDone` |
+| roundEnd | the attacks (the number under the meeple), each effect, the storm check | `storm` {passed} when there is a check, then `roundEndDone` |
+| deal | the next round, who leads, cards each | `dealt` |
+| won, lost | the reason and the round | none |
+
+`fix` (Fix the trackers) sets above, below, the meeple's space (0 to 3) and the player deck at any
+step before the end; it rejects a Kraken deck with no numbered card or more than 27 cards in all.
+
+- **The HUD's Kraken count** is the numbered cards in the Kraken deck, the Kraken card not counted:
+  "6 cards left" at setup.
+- **An order resolves** in the rulebook's order: the cards that go to the Kraken deck, then the
+  move, then the damage (the pair's, then one for a Kraken token). The End token wins at once, so
+  damage after it never loses (rules.md → if you both win and lose, you win); sailing past it
+  loses at once under ruling 1's default.
+- **The token answer** "open sea" also covers a move an island or the board's edge blocked.
+- **The Cannon + Cannon chain** asks one flip at a time while the flipped card is a cannon and the
+  player deck has cards; each flip takes one card from the player deck.
+- **A short deal** (ruling 4) gives each player half the cards outside the Kraken deck, at most 9;
+  an odd card stays in the player deck. With fewer than 7 cards each the hands can run out before
+  anyone wins four tricks: the round then ends when they do.
+- **Ruling 5's alternative** ends the round as soon as the fourth trick is won, and its action is
+  not resolved; the log marks the trick as skipped.
+- **Pirate cards:** the order shows whether the winner may use one (Hard: only you), and offers the
+  Bosun's Cannon + Wheel swap when the Bosun wins and has that pirate. The swap changes no counts,
+  so it logs nothing.
+- **Saves** hold `{ version, settings, events }` (`SAVE_VERSION`, `src/engine/save.ts`); loading
+  checks every event and replays them, and returns nothing for anything else.
 
 ## Rulings
 
