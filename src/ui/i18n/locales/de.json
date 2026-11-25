@@ -58,6 +58,87 @@
     "default": "STANDARD",
     "change": "Ändern"
   },
+  "newVoyage": {
+    "title": "NEUE FAHRT",
+    "back": "Start",
+    "scenario": "SZENARIO",
+    "scenarioHint": "Aus dem Szenarioheft.",
+    "learning": "Einstieg",
+    "scenarioName": "{scenario, select, learning {Einstiegsszenario} other {Szenario {scenario}}}",
+    "seat": "DEIN PLATZ",
+    "seatLeft": "Start links von mir",
+    "seatRight": "Start rechts von mir",
+    "seatHint": "Damit die Pfeile der App in deine Fahrtrichtung zeigen.",
+    "difficulty": "SCHWIERIGKEIT",
+    "easy": "Leicht",
+    "easyDesc": "Zwei Piratenkarten für beide. Wer den Stich gewinnt, darf eine davon nutzen.",
+    "medium": "Mittel",
+    "mediumDesc": "Je eine Piratenkarte. Wer gewinnt, darf die eigene nutzen.",
+    "hard": "Schwer",
+    "hardDesc": "Nur du hast eine Piratenkarte, der Bootsmann keine.",
+    "pirate": "DER PIRAT DES BOOTSMANNS",
+    "cw": "Der Bootsmann hat den Piraten Kanone + Steuerrad",
+    "cwHint": "Die App führt dich durch seinen Kartentausch.",
+    "hardNote": "Auf Schwer hat der Bootsmann keine Piratenkarte.",
+    "rulings": "Auslegungen",
+    "rulingsLine": "{changed, plural, =0 {{total} · Standard} other {{total} · # geändert}}",
+    "next": "Weiter · Tisch aufbauen"
+  },
+  "setup": {
+    "title": "TISCH AUFBAUEN",
+    "back": "Neue Fahrt",
+    "sub": "{scenario} · {difficulty, select, easy {Leicht} medium {Mittel} other {Schwer}} · hake jede Zeile ab",
+    "line1": "Bau den Ozeanplan auf. Spielbereich- und Krakentafel an die gegenüberliegenden Enden.",
+    "line2": "Leg die Plättchen für {scenario, select, learning {das Einstiegsszenario} other {Szenario {scenario}}} aus:\nInseln: {islands}\nKrake: {kraken}\nZiel: {end}\n{storms, plural, one {Sturm: Spalte {columns}} other {Stürme: Spalten {columns}}}",
+    "line3": "{pirates, select, easy {Piratenkarten: zwei für beide, neben den Plan.} easyCw {Piratenkarten: zwei für beide, neben den Plan; eine davon ist Kanone + Steuerrad.} mediumCw {Piratenkarten: eine für dich, Kanone + Steuerrad für den Bootsmann.} hard {Piratenkarte: eine für dich. Der Bootsmann hat keine.} other {Piratenkarten: eine für dich, eine für den Bootsmann.}}",
+    "line4": "Krake aufs untere linke Feld, die 3. Stichwürfel auf 0.",
+    "line5": "Rundenscheibe auf I, auf deiner Seite: du spielst zuerst aus.",
+    "line6": "Schiff aufs Startplättchen.",
+    "line7": "Krakenstapel: die sechs 1er und 2er gemischt, offen, die Krakenkarte unten.",
+    "line8": "Spielerstapel: 3er bis 9er gemischt, verdeckt.",
+    "line9": "Gib dir 9 Karten und dem Bootsmann 9 verdeckt als Stapel. Schau sie nicht an.",
+    "noteAll": "Hake alle {n} Zeilen ab, um abzulegen",
+    "note": "{n, plural, one {Hake die letzte Zeile ab, um abzulegen} other {Hake die # offenen Zeilen ab, um abzulegen}}",
+    "go": "Leinen los"
+  },
+  "rulings": {
+    "title": "AUSLEGUNGEN",
+    "lead": "Wo die Regeln schweigen, eine Einstellung mit Standard. Ändere sie nur bewusst.",
+    "pastEnd": {
+      "q": "Das Schiff fährt am Ziel vorbei",
+      "lose": "Verloren",
+      "nothing": "Nichts passiert",
+      "source": "Russische Regel S. 4; Allplay auf BGG"
+    },
+    "bosunPirate": {
+      "q": "Wer entscheidet, ob der Bootsmann seinen Piraten nutzt",
+      "you": "Du, wenn er den Stich gewinnt",
+      "source": "Sail Solitaire sagt „darf nutzen“"
+    },
+    "cannonWheel": {
+      "q": "Neue Aktion des Piraten Kanone + Steuerrad",
+      "owner": "Nur sein Besitzer",
+      "anyWinner": "Wer den Stich gewinnt",
+      "source": "Allplay auf BGG, 2023"
+    },
+    "shortDeal": {
+      "q": "Zu wenig Karten für je 9",
+      "evenly": "Gleichmäßig geben, so weit es reicht",
+      "source": "Keine Regel; unsere Wahl"
+    },
+    "fourthTrick": {
+      "q": "Die Aktion des vierten Stichs",
+      "resolve": "Erst ausführen, dann endet die Runde",
+      "endFirst": "Erst endet die Runde",
+      "source": "Reihenfolge der Regel; BGG, unbestätigt"
+    }
+  },
+  "abandon": {
+    "title": "Diese Fahrt aufgeben?",
+    "body": "Eine neue Fahrt löscht die gespeicherte. Sie kommt als unvollendet ins Logbuch.",
+    "yes": "Aufgeben und neu starten",
+    "keep": "Weitersegeln"
+  },
   "voyageEnd": {
     "wonTitle": "LAND IN SICHT!",
     "wonSub": "Du hast das Zielplättchen in Runde {round} erreicht.",

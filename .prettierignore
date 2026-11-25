@@ -7,3 +7,5 @@ package-lock.json
 *.md
 # nginx config is not a Prettier language (it reflowed .inc files as prose)
 docker/
+_site/
+.screenshots/

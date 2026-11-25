@@ -1,8 +1,9 @@
-import { ArrowRight, CaretLeft, Check, Scroll } from '@phosphor-icons/react'
+import { ArrowRight, Check, Scroll } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { ActionBar, Button, Dialog } from '../components/index.ts'
 import { useI18n } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
+import { BackBar } from '../newVoyage/BackBar.tsx'
 import { KeyFigures, type Figure } from '../result/Figures.tsx'
 import {
   logStats,
@@ -53,12 +54,7 @@ export function CaptainsLog() {
 
   return (
     <main className={styles.page} aria-labelledby="captains-log-title">
-      <div className={styles.backBar}>
-        <button type="button" className={styles.back} onClick={() => nav.go('home', 'back')}>
-          <CaretLeft size={20} weight="fill" aria-hidden />
-          {t('captainsLog.back')}
-        </button>
-      </div>
+      <BackBar label={t('captainsLog.back')} onBack={() => nav.go('home', 'back')} />
       <div className={styles.content}>
         <h1 id="captains-log-title" className={styles.title}>
           {t('captainsLog.title')}

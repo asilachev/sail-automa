@@ -15,11 +15,13 @@ import {
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
 import { CaptainsLog } from './log/CaptainsLog.tsx'
-import { NavContext, SCREEN_NAMES, type Nav, type ScreenName } from './nav.ts'
+import { NavContext, type Nav, type ScreenName } from './nav.ts'
 import { VoyageEnd } from './result/VoyageEnd.tsx'
 import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
+import { NewVoyage } from './newVoyage/NewVoyage.tsx'
+import { Setup } from './newVoyage/Setup.tsx'
 import styles from './app.module.css'
 
 /** The kit gallery for visual checks, `/?kit`: only on the dev server, never in a build. */
@@ -103,9 +105,30 @@ interface Route {
   readonly n: number
 }
 
+const SCREENS: readonly ScreenName[] = [
+  'home',
+  'newVoyage',
+  'setup',
+  'game',
+  'result',
+  'log',
+  'settings',
+]
+
+/** Dev server only: `/?screen=setup` opens on a screen, for visual checks. Never in a build. */
+function devScreen(): ScreenName | null {
+  if (!import.meta.env.DEV) return null
+  const name = new URLSearchParams(location.search).get('screen')
+  return SCREENS.find((s) => s === name) ?? null
+}
+
 function Shell() {
   // Every launch opens on Home without motion (board 03: moments never replay on a reload).
-  const [route, setRoute] = useState<Route>(() => ({ screen: devScreen(), motion: 'none', n: 0 }))
+  const [route, setRoute] = useState<Route>(() => ({
+    screen: devScreen() ?? 'home',
+    motion: 'none',
+    n: 0,
+  }))
   const nav = useMemo<Nav>(
     () => ({
       screen: route.screen,
@@ -133,6 +156,10 @@ function Shell() {
 /** The view for each screen. Screens not built yet show Home. */
 function View({ screen }: { screen: ScreenName }) {
   switch (screen) {
+    case 'newVoyage':
+      return <NewVoyage />
+    case 'setup':
+      return <Setup />
     case 'result':
       return <VoyageEnd />
     case 'log':
@@ -141,16 +168,6 @@ function View({ screen }: { screen: ScreenName }) {
     default:
       return <HomePlaceholder />
   }
-}
-
-/**
- * The dev server opens any screen with `/?screen=log` (visual checks against the design, with the
- * state seeded in storage); builds always open on Home.
- */
-function devScreen(): ScreenName {
-  if (!import.meta.env.DEV) return 'home'
-  const asked = new URLSearchParams(location.search).get('screen')
-  return SCREEN_NAMES.find((s) => s === asked) ?? 'home'
 }
 
 /** Stands in for Home (design A2) until its issue builds it. */

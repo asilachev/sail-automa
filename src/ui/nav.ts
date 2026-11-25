@@ -19,13 +19,3 @@ export interface Nav {
 export const NavContext = createContext<Nav>({ screen: 'home', go: () => {} })
 
 export const useNav = (): Nav => useContext(NavContext)
-
-export const SCREEN_NAMES: readonly ScreenName[] = [
-  'home',
-  'newVoyage',
-  'setup',
-  'game',
-  'result',
-  'log',
-  'settings',
-]

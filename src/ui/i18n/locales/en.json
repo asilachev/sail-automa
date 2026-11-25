@@ -58,6 +58,87 @@
     "default": "DEFAULT",
     "change": "Change"
   },
+  "newVoyage": {
+    "title": "NEW VOYAGE",
+    "back": "Home",
+    "scenario": "SCENARIO",
+    "scenarioHint": "From the Scenario Book.",
+    "learning": "Learning",
+    "scenarioName": "{scenario, select, learning {Learning scenario} other {Scenario {scenario}}}",
+    "seat": "YOUR SEAT",
+    "seatLeft": "Start on my left",
+    "seatRight": "Start on my right",
+    "seatHint": "So the app’s arrows point the way your ship sails.",
+    "difficulty": "DIFFICULTY",
+    "easy": "Easy",
+    "easyDesc": "Two Pirate cards, shared. Whoever wins the trick may use either.",
+    "medium": "Medium",
+    "mediumDesc": "One Pirate card each. The winner may use their own.",
+    "hard": "Hard",
+    "hardDesc": "Only you have a Pirate card. The Bosun has none.",
+    "pirate": "THE BOSUN’S PIRATE",
+    "cw": "The Bosun has the Cannon + Wheel pirate",
+    "cwHint": "The app walks you through its card swap.",
+    "hardNote": "On Hard the Bosun has no Pirate card.",
+    "rulings": "Rulings",
+    "rulingsLine": "{changed, plural, =0 {{total} rulings · all defaults} other {{total} rulings · # changed}}",
+    "next": "Next · set up the table"
+  },
+  "setup": {
+    "title": "SET UP THE TABLE",
+    "back": "New voyage",
+    "sub": "{scenario} · {difficulty, select, easy {Easy} medium {Medium} other {Hard}} · tick each line as you do it",
+    "line1": "Assemble the ocean board. Put the play area and Kraken boards at opposite ends.",
+    "line2": "Place {scenario, select, learning {the Learning scenario’s} other {scenario {scenario}’s}} tokens:\nIslands: {islands}\nKraken: {kraken}\nEnd: {end}\n{storms, plural, one {Storm: column {columns}} other {Storms: columns {columns}}}",
+    "line3": "{pirates, select, easy {Pirate cards: two, shared, beside the board.} easyCw {Pirate cards: two, shared, beside the board; one is the Cannon + Wheel.} mediumCw {Pirate cards: one for you, the Cannon + Wheel for the Bosun.} hard {Pirate card: one for you. The Bosun has none.} other {Pirate cards: one for you, one for the Bosun.}}",
+    "line4": "Kraken on its lowest left space, the 3. Trick cubes on 0.",
+    "line5": "Round disc on I, on your side: you lead the first trick.",
+    "line6": "Ship on the start token.",
+    "line7": "Kraken deck: the six 1s and 2s shuffled, face up, the Kraken card at the bottom.",
+    "line8": "Player deck: the 3s to 9s shuffled, face down.",
+    "line9": "Deal 9 cards to yourself and 9 face down to the Bosun’s stack. Don’t look at its cards.",
+    "noteAll": "Tick all {n} lines to set sail",
+    "note": "{n, plural, one {Tick the last line to set sail} other {Tick the # lines left to set sail}}",
+    "go": "Set sail"
+  },
+  "rulings": {
+    "title": "RULINGS",
+    "lead": "Where the rules are silent, a setting with a default. Change one only on purpose.",
+    "pastEnd": {
+      "q": "The ship sails past the End token",
+      "lose": "You lose",
+      "nothing": "Nothing happens",
+      "source": "Russian rulebook p. 4; Allplay on BGG"
+    },
+    "bosunPirate": {
+      "q": "Who decides if the Bosun uses its Pirate",
+      "you": "You, when it wins the trick",
+      "source": "Sail Solitaire says \"may use\""
+    },
+    "cannonWheel": {
+      "q": "Cannon + Wheel pirate’s new action",
+      "owner": "Only its owner",
+      "anyWinner": "Any trick winner",
+      "source": "Allplay on BGG, 2023"
+    },
+    "shortDeal": {
+      "q": "Too few cards to deal 9 each",
+      "evenly": "Deal evenly, as far as the deck goes",
+      "source": "No rule; our call"
+    },
+    "fourthTrick": {
+      "q": "The fourth trick’s action",
+      "resolve": "Resolve it, then end the round",
+      "endFirst": "End the round first",
+      "source": "Rulebook order; BGG, unconfirmed"
+    }
+  },
+  "abandon": {
+    "title": "Abandon this voyage?",
+    "body": "A new voyage clears the saved one. It goes into the log as unfinished.",
+    "yes": "Abandon and start new",
+    "keep": "Keep sailing"
+  },
   "voyageEnd": {
     "wonTitle": "LAND HO!",
     "wonSub": "You reached the End token in round {round}.",

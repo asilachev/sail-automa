@@ -52,7 +52,9 @@ describe('The Kraken wins (design E2)', () => {
     saveVoyageForTest(fixture('lostKrakenAlone'))
     renderWithNav(<VoyageEnd />, 'result')
     expect(screen.getByRole('heading', { level: 1, name: 'THE KRAKEN WINS' })).toBeInTheDocument()
-    expect(screen.getByText('Only the Kraken card was left in the Kraken deck.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Only the Kraken card was left in the Kraken deck.'),
+    ).toBeInTheDocument()
     const ways = screen.getByRole('list')
     expect(ways.children).toHaveLength(4)
     expect(ways).toHaveTextContent('Behind a storm at the end of round II or IV')
