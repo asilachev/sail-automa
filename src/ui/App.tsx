@@ -14,11 +14,13 @@ import {
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
 import { Home } from './home/Home.tsx'
+import { CaptainsLog } from './log/CaptainsLog.tsx'
 import { NavContext, type Nav, type ScreenName } from './nav.ts'
 import { InstallProvider } from './pwa/InstallProvider.tsx'
 import { useSplash } from './pwa/pwa.ts'
 import { Splash } from './pwa/Pwa.tsx'
 import { usePwaToasts } from './pwa/usePwaToasts.tsx'
+import { VoyageEnd } from './result/VoyageEnd.tsx'
 import { Settings } from './settings/Settings.tsx'
 import { PrefsContext, usePrefs, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
@@ -111,7 +113,15 @@ interface Route {
 /** Screens where a voyage is open, so the screen stays awake (design 00 → PWA checklist). */
 const VOYAGE_SCREENS: readonly ScreenName[] = ['game']
 
-const SCREENS: readonly ScreenName[] = ['home', 'newVoyage', 'setup', 'game', 'log', 'settings']
+const SCREENS: readonly ScreenName[] = [
+  'home',
+  'newVoyage',
+  'setup',
+  'game',
+  'result',
+  'log',
+  'settings',
+]
 
 /** Dev server only: `/?screen=setup` opens on a screen, for visual checks. Never in a build. */
 function devScreen(): ScreenName | null {
@@ -165,6 +175,10 @@ function View({ screen }: { screen: ScreenName }) {
       return <NewVoyage />
     case 'setup':
       return <Setup />
+    case 'result':
+      return <VoyageEnd />
+    case 'log':
+      return <CaptainsLog />
     case 'settings':
       return <Settings />
     case 'home':

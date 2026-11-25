@@ -5,6 +5,7 @@ import { DEFAULT_SETTINGS, type Settings } from '../../engine/index.ts'
 import { NavContext, type Nav } from '../nav.ts'
 import { LAST_SETTINGS_KEY, loadLastSettings, saveLastSettings } from '../state/lastSettings.ts'
 import { loadVoyage, saveVoyage } from '../state/voyage.ts'
+import { loadLog } from '../state/history.ts'
 import { NewVoyage } from './NewVoyage.tsx'
 
 beforeEach(() => localStorage.clear())
@@ -138,7 +139,7 @@ describe('Abandon this voyage? (design D7)', () => {
     expect(loadVoyage().voyage?.settings).toEqual(saved)
   })
 
-  it('clears the saved voyage on Abandon and start new', async () => {
+  it('clears the saved voyage on Abandon and start new, logging it as unfinished', async () => {
     saveVoyage({ settings: saved, events: [] })
     const { user } = renderNewVoyage()
     const dialog = screen.getByRole('alertdialog', { name: 'Abandon this voyage?' })
@@ -147,6 +148,9 @@ describe('Abandon this voyage? (design D7)', () => {
     await user.click(yes)
     expect(screen.queryByRole('alertdialog')).toBeNull()
     expect(loadVoyage().voyage).toBeNull()
+    expect(loadLog()).toMatchObject([
+      { settings: { scenario: 2 }, outcome: 'unfinished', reason: null, round: 1 },
+    ])
   })
 
   it('doesn’t ask when no voyage is saved', () => {

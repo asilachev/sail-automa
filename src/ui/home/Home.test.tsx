@@ -2,7 +2,9 @@ import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { renderApp, ROUND_III_TRICK_5, saveScript } from '../../test/app.tsx'
+import { fixture } from '../../engine/index.ts'
 import { NavContext, type Nav } from '../nav.ts'
+import { loadLog, recordVoyage } from '../state/history.ts'
 import { loadPrefs } from '../state/prefs.ts'
 import { VOYAGE_KEY } from '../state/voyage.ts'
 import { Home } from './Home.tsx'
@@ -38,17 +40,21 @@ describe('Home · first visit (A2)', () => {
     expect(go).toHaveBeenCalledWith('newVoyage', 'push')
   })
 
-  it('says the log is empty, and shows its count once there is one', () => {
+  it('says the log is empty', () => {
     renderHome()
     expect(screen.getByRole('button', { name: "Captain's log" })).toHaveAccessibleDescription(
       'No voyages yet',
     )
   })
 
-  it('shows the log count it is given', () => {
-    renderHome({ logCount: 11 })
+  it("counts the captain's log: voyages, and those that reached land", () => {
+    const date = '2026-11-20T10:00:00.000Z'
+    recordVoyage(fixture('won'), date)
+    recordVoyage(fixture('lostStorm'), date)
+    recordVoyage(fixture('lostKrakenAlone'), date)
+    renderHome()
     expect(screen.getByRole('button', { name: "Captain's log" })).toHaveAccessibleDescription(
-      '11 voyages',
+      '3 voyages · 1 reached land',
     )
   })
 
@@ -105,6 +111,8 @@ describe('Home · voyage in progress (A3)', () => {
     await userEvent.click(screen.getByRole('button', { name: 'End voyage' }))
     expect(await screen.findByRole('button', { name: 'Start your first voyage' })).toBeVisible()
     expect(localStorage.getItem(VOYAGE_KEY)).toBeNull()
+    // It goes into the captain's log as unfinished (D2).
+    expect(loadLog().map((e) => e.outcome)).toEqual(['unfinished'])
   })
 
   it('remembers that this phone has played', async () => {

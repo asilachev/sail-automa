@@ -25,6 +25,7 @@ import {
 import { useI18n, useT } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
 import { useInstall } from '../pwa/install.ts'
+import { logCounts, useCaptainsLog } from '../state/history.ts'
 import { usePrefs } from '../state/PrefsContext.ts'
 import { useVoyage } from '../state/useVoyage.ts'
 import styles from './home.module.css'
@@ -35,8 +36,6 @@ import { voyageSummary, type VoyageSummary } from './summary.ts'
 export interface HomeProps {
   /** Opens the rules (the D6 · Rules sheet, from the game's issue). */
   onRules: () => void
-  /** Voyages in the captain's log, once it exists (E3); undefined or 0 says "No voyages yet". */
-  logCount?: number
 }
 
 type Layer = 'language' | 'credits' | 'end' | null
@@ -45,10 +44,12 @@ type Layer = 'language' | 'credits' | 'end' | null
  * A2 · Home · first visit and A3 · Home · voyage in progress. With a saved voyage, its summary
  * and Continue · Round N; without one, the hero, the install card and how it plays.
  */
-export function Home({ onRules, logCount }: HomeProps) {
+export function Home({ onRules }: HomeProps) {
   const t = useT()
   const nav = useNav()
   const { voyage, end } = useVoyage()
+  const log = useCaptainsLog()
+  const counts = logCounts(log.entries)
   const { update } = usePrefs()
   const install = useInstall()
   const [layer, setLayer] = useState<Layer>(null)
@@ -91,7 +92,11 @@ export function Home({ onRules, logCount }: HomeProps) {
           <ListRow
             icon={<Scroll size={20} weight="fill" />}
             label={t('home.log')}
-            value={logCount ? t('home.logCount', { n: logCount }) : t('home.logEmpty')}
+            value={
+              counts.voyages
+                ? t('home.logLine', { voyages: counts.voyages, reached: counts.reachedLand })
+                : t('home.logEmpty')
+            }
             onClick={() => nav.go('log', 'push')}
           />
           <ListRow
@@ -133,6 +138,8 @@ export function Home({ onRules, logCount }: HomeProps) {
           confirmLabel={t('home.endYes')}
           cancelLabel={t('home.endNo')}
           onConfirm={() => {
+            // It goes into the captain's log as unfinished (D2's text; history.ts → summarizeVoyage).
+            if (voyage) log.record(voyage)
             end()
             close()
           }}
