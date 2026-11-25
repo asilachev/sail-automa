@@ -18,6 +18,8 @@ import { NavContext, type Nav, type ScreenName } from './nav.ts'
 import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
+import { NewVoyage } from './newVoyage/NewVoyage.tsx'
+import { Setup } from './newVoyage/Setup.tsx'
 import styles from './app.module.css'
 
 /** The kit gallery for visual checks, `/?kit`: only on the dev server, never in a build. */
@@ -101,9 +103,22 @@ interface Route {
   readonly n: number
 }
 
+const SCREENS: readonly ScreenName[] = ['home', 'newVoyage', 'setup', 'game', 'log', 'settings']
+
+/** Dev server only: `/?screen=setup` opens on a screen, for visual checks. Never in a build. */
+function devScreen(): ScreenName | null {
+  if (!import.meta.env.DEV) return null
+  const name = new URLSearchParams(location.search).get('screen')
+  return SCREENS.find((s) => s === name) ?? null
+}
+
 function Shell() {
   // Every launch opens on Home without motion (board 03: moments never replay on a reload).
-  const [route, setRoute] = useState<Route>({ screen: 'home', motion: 'none', n: 0 })
+  const [route, setRoute] = useState<Route>(() => ({
+    screen: devScreen() ?? 'home',
+    motion: 'none',
+    n: 0,
+  }))
   const nav = useMemo<Nav>(
     () => ({
       screen: route.screen,
@@ -131,6 +146,10 @@ function Shell() {
 /** The view for each screen. Screens not built yet show Home. */
 function View({ screen }: { screen: ScreenName }) {
   switch (screen) {
+    case 'newVoyage':
+      return <NewVoyage />
+    case 'setup':
+      return <Setup />
     case 'home':
     default:
       return <HomePlaceholder />
