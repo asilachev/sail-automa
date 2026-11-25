@@ -31,10 +31,13 @@ The design's texts are variables themed by language (`t.*` for the app, `l.*` fo
 page). [`design/copy.json`](design/copy.json) is their export, in all five languages: the start
 for every locale file.
 
-## Known differences to fix in the design
+## Notes for implementers
 
-- The Kraken dial shows 3, 4, 5, skull; the track is **3, 3, 4, 5, skull** (decisions.md).
-- The scenario chips show 1 to 6; the book has **Learning and 1 to 5** (decisions.md).
+- Texts in the design are literal strings on every language copy; the `t.*` and `l.*` variables
+  hold the same texts and are what `design/copy.json` exports. When a text changes, change both.
+- The Kraken dial shows 3, 3, 4, 5, skull, and the scenario chips Learning and 1 to 5 (#3).
+- The round track's clouds sit on III and V: the storm checks happen as rounds II and IV end, so
+  before III and V begin.
 
 ## Look
 

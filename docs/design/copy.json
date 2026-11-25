@@ -392,11 +392,11 @@
     "sr": "Саставите таблу океана. Табле пирата и кракена ставите на супротне крајеве."
   },
   "t.setup.2": {
-    "en": "Place the tokens for scenario 3 from the Scenario Book.",
-    "es": "Coloca las fichas del escenario 3 del libro de escenarios.",
-    "de": "Leg die Plättchen für Szenario 3 aus dem Szenarioheft aus.",
-    "ru": "Разложите жетоны сценария 3 по книге сценариев.",
-    "sr": "Поставите жетоне сценарија 3 по књизи сценарија."
+    "en": "Place scenario 3's tokens:\nIslands: D3, G6, G8, A10, E10, B11, A12, D15, C18, A20, G20\nKraken: G4, A6, D7, E12, A16, G16, F19\nEnd: C20, E20, D21\nStorms: columns 5 and 14",
+    "es": "Coloca las fichas del escenario 3:\nIslas: D3, G6, G8, A10, E10, B11, A12, D15, C18, A20, G20\nKraken: G4, A6, D7, E12, A16, G16, F19\nMeta: C20, E20, D21\nTormentas: columnas 5 y 14",
+    "de": "Leg die Plättchen für Szenario 3 aus:\nInseln: D3, G6, G8, A10, E10, B11, A12, D15, C18, A20, G20\nKrake: G4, A6, D7, E12, A16, G16, F19\nZiel: C20, E20, D21\nStürme: Spalten 5 und 14",
+    "ru": "Разложите жетоны сценария 3:\nОстрова: D3, G6, G8, A10, E10, B11, A12, D15, C18, A20, G20\nКракен: G4, A6, D7, E12, A16, G16, F19\nФиниш: C20, E20, D21\nШтормы: столбцы 5 и 14",
+    "sr": "Поставите жетоне сценарија 3:\nОстрва: D3, G6, G8, A10, E10, B11, A12, D15, C18, A20, G20\nКракен: G4, A6, D7, E12, A16, G16, F19\nЦиљ: C20, E20, D21\nОлује: колоне 5 и 14"
   },
   "t.setup.3": {
     "en": "Pirate cards: one for you, one for the Bosun.",
@@ -910,11 +910,11 @@
     "sr": "ПРОВЕРА ОЛУЈЕ"
   },
   "t.end.stormQ": {
-    "en": "Is the ship in a column beyond the first storm?",
-    "es": "¿Está el barco en una columna más allá de la primera tormenta?",
-    "de": "Steht das Schiff in einer Spalte hinter dem ersten Sturm?",
-    "ru": "Корабль в столбце дальше первого шторма?",
-    "sr": "Да ли је брод у колони иза прве олује?"
+    "en": "Is the ship in a column beyond the storm in column 5?",
+    "es": "¿Está el barco en una columna más allá de la tormenta de la columna 5?",
+    "de": "Steht das Schiff in einer Spalte hinter dem Sturm in Spalte 5?",
+    "ru": "Корабль в столбце дальше шторма в столбце 5?",
+    "sr": "Да ли је брод у колони иза олује у колони 5?"
   },
   "t.end.yes": {
     "en": "Yes, past it",
@@ -2917,5 +2917,12 @@
     "de": "Erneut versuchen",
     "ru": "Повторить",
     "sr": "Покушај поново"
+  },
+  "t.new.learning": {
+    "en": "Learning",
+    "es": "Aprendizaje",
+    "de": "Einstieg",
+    "ru": "Обучение",
+    "sr": "Обука"
   }
 }
