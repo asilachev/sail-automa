@@ -1,0 +1,280 @@
+/* The captain's log (design E3, E5 when empty; E4 is the kit's Dialog). */
+
+.page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+}
+
+.backBar {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--text-2);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 22px;
+  padding: 4px 16px max(24px, env(safe-area-inset-bottom));
+}
+
+.title {
+  margin: 0;
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.12;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  line-height: 1.2;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.clear {
+  color: var(--danger);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── scenarios by difficulty ──────────────────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grid {
+  border-collapse: separate;
+  border-spacing: 6px;
+  margin: -6px;
+  width: calc(100% + 12px);
+  table-layout: fixed;
+}
+
+.grid col:first-child,
+.grid th:first-child,
+.grid td:first-child {
+  /* The design's 44 px, widened so "Learning" fits in every language. */
+  width: 56px;
+}
+
+.colHead {
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.rowHead {
+  color: var(--text-1);
+  font-family: var(--font-num);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.rowHead[data-learning='true'] {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.grid td {
+  padding: 0;
+}
+
+.cell {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.cell[data-state='reached'] {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-gold);
+}
+
+.cell[data-state='tried'] {
+  background: var(--surface);
+  color: var(--text-2);
+}
+
+.legend {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* ── recent voyages ───────────────────────────────────────────────────────── */
+
+.recentSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.voyage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.voyageText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.what {
+  color: var(--text-1);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tag {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--gold-soft);
+  color: var(--text-1);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.tag[data-tone='danger'] {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.tag[data-tone='danger'] .dot {
+  background: var(--danger);
+}
+
+.tag[data-tone='storm'] {
+  background: var(--surface-2);
+  color: var(--storm);
+}
+
+.tag[data-tone='storm'] .dot {
+  background: var(--storm);
+}
+
+.tag[data-tone='plain'] {
+  background: var(--surface);
+  color: var(--text-2);
+}
+
+.tag[data-tone='plain'] .dot {
+  background: var(--text-3);
+}
+
+/* ── nothing yet (E5) ─────────────────────────────────────────────────────── */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 56px 24px 0;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--text-3);
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--text-1);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.emptyWhy {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.4;
+}

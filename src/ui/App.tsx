@@ -14,7 +14,9 @@ import {
   type Lang,
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
-import { NavContext, type Nav, type ScreenName } from './nav.ts'
+import { CaptainsLog } from './log/CaptainsLog.tsx'
+import { NavContext, SCREEN_NAMES, type Nav, type ScreenName } from './nav.ts'
+import { VoyageEnd } from './result/VoyageEnd.tsx'
 import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
@@ -103,7 +105,7 @@ interface Route {
 
 function Shell() {
   // Every launch opens on Home without motion (board 03: moments never replay on a reload).
-  const [route, setRoute] = useState<Route>({ screen: 'home', motion: 'none', n: 0 })
+  const [route, setRoute] = useState<Route>(() => ({ screen: devScreen(), motion: 'none', n: 0 }))
   const nav = useMemo<Nav>(
     () => ({
       screen: route.screen,
@@ -131,10 +133,24 @@ function Shell() {
 /** The view for each screen. Screens not built yet show Home. */
 function View({ screen }: { screen: ScreenName }) {
   switch (screen) {
+    case 'result':
+      return <VoyageEnd />
+    case 'log':
+      return <CaptainsLog />
     case 'home':
     default:
       return <HomePlaceholder />
   }
+}
+
+/**
+ * The dev server opens any screen with `/?screen=log` (visual checks against the design, with the
+ * state seeded in storage); builds always open on Home.
+ */
+function devScreen(): ScreenName {
+  if (!import.meta.env.DEV) return 'home'
+  const asked = new URLSearchParams(location.search).get('screen')
+  return SCREEN_NAMES.find((s) => s === asked) ?? 'home'
 }
 
 /** Stands in for Home (design A2) until its issue builds it. */
