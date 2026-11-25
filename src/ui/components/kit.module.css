@@ -433,6 +433,8 @@
   color: var(--text-1);
   font-family: var(--font-body);
   text-align: start;
+  /* A list row can be a link (ListRow's href). */
+  text-decoration: none;
 }
 
 .toggle {

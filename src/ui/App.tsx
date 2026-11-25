@@ -9,20 +9,25 @@ import {
   loadCatalog,
   loadedCatalog,
   translatorFor,
-  useT,
   type I18n,
   type Lang,
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
+import { Home } from './home/Home.tsx'
 import { CaptainsLog } from './log/CaptainsLog.tsx'
 import { NavContext, type Nav, type ScreenName } from './nav.ts'
+import { InstallProvider } from './pwa/InstallProvider.tsx'
+import { useSplash } from './pwa/pwa.ts'
+import { Splash } from './pwa/Pwa.tsx'
+import { usePwaToasts } from './pwa/usePwaToasts.tsx'
 import { VoyageEnd } from './result/VoyageEnd.tsx'
-import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
+import { Settings } from './settings/Settings.tsx'
+import { PrefsContext, usePrefs, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
+import { useWakeLock } from './state/useWakeLock.ts'
 import { NewVoyage } from './newVoyage/NewVoyage.tsx'
 import { Setup } from './newVoyage/Setup.tsx'
-import styles from './app.module.css'
 
 /** The kit gallery for visual checks, `/?kit`: only on the dev server, never in a build. */
 const KitGallery = import.meta.env.DEV
@@ -105,6 +110,9 @@ interface Route {
   readonly n: number
 }
 
+/** Screens where a voyage is open, so the screen stays awake (design 00 → PWA checklist). */
+const VOYAGE_SCREENS: readonly ScreenName[] = ['game']
+
 const SCREENS: readonly ScreenName[] = [
   'home',
   'newVoyage',
@@ -129,6 +137,10 @@ function Shell() {
     motion: 'none',
     n: 0,
   }))
+  const { prefs } = usePrefs()
+  const splash = useSplash()
+  usePwaToasts()
+  useWakeLock(prefs.wakeLock && VOYAGE_SCREENS.includes(route.screen))
   const nav = useMemo<Nav>(
     () => ({
       screen: route.screen,
@@ -146,9 +158,12 @@ function Shell() {
 
   return (
     <NavContext.Provider value={nav}>
-      <Screen key={route.n} motion={route.motion}>
-        <View screen={route.screen} />
-      </Screen>
+      <InstallProvider offerOnce={route.screen === 'home' && splash === 'off'}>
+        <Screen key={route.n} motion={route.motion}>
+          <View screen={route.screen} />
+        </Screen>
+      </InstallProvider>
+      {splash === 'off' ? null : <Splash leaving={splash === 'leaving'} />}
     </NavContext.Provider>
   )
 }
@@ -164,20 +179,10 @@ function View({ screen }: { screen: ScreenName }) {
       return <VoyageEnd />
     case 'log':
       return <CaptainsLog />
+    case 'settings':
+      return <Settings />
     case 'home':
     default:
-      return <HomePlaceholder />
+      return <Home onRules={() => {}} />
   }
-}
-
-/** Stands in for Home (design A2) until its issue builds it. */
-function HomePlaceholder() {
-  const t = useT()
-  return (
-    <main className={styles.shell} aria-label={t('app.name')}>
-      <h1 className={styles.wordmark}>{t('app.wordmark')}</h1>
-      <p className={styles.sub}>{t('app.sub')}</p>
-      <p className={styles.footer}>{t('home.footer')}</p>
-    </main>
-  )
 }

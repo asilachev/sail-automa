@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
+import { browserStorage } from '../state/storage.ts'
 
 /** The app icon (also the manifest icon), precached by the service worker. */
 export const APP_ICON = '/pwa-512x512.png'
@@ -19,7 +20,23 @@ export function isIosSafari(nav: Navigator = navigator): boolean {
   return ios && /Safari\//.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua)
 }
 
-/** Asks the browser not to evict the saved game under storage pressure (PWA checklist). */
+/** Whether saving works here: false where storage is missing, blocked or full. */
+export function storageWorks(storage: Storage | null = browserStorage()): boolean {
+  if (!storage) return false
+  try {
+    const probe = 'bosun:probe'
+    storage.setItem(probe, '1')
+    storage.removeItem(probe)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Asks the browser not to evict the saved voyage under storage pressure (PWA checklist:
+ * `persist()` at Set sail). New voyage's Set sail calls it.
+ */
 export function requestPersistentStorage(): void {
   try {
     void navigator.storage?.persist?.().catch(() => {})

@@ -1,0 +1,305 @@
+/* A2 · Home · first visit and A3 · Home · voyage in progress (~/Graphics/sail-automa.pen). */
+.page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+}
+
+/* ── The app bar ── */
+.top {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 6px;
+  padding: max(4px, env(safe-area-inset-top)) 12px 4px 14px;
+}
+
+.brand {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 9px;
+}
+
+.mark {
+  width: 45px;
+  height: 40px;
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.globe {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text-1);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* 44 px target around the 40 px chip. */
+.globe {
+  position: relative;
+}
+
+.globe::before {
+  content: '';
+  position: absolute;
+  inset: -2px 0;
+}
+
+.globe svg,
+.iconButton svg {
+  color: var(--text-2);
+}
+
+.iconButton {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 22px;
+  background: none;
+}
+
+/* ── The content ── */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px 16px 24px;
+}
+
+.content[data-saved='true'] {
+  gap: 22px;
+}
+
+.label {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.footer {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 12px;
+  text-align: center;
+}
+
+.how {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── A2's hero: the board keeps its colours at night (N1) ── */
+.hero {
+  overflow: hidden;
+  border: 2px solid #17403f;
+  border-radius: 22px;
+  background: #fbf6e3;
+  box-shadow: 0 6px 0 var(--edge-hero);
+}
+
+.scene {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+  background: linear-gradient(110deg, #1f9e8e, #62c09a 50%, #b4da8e);
+}
+
+.contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+
+.island {
+  width: 44px;
+  height: 40px;
+}
+
+.smallTentacle {
+  width: 38px;
+  height: 46px;
+}
+
+.cloud {
+  width: 76px;
+  height: 57px;
+}
+
+.bigTentacle {
+  width: 84px;
+  height: 100px;
+}
+
+.ship {
+  width: 88px;
+  height: 81px;
+}
+
+.arrow {
+  display: block;
+  transform: rotate(45deg);
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 20px 20px;
+}
+
+.pennant {
+  margin: 0;
+  padding: 5px 14px 5px 10px;
+  border-radius: 3px 14px 14px 3px;
+  background: var(--pennant);
+  color: #f26a3d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 13px;
+}
+
+.heroTitle {
+  margin: 0;
+  color: #231f20;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.lead {
+  margin: 0;
+  color: #3a4245;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ── A3's saved voyage ── */
+.voyage {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    0 5px 0 var(--edge-accent-soft);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.voyageTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.voyageLine {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 15px;
+}
+
+.kraken {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.krakenLabel {
+  flex: none;
+  color: var(--danger);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.deck {
+  display: flex;
+  flex: none;
+  gap: 3px;
+}
+
+.card {
+  width: 9px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--text-1);
+}
+
+.card[data-kind='kraken'] {
+  background: var(--danger);
+}
+
+.card[data-kind='below'] {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--text-2);
+}
+
+.krakenText {
+  min-width: 0;
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.saved {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.end {
+  align-self: center;
+}

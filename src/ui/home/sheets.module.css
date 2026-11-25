@@ -1,0 +1,42 @@
+/* F2 · Language and F4 · Credits (~/Graphics/sail-automa.pen). */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Room for the rows' edges. */
+  padding-bottom: 4px;
+}
+
+.note {
+  margin: 2px 0 0;
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.credit {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.fonts {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.4;
+}

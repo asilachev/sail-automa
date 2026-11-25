@@ -5,7 +5,35 @@
     "sub": "A solo partner for Sail"
   },
   "home": {
-    "footer": "Unofficial fan app. You need your own copy of Sail."
+    "footer": "Unofficial fan app. You need your own copy of Sail.",
+    "eyebrow": "SAIL · SOLITAIRE",
+    "title": "Play Sail solo.",
+    "lead": "The Bosun takes the other side of the ship. You flip its cards; the app keeps the tricks, the Kraken and the storms.",
+    "start": "Start your first voyage",
+    "how": "HOW IT PLAYS",
+    "how1": "Set up Sail as usual and pick a difficulty.",
+    "how2": "Each trick, the app tells you how the Bosun plays.",
+    "how3": "Tap the winner and the symbols: you get the order.",
+    "inProgress": "VOYAGE IN PROGRESS",
+    "summary": "{scenario, select, learning {Learning scenario} other {Scenario {scenario}}} · {difficulty, select, easy {Easy} medium {Medium} other {Hard}}",
+    "line": "Round {round} · trick {trick} · You {you}, Bosun {bosun}",
+    "kraken": "KRAKEN",
+    "krakenLine": "{cards, plural, one {# card left} other {# cards left}} · {attacks, plural, one {# attack} other {# attacks}} at round end",
+    "krakenSkull": "{cards, plural, one {# card left} other {# cards left}} · the Kraken is on the skull",
+    "continue": "Continue · Round {round}",
+    "newVoyage": "New voyage",
+    "endVoyage": "End this voyage",
+    "endTitle": "End this voyage?",
+    "endBody": "The saved voyage is cleared and goes into the log as unfinished.",
+    "endYes": "End voyage",
+    "endNo": "Keep sailing",
+    "log": "Captain's log",
+    "logEmpty": "No voyages yet",
+    "logLine": "{voyages, plural, one {# voyage} other {# voyages}} · {reached} reached land",
+    "rules": "Rules and rulings",
+    "settings": "Settings",
+    "credits": "Credits",
+    "language": "Language: {name}"
   },
   "common": {
     "you": "You",
@@ -191,5 +219,51 @@
     "clearBody": "{n, plural, one {The voyage is deleted from this phone. This can’t be undone.} other {All # voyages are deleted from this phone. This can’t be undone.}}",
     "clearYes": "Clear the log",
     "clearNo": "Keep the log"
+  },
+  "settings": {
+    "title": "SETTINGS",
+    "back": "Home",
+    "language": "LANGUAGE",
+    "theme": "THEME",
+    "themeHint": "Auto follows your phone. Day is the rulebook's page; Night is the card face, for evening tables.",
+    "atTable": "AT THE TABLE",
+    "awake": "Keep the screen awake",
+    "awakeHint": "While a voyage is open",
+    "install": "Install the app",
+    "about": "ABOUT",
+    "source": "Source code",
+    "privacy": "No account, no tracking. Your voyages stay on this phone."
+  },
+  "language": {
+    "title": "LANGUAGE",
+    "note": "Translations are mostly AI. Spot a slip? Tell us on GitHub."
+  },
+  "credits": {
+    "title": "CREDITS",
+    "gameLabel": "THE GAME",
+    "game": "Sail by Akiyama Koryo and Kozu Yusei. Illustration by Weberson Santiago. Published by Allplay.",
+    "variantLabel": "THE SOLO VARIANT",
+    "variant": "Sail Solitaire, the solo variant, by Chuck Rosselli on BoardGameGeek.",
+    "appLabel": "THIS APP",
+    "app": "Bosun is an unofficial fan app, not affiliated with Allplay. You need your own copy of Sail. No account, no tracking. Your voyages stay on this phone.",
+    "fonts": "Bitter and Fira Sans Condensed, SIL Open Font License. Code: MIT.",
+    "allplay": "Sail at Allplay",
+    "bgg": "Sail Solitaire on BoardGameGeek",
+    "github": "Source code on GitHub"
+  },
+  "pwa": {
+    "splashFooter": "Unofficial fan app · Sail by Akiyama Koryo and Kozu Yusei, published by Allplay",
+    "iosTitle": "INSTALL ON IPHONE",
+    "ios1": "Tap Share in Safari's toolbar.",
+    "ios2": "Choose Add to Home Screen.",
+    "ios3": "Open it from your home screen: full screen, offline.",
+    "iosOk": "Got it",
+    "offline": "Offline",
+    "fullScreen": "Full screen",
+    "awake": "Stays awake",
+    "offlineToast": "You're offline. Everything still works.",
+    "update": "A new version is ready.",
+    "reload": "Reload",
+    "saveBlocked": "Your voyage isn't being saved: this browser blocks storage."
   }
 }

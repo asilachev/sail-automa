@@ -102,22 +102,20 @@ export function ListRow({
   label,
   value,
   onClick,
+  href,
 }: {
   /** A 20 px Phosphor icon, e.g. `<Scroll size={20} weight="fill" />`. */
   icon?: ReactNode
   label: string
   value?: string
-  onClick: () => void
-}) {
+} & (
+  | { onClick: () => void; href?: never }
+  /** An outside page, opened in a new tab (Credits: Allplay, BoardGameGeek, GitHub). */
+  | { href: string; onClick?: never }
+)) {
   const id = useId()
-  return (
-    <button
-      type="button"
-      className={`${styles.piece} ${styles.surfaceRow}`}
-      aria-labelledby={`${id}-l`}
-      aria-describedby={value ? `${id}-v` : undefined}
-      onClick={onClick}
-    >
+  const body = (
+    <>
       {icon ? (
         <span className={styles.listIcon} aria-hidden="true">
           {icon}
@@ -132,6 +130,30 @@ export function ListRow({
         </span>
       ) : null}
       <CaretRight className={styles.chevron} size={16} weight="fill" aria-hidden />
+    </>
+  )
+  const className = `${styles.piece} ${styles.surfaceRow}`
+  const described = value ? `${id}-v` : undefined
+  return href !== undefined ? (
+    <a
+      className={className}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-labelledby={`${id}-l`}
+      aria-describedby={described}
+    >
+      {body}
+    </a>
+  ) : (
+    <button
+      type="button"
+      className={className}
+      aria-labelledby={`${id}-l`}
+      aria-describedby={described}
+      onClick={onClick}
+    >
+      {body}
     </button>
   )
 }
