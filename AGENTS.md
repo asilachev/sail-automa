@@ -83,10 +83,12 @@ src/
     components/  the kit from the design's Components board (index.ts); `/?kit` shows them all on
                  the dev server only
     i18n/     translations: locales/{en,es,de,ru,sr}.json (ICU), loader, t(), typography
-    pwa/      install prompt, splash, persistent storage
+    home/     Home (A2, A3), its sea scene, the Language and Credits sheets
+    pwa/      install card and iPhone sheet, splash, offline and update toasts, persistent storage
+    settings/ Settings (A4)
     state/    preferences (theme, language, wake lock), the saved voyage, storage, wake lock
     styles/   global.css: the design's tokens and fonts
-  test/     shared test setup
+  test/     shared test setup and helpers (renderApp, saveScript)
 e2e/        Playwright smoke test against the production build
 docs/       rules, automa spec, design notes, decisions, design copy, reference PDFs
 ```

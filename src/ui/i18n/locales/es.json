@@ -5,7 +5,35 @@
     "sub": "Un compañero en solitario para Sail"
   },
   "home": {
-    "footer": "App no oficial hecha por fans. Necesitas tu propia copia de Sail."
+    "footer": "App no oficial hecha por fans. Necesitas tu propia copia de Sail.",
+    "eyebrow": "SAIL · EN SOLITARIO",
+    "title": "Juega a Sail en solitario.",
+    "lead": "El contramaestre ocupa el otro lado del barco. Tú volteas sus cartas; la app lleva las bazas, el kraken y las tormentas.",
+    "start": "Empieza tu primera travesía",
+    "how": "CÓMO SE JUEGA",
+    "how1": "Prepara Sail como siempre y elige la dificultad.",
+    "how2": "En cada baza, la app te dice cómo juega el contramaestre.",
+    "how3": "Toca quién gana y los símbolos: recibes la orden.",
+    "inProgress": "TRAVESÍA EN CURSO",
+    "summary": "{scenario, select, learning {Escenario de aprendizaje} other {Escenario {scenario}}} · {difficulty, select, easy {Fácil} medium {Normal} other {Difícil}}",
+    "line": "Ronda {round} · baza {trick} · Tú {you}, contramaestre {bosun}",
+    "kraken": "KRAKEN",
+    "krakenLine": "{cards, plural, one {queda # carta} other {quedan # cartas}} · {attacks, plural, one {# ataque} other {# ataques}} al final de ronda",
+    "krakenSkull": "{cards, plural, one {queda # carta} other {quedan # cartas}} · el kraken está en la calavera",
+    "continue": "Continuar · Ronda {round}",
+    "newVoyage": "Nueva travesía",
+    "endVoyage": "Terminar esta travesía",
+    "endTitle": "¿Terminar esta travesía?",
+    "endBody": "La travesía guardada se borra y queda en el cuaderno como sin terminar.",
+    "endYes": "Terminar",
+    "endNo": "Seguir navegando",
+    "log": "Cuaderno de bitácora",
+    "logEmpty": "Aún no hay travesías",
+    "logCount": "{n, plural, one {# travesía} other {# travesías}}",
+    "rules": "Reglas y aclaraciones",
+    "settings": "Ajustes",
+    "credits": "Créditos",
+    "language": "Idioma: {name}"
   },
   "common": {
     "you": "Tú",
@@ -57,5 +85,51 @@
   "ruling": {
     "default": "POR DEFECTO",
     "change": "Cambiar"
+  },
+  "settings": {
+    "title": "AJUSTES",
+    "back": "Inicio",
+    "language": "IDIOMA",
+    "theme": "TEMA",
+    "themeHint": "Auto sigue a tu teléfono. Día es la página del reglamento; Noche, la cara de las cartas, para mesas nocturnas.",
+    "atTable": "EN LA MESA",
+    "awake": "Mantener la pantalla encendida",
+    "awakeHint": "Mientras haya una travesía abierta",
+    "install": "Instala la app",
+    "about": "ACERCA DE",
+    "source": "Código fuente",
+    "privacy": "Sin cuenta ni rastreo. Tus travesías se quedan en este teléfono."
+  },
+  "language": {
+    "title": "IDIOMA",
+    "note": "Las traducciones son sobre todo de IA. ¿Ves un error? Dínoslo en GitHub."
+  },
+  "credits": {
+    "title": "CRÉDITOS",
+    "gameLabel": "EL JUEGO",
+    "game": "Sail, de Akiyama Koryo y Kozu Yusei. Ilustración de Weberson Santiago. Publicado por Allplay.",
+    "variantLabel": "LA VARIANTE EN SOLITARIO",
+    "variant": "Sail Solitaire, la variante en solitario, de Chuck Rosselli en BoardGameGeek.",
+    "appLabel": "ESTA APP",
+    "app": "Contramaestre es una app no oficial hecha por fans, sin relación con Allplay. Necesitas tu propia copia de Sail. Sin cuenta ni rastreo. Tus travesías se quedan en este teléfono.",
+    "fonts": "Bitter y Fira Sans Condensed, licencia SIL Open Font. Código: MIT.",
+    "allplay": "Sail en Allplay",
+    "bgg": "Sail Solitaire en BoardGameGeek",
+    "github": "Código fuente en GitHub"
+  },
+  "pwa": {
+    "splashFooter": "App no oficial · Sail, de Akiyama Koryo y Kozu Yusei, publicado por Allplay",
+    "iosTitle": "INSTALA EN IPHONE",
+    "ios1": "Toca Compartir en la barra de Safari.",
+    "ios2": "Elige «Añadir a pantalla de inicio».",
+    "ios3": "Ábrela desde tu pantalla de inicio: pantalla completa, sin conexión.",
+    "iosOk": "Entendido",
+    "offline": "Sin conexión",
+    "fullScreen": "Pantalla completa",
+    "awake": "Siempre encendida",
+    "offlineToast": "Sin conexión. Todo sigue funcionando.",
+    "update": "Hay una versión nueva.",
+    "reload": "Recargar",
+    "saveBlocked": "Tu travesía no se está guardando: este navegador bloquea el almacenamiento."
   }
 }

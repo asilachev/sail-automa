@@ -1,0 +1,91 @@
+/* A4 · Settings (~/Graphics/sail-automa.pen). */
+.page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+}
+
+.back {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  padding: max(4px, env(safe-area-inset-top)) 8px 4px;
+}
+
+.backButton {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--text-2);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 4px 16px max(24px, env(safe-area-inset-bottom));
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* The theme's segments take the same eyebrow as the other sections. */
+.theme [role='group'] {
+  gap: 8px;
+}
+
+.theme [role='group'] > span:first-child {
+  color: var(--text-3);
+  font-size: 11px;
+}
+
+.theme [role='group'] > div {
+  gap: 8px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.hint {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.privacy {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 13px;
+  text-align: center;
+}
