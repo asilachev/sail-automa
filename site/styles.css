@@ -1,0 +1,1476 @@
+/* Bosun landing page (#13): the design's L1 · desktop 1440 and L2 · mobile 390. Colours, type and
+   parts come from the app's tokens (src/ui/styles/global.css): the rulebook page, the ocean board
+   and the wooden pieces. Fonts: Bitter and Fira Sans Condensed, Latin and Cyrillic, SIL OFL. */
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/bitter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/bitter-cyrillic-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-latin-400-normal.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-latin-500-normal.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-latin-600-normal.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-latin-700-normal.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-cyrillic-400-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-cyrillic-500-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-cyrillic-600-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/fira-sans-condensed-cyrillic-700-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+:root {
+  color-scheme: light;
+  --font-display: 'Bitter', Georgia, serif;
+  --font-body: 'Fira Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  /* The app's day tokens. */
+  --bg: #ffffff;
+  --surface: #eef9fe;
+  --surface-2: #d2f0fc;
+  --line: #cfe3ea;
+  --text-1: #231f20;
+  --text-2: #55575a;
+  --text-3: #7a7c80;
+  --accent: #f26a3d;
+  --accent-text: #b8441c;
+  --navy: #22529a;
+  --danger: #d9342b;
+  --on-card: #f7f3ea;
+  --contour: #f4f0c2;
+  --pennant: #161414;
+  --edge-accent: #b8491f;
+  --edge-line: #b5d3de;
+  --edge-surface: #c3dfea;
+  --edge-accent-soft: #e7b9a6;
+  --edge-hero: #17403f;
+  --bevel: #ffffff66;
+  /* The night card face, for the nav and the credits. */
+  --night-line: #46625f;
+  --night-text-2: #c3d3d1;
+  --night-text-3: #93a9a7;
+  --code-bg: #22383a;
+  /* The hero's cream tile and the ocean board. */
+  --cream: #fbf6e3;
+  --cream-line: #e0d5b2;
+  --lead: #3a4245;
+  --note: #5b6367;
+  --sea-gradient: linear-gradient(250deg, #1f9e8e 0%, #62c09a 50%, #b4da8e 100%);
+  --gutter: 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+.icon {
+  display: block;
+  flex: none;
+  width: 1em;
+  height: 1em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ---- Buttons ----------------------------------------------------------------------------------- */
+
+/* The wooden button: a hard edge below and a bevel on top, as the app's primary action. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 26px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--text-1);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  box-shadow:
+    0 5px 0 var(--edge-accent),
+    inset 0 2px 0 var(--bevel);
+  transition:
+    transform 90ms ease,
+    box-shadow 90ms ease;
+}
+
+.button .icon {
+  font-size: 18px;
+}
+
+.button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 2px 0 var(--edge-accent),
+    inset 0 2px 0 var(--bevel);
+}
+
+.button.secondary {
+  padding: 0 24px;
+  background: #fff;
+  box-shadow: 0 5px 0 var(--text-1);
+  outline: 1px solid var(--text-1);
+  outline-offset: -1px;
+}
+
+.button.secondary .icon {
+  font-size: 20px;
+}
+
+.button.secondary:active {
+  box-shadow: 0 2px 0 var(--text-1);
+}
+
+.button.secondary:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
+}
+
+.button.small {
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.button.small .icon {
+  font-size: 16px;
+}
+
+/* ---- Nav --------------------------------------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 68px;
+  padding: 11px 16px;
+  background: var(--edge-hero);
+  color: var(--on-card);
+}
+
+/* The helm and the wordmark are one lockup (Taste): Bitter 900, tracking 0.04 em. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--on-card);
+}
+
+.brand img {
+  width: 47px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.brand span {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.nav .links {
+  display: none;
+}
+
+.nav .links a {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav .links a:hover,
+.credits .bottom a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.nav > .button {
+  display: none;
+}
+
+.drop {
+  position: relative;
+}
+
+.drop summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.drop summary::-webkit-details-marker {
+  display: none;
+}
+
+.lang summary {
+  padding: 0 14px;
+  border: 1px solid var(--on-card);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lang summary .icon {
+  font-size: 18px;
+}
+
+.menu summary .icon {
+  font-size: 24px;
+}
+
+.drop summary:hover {
+  background: #ffffff1f;
+}
+
+.drop ul {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--bg);
+  color: var(--text-1);
+  box-shadow:
+    0 5px 0 var(--edge-surface),
+    0 18px 40px #0a212640;
+}
+
+.drop ul a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.drop ul a:hover {
+  background: var(--surface);
+}
+
+.drop ul a[aria-current='page'] {
+  background: #f26a3d1f;
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+@media (width >= 720px) {
+  .nav > .button {
+    display: inline-flex;
+  }
+}
+
+/* Section links need room in the longest languages (German, Russian), next to the buttons. */
+@media (width >= 1180px) {
+  .nav {
+    gap: 36px;
+    min-height: 84px;
+    padding: 5px 96px;
+  }
+
+  .nav .brand {
+    gap: 14px;
+  }
+
+  .nav .brand img {
+    width: 77px;
+    height: 68px;
+  }
+
+  .nav .brand span {
+    font-size: 30px;
+  }
+
+  .nav .links {
+    display: flex;
+    gap: 36px;
+  }
+
+  .nav .menu {
+    display: none;
+  }
+}
+
+@media (1180px <= width < 1360px) {
+  .nav {
+    gap: 24px;
+    padding: 5px 40px;
+  }
+
+  .nav .links {
+    gap: 24px;
+  }
+}
+
+/* ---- The ocean board ---------------------------------------------------------------------------- */
+
+/* The sea: the teal-to-lime gradient, our sea contours at 38 % and the board's diagonal lattice at
+   60 % (src/ui/assets/art/README.md → The sea). */
+.sea {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--sea-gradient);
+}
+
+.sea::before,
+.sea::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sea::before {
+  background: url('art/sea-contours.svg') center / cover;
+  opacity: 0.38;
+}
+
+/* The lattice: lines at 45° every 128 px, both ways, as the design's "Lattice" path. */
+.sea::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cpath d='M64 0L128 64M0 64L64 128M16 0L0 16M128 16L16 128' stroke='%23f4f0c2' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-position: calc(50% - 656px) 0;
+  opacity: 0.6;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.board {
+  position: relative;
+  pointer-events: none;
+}
+
+.board > * {
+  position: absolute;
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px);
+}
+
+.board .piece {
+  width: calc(var(--w) * 1px);
+  max-width: none;
+  height: auto;
+}
+
+.board .cell {
+  color: #17403fb3;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+/* A board token: a diamond with a printed border and a hard shadow. */
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 83px;
+  height: 83px;
+  border: 1px solid;
+  border-radius: 7px;
+  transform: rotate(45deg);
+  box-shadow: 0 7px 0 #0c3b3a73;
+}
+
+.tile::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.tile.kraken {
+  background: linear-gradient(135deg, #f6ee78, #d6e066);
+  border-color: #b8b546;
+  color: #fffdf0cc;
+}
+
+.tile.island {
+  background: linear-gradient(135deg, #b67f52, #8a5733);
+  border-color: #6b4226;
+  color: #f0d6b0b3;
+}
+
+.tile.anchor {
+  background: #1c4b49;
+  border-color: #12383a;
+  color: #8fd2c880;
+}
+
+.tile.anchor .icon {
+  color: #8fd2c8;
+  font-size: 46px;
+  transform: rotate(-45deg);
+}
+
+.board .move {
+  color: var(--accent);
+  font-size: 62px;
+  line-height: 0;
+  transform: rotate(45deg);
+}
+
+.board .phone {
+  position: absolute;
+  transform: rotate(var(--r));
+}
+
+.board.desktop {
+  display: none;
+}
+
+.board.mobile {
+  width: 390px;
+  height: 701px;
+  margin: 0 auto;
+}
+
+.board.mobile .tile {
+  width: 60px;
+  height: 60px;
+}
+
+.board.mobile .tile::after {
+  inset: 4px;
+}
+
+.board.mobile .tile.anchor .icon {
+  font-size: 35px;
+}
+
+.board.mobile .move {
+  font-size: 46px;
+}
+
+/* The hero text sits on a cream tile, never on the busy sea (Taste). */
+.panel-wrap {
+  position: relative;
+  z-index: 1;
+  padding: 20px 16px 0;
+}
+
+.text-panel {
+  max-width: 596px;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 24px;
+  background: var(--cream);
+  box-shadow: 0 9px 0 var(--edge-hero);
+}
+
+.printed {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 16px;
+  border: 1px solid var(--cream-line);
+  border-radius: 17px;
+}
+
+.symbols {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0 6px;
+}
+
+.symbols img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.pennant {
+  max-width: 100%;
+  padding: 5px 14px 5px 10px;
+  border-radius: 3px 14px 14px 3px;
+  background: var(--pennant);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  line-height: 17px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.06;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.lead {
+  color: var(--lead);
+  font-size: 17px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 10px;
+  padding-bottom: 5px;
+}
+
+.note {
+  color: var(--note);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+@media (width >= 560px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    gap: 14px;
+  }
+}
+
+/* Desktop: the board is 1440 × 700 as in L1, centred, with the phones off its right edge. */
+@media (width >= 1080px) {
+  .hero {
+    display: block;
+    min-height: 700px;
+  }
+
+  .board.mobile {
+    display: none;
+  }
+
+  .board.desktop {
+    display: block;
+    position: absolute;
+    top: 0;
+    /* The art starts just right of the text panel: the board's x 697 is the panel's right edge. */
+    left: max(0px, 50% - 720px);
+    width: 1440px;
+    height: 700px;
+  }
+
+  .panel-wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 60px 96px 93px;
+  }
+
+  .text-panel {
+    margin: 0;
+    padding: 10px;
+    border-radius: 30px;
+  }
+
+  .printed {
+    gap: 20px;
+    padding: 30px 34px;
+    border-radius: 22px;
+  }
+
+  .symbols img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .symbols {
+    padding: 8px 0;
+  }
+
+  h1 {
+    font-size: 58px;
+    line-height: 1.04;
+  }
+
+  .lead {
+    font-size: 19px;
+  }
+}
+
+@media (1080px <= width < 1240px) {
+  .panel-wrap {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .board.desktop {
+    left: -56px;
+  }
+}
+
+/* ---- Phones ------------------------------------------------------------------------------------- */
+
+.phone {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: none;
+  width: 236px;
+  height: 496px;
+  padding: 8px;
+  border: 1px solid #a29d94;
+  border-radius: 38px;
+  background: #08080a;
+  box-shadow: 0 24px 48px #0a212659;
+}
+
+.phone::after {
+  content: '';
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  width: 71px;
+  height: 21px;
+  margin-left: -35.5px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.phone.large {
+  width: 316px;
+  height: 664px;
+  padding: 11px;
+  border-radius: 50px;
+}
+
+.phone.large::after {
+  top: 23px;
+  width: 95px;
+  height: 28px;
+  margin-left: -47.5px;
+}
+
+.phone img,
+.shot-missing {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border-radius: 30px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.phone.large img,
+.phone.large .shot-missing {
+  border-radius: 39px;
+}
+
+/* A screenshot that isn't captured yet (npm run site:shots): clearly a placeholder. */
+.shot-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 24px;
+  background: repeating-linear-gradient(-45deg, #eef9fe 0 14px, #d2f0fc 14px 28px);
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.shot-missing b {
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.shot-missing small {
+  margin-top: 8px;
+  padding: 2px 10px;
+  border: 1px dashed var(--text-3);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---- Sections ----------------------------------------------------------------------------------- */
+
+.section {
+  padding: 56px var(--gutter);
+}
+
+.section.tinted {
+  background: var(--surface-2);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 760px;
+  margin-bottom: 30px;
+}
+
+.heading.wide {
+  max-width: 900px;
+}
+
+.eyebrow {
+  color: var(--accent-text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  line-height: 16px;
+}
+
+.eyebrow.ink {
+  color: var(--text-1);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.section-lead {
+  color: var(--text-2);
+  font-size: 17px;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.15;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+@media (width >= 900px) {
+  .section {
+    padding: 96px 40px;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-size: 44px;
+    line-height: 1.08;
+  }
+
+  .section-lead {
+    font-size: 19px;
+  }
+}
+
+/* ---- Companion panels --------------------------------------------------------------------------- */
+
+.panels {
+  display: grid;
+  gap: 16px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(24px, 8vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 5px 0 var(--edge-surface);
+}
+
+.panel.app {
+  border: 2px solid var(--accent);
+  box-shadow: 0 5px 0 var(--edge-accent-soft);
+}
+
+.panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* "В приложении" is one long word: it shrinks on the narrowest phones instead of overflowing. */
+  font-size: clamp(23px, 7vw, 28px);
+  line-height: 1.1;
+}
+
+.panel h3 img {
+  flex: none;
+  width: clamp(48px, 15vw, 60px);
+  height: 56px;
+  object-fit: contain;
+}
+
+.ticks {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ticks li {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+  font-size: 17px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Grid items may shrink below their longest word, so a long Russian word wraps instead of
+   pushing the box past the screen (Taste: text never cut off). */
+.panels > *,
+.cards > *,
+.steps > *,
+.credit-columns > * {
+  min-width: 0;
+}
+
+.ticks .icon {
+  margin-top: 3px;
+  color: var(--text-3);
+  font-size: 20px;
+}
+
+.panel.app .ticks .icon {
+  color: var(--accent);
+}
+
+/* Boxes side by side share one height (Taste): grid rows stretch. */
+@media (width >= 900px) {
+  .panels {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* ---- Cards (get the game, features, install) ---------------------------------------------------- */
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.cards > li {
+  display: flex;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 5px 0 var(--edge-line);
+}
+
+.card h3 {
+  font-size: 22px;
+}
+
+.card p {
+  color: var(--text-2);
+  font-size: 16px;
+}
+
+.link-card {
+  gap: 10px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition:
+    transform 90ms ease,
+    box-shadow 90ms ease;
+}
+
+.link-card:hover {
+  border-color: var(--accent);
+}
+
+.link-card:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--edge-line);
+}
+
+.link-card > .icon {
+  color: var(--accent);
+  font-size: 28px;
+}
+
+.link-card h3 {
+  font-size: 24px;
+}
+
+.link-card .url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.link-card .url .icon {
+  font-size: 16px;
+}
+
+.features .visual {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  color: var(--accent);
+  font-size: 32px;
+}
+
+.features .visual img {
+  width: 41px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.features .pair img {
+  width: 32px;
+}
+
+.features .pair span {
+  color: var(--text-3);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.features .deck i {
+  width: 14px;
+  height: 24px;
+  border-radius: 3px;
+  background: var(--text-1);
+}
+
+.features .deck i.kraken {
+  background: var(--danger);
+}
+
+.column {
+  gap: 14px;
+  padding: 32px;
+  border-radius: 22px;
+}
+
+.column h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 26px;
+}
+
+.column h3 .icon {
+  color: var(--accent);
+  font-size: 26px;
+}
+
+.card.column p {
+  color: var(--text-1);
+  font-size: 17px;
+}
+
+.column pre {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--code-bg);
+  color: var(--on-card);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (width >= 640px) and (width < 900px) {
+  .cards.three {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (width >= 900px) {
+  .cards {
+    gap: 24px;
+  }
+
+  .cards.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cards.two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- How a voyage goes -------------------------------------------------------------------------- */
+
+.steps {
+  display: grid;
+  gap: 16px;
+}
+
+.steps li {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* On phones the steps go without their screenshots, as in L2; the gallery shows the app. */
+.steps .phone {
+  display: none;
+}
+
+.steps .number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.steps h3 {
+  font-size: 22px;
+}
+
+.steps p {
+  color: var(--text-2);
+  font-size: 16px;
+}
+
+@media (width >= 900px) {
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .steps .phone {
+    display: flex;
+    max-width: 100%;
+  }
+}
+
+@media (900px <= width < 1100px) {
+  .steps .phone {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 236 / 496;
+  }
+}
+
+/* ---- Gallery ------------------------------------------------------------------------------------ */
+
+.gallery-section {
+  padding-bottom: 32px;
+}
+
+.gallery-section .heading {
+  margin-bottom: 30px;
+}
+
+/* Five phones in a row; narrower screens scroll them sideways. */
+.gallery {
+  display: flex;
+  gap: 16px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter) 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--gutter);
+}
+
+.gallery .phone {
+  scroll-snap-align: start;
+}
+
+@media (width >= 900px) {
+  .gallery-section {
+    padding-bottom: 72px;
+  }
+
+  @media (width >= 1280px) {
+    .gallery-section {
+      padding-bottom: 96px;
+    }
+  }
+
+  .gallery-section .heading {
+    margin-bottom: 40px;
+  }
+}
+
+@media (width >= 1280px) {
+  .gallery {
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+}
+
+/* ---- Languages ---------------------------------------------------------------------------------- */
+
+.languages-row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.languages-row .heading {
+  margin: 0;
+}
+
+.chips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.chips a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 60px;
+  padding: 0 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--edge-surface);
+  text-decoration: none;
+}
+
+.chips a:hover {
+  border-color: var(--accent);
+}
+
+.chips a[aria-current='page'] {
+  border: 2px solid var(--accent);
+  padding: 0 21px;
+  background: linear-gradient(#f26a3d1f, #f26a3d1f), #fff;
+  box-shadow: 0 4px 0 var(--edge-accent-soft);
+}
+
+.chips .code {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.chips .name {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+@media (width >= 900px) {
+  .languages-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .languages-row .heading {
+    flex: 0 1 620px;
+  }
+
+  .chips {
+    flex: 1;
+  }
+}
+
+/* ---- Credits ------------------------------------------------------------------------------------ */
+
+.credits {
+  padding: 48px var(--gutter) 40px;
+  background: var(--edge-hero);
+  color: var(--night-text-2);
+}
+
+.credits .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.credits .brand {
+  align-self: flex-start;
+  gap: 12px;
+}
+
+.credits .brand img {
+  width: 56px;
+  height: 50px;
+}
+
+.credits .brand span {
+  font-size: 28px;
+}
+
+.credit-columns {
+  display: grid;
+  gap: 16px;
+}
+
+.credit-columns div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.credits h2 {
+  color: var(--night-text-3);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  line-height: 14px;
+}
+
+.credits p {
+  font-size: 15px;
+}
+
+.credits .bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 24px;
+  border-top: 1px solid var(--night-line);
+}
+
+.credits .bottom p {
+  color: var(--night-text-3);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.credits .bottom .spacer {
+  display: none;
+}
+
+.credits .bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .credits {
+    padding: 72px 40px 56px;
+  }
+
+  .credits .wrap {
+    gap: 28px;
+  }
+
+  .credit-columns {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+
+  .credits .bottom {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .credits .bottom .spacer {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .button,
+  .link-card {
+    transition: none;
+  }
+}
