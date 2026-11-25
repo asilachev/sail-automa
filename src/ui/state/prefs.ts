@@ -11,13 +11,20 @@ export interface Prefs {
   readonly played: boolean
   /** The language picked on this device; null follows the browser's language. */
   readonly language: Lang | null
+  /** Auto follows the phone; day and night pin it (design A4 · Settings, THEME). */
+  readonly theme: Theme
 }
+
+export type Theme = 'auto' | 'day' | 'night'
+export const THEMES: readonly Theme[] = ['auto', 'day', 'night']
+const isTheme = (value: unknown): value is Theme => THEMES.includes(value as Theme)
 
 export const DEFAULT_PREFS: Prefs = {
   wakeLock: true,
   installHintSeen: false,
   played: false,
   language: null,
+  theme: 'auto',
 }
 export const PREFS_KEY = 'bosun:v1:prefs'
 
@@ -34,6 +41,8 @@ export function loadPrefs(storage = browserStorage()): Prefs {
         typeof v.installHintSeen === 'boolean' ? v.installHintSeen : DEFAULT_PREFS.installHintSeen,
       played: typeof v.played === 'boolean' ? v.played : DEFAULT_PREFS.played,
       language: isLang(v.language) ? v.language : DEFAULT_PREFS.language,
+      // Saves from before the theme existed load as auto.
+      theme: isTheme(v.theme) ? v.theme : DEFAULT_PREFS.theme,
     }
   } catch {
     return DEFAULT_PREFS

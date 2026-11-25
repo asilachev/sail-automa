@@ -6,5 +6,56 @@
   },
   "home": {
     "footer": "Unofficial fan app. You need your own copy of Sail."
+  },
+  "common": {
+    "you": "You",
+    "bosun": "Bosun",
+    "cancel": "Cancel",
+    "close": "Close",
+    "closeTitle": "Close {title}",
+    "dismiss": "Dismiss"
+  },
+  "theme": {
+    "label": "Theme",
+    "auto": "Auto",
+    "day": "Day",
+    "night": "Night"
+  },
+  "dock": {
+    "label": "Voyage tools",
+    "undo": "Undo",
+    "log": "Log",
+    "rules": "Rules",
+    "menu": "Menu"
+  },
+  "hud": {
+    "label": "Play area",
+    "tricks": "{side}: {n} of 4 tricks",
+    "round": "ROUND",
+    "of": "of V",
+    "krakenDeck": "KRAKEN DECK",
+    "left": "{n, plural, one {# card left} other {# cards left}}",
+    "attacks": "Attacks at round end",
+    "skull": "Skull"
+  },
+  "symbols": {
+    "helm": "Helm",
+    "helmKraken": "Helm & Kraken",
+    "tail": "Tail",
+    "cannon": "Cannon"
+  },
+  "miniMap": {
+    "bosun": "Toward the Bosun",
+    "you": "Toward you",
+    "straight": "One space straight"
+  },
+  "install": {
+    "title": "Install the app",
+    "sub": "Full screen, offline, screen kept awake.",
+    "button": "Install"
+  },
+  "ruling": {
+    "default": "DEFAULT",
+    "change": "Change"
   }
 }
