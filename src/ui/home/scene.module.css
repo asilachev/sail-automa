@@ -1,0 +1,56 @@
+/* The sea scenes of A1 · Splash and A2's hero (~/Graphics/sail-automa.pen): the ocean board's
+   gradient, contours and lattice, with tokens and pieces from the K3+ kit. The board keeps its
+   colours in day and night (N1 draws the same hero). */
+.lattice {
+  position: absolute;
+  inset: 0 auto auto 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.lattice path {
+  fill: none;
+  stroke: #f4f0c2;
+  stroke-width: 1.5;
+}
+
+.placed {
+  position: absolute;
+  display: block;
+  line-height: 0;
+}
+
+.tile {
+  --fill: #1c4b49;
+  --stroke: #12383a;
+  --print: #8fd2c880;
+  position: absolute;
+  display: block;
+  width: var(--side);
+  height: var(--side);
+  border: 2px solid var(--stroke);
+  border-radius: calc(var(--side) * 0.143);
+  background: var(--fill);
+  filter: drop-shadow(0 7px 0 #0c3b3a73);
+  transform: rotate(45deg);
+}
+
+.tile[data-kind='island'] {
+  --fill: linear-gradient(135deg, #b67f52, #8a5733);
+  --stroke: #6b4226;
+  --print: #f0d6b0b3;
+}
+
+.tile[data-kind='kraken'] {
+  --fill: linear-gradient(135deg, #f6ee78, #d6e066);
+  --stroke: #b8b546;
+  --print: #fffdf0cc;
+}
+
+/* The token's printed border, 4.5 px inside a 49 px token, scaled with it. */
+.printed {
+  position: absolute;
+  inset: calc(var(--side) * 0.092 - 2px);
+  border: 1.5px solid var(--print);
+  border-radius: 4px;
+}

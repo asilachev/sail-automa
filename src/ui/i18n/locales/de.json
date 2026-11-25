@@ -5,7 +5,35 @@
     "sub": "Ein Solo-Partner für Sail"
   },
   "home": {
-    "footer": "Inoffizielle Fan-App. Du brauchst dein eigenes Sail."
+    "footer": "Inoffizielle Fan-App. Du brauchst dein eigenes Sail.",
+    "eyebrow": "SAIL · SOLO",
+    "title": "Spiel Sail allein.",
+    "lead": "Der Bootsmann übernimmt die andere Seite des Schiffs. Du deckst seine Karten auf, die App führt Stiche, Krake und Stürme.",
+    "start": "Starte deine erste Fahrt",
+    "how": "SO LÄUFT'S",
+    "how1": "Bau Sail wie gewohnt auf und wähle eine Stufe.",
+    "how2": "Bei jedem Stich sagt dir die App, wie der Bootsmann spielt.",
+    "how3": "Tippe Gewinner und Symbole an: du bekommst den Befehl.",
+    "inProgress": "FAHRT LÄUFT",
+    "summary": "{scenario, select, learning {Einstiegsszenario} other {Szenario {scenario}}} · {difficulty, select, easy {Leicht} medium {Mittel} other {Schwer}}",
+    "line": "Runde {round} · Stich {trick} · Du {you}, Bootsmann {bosun}",
+    "kraken": "KRAKE",
+    "krakenLine": "{cards, plural, one {noch # Karte} other {noch # Karten}} · {attacks, plural, one {# Angriff} other {# Angriffe}} am Rundenende",
+    "krakenSkull": "{cards, plural, one {noch # Karte} other {noch # Karten}} · der Krake steht auf dem Totenkopf",
+    "continue": "Weiter · Runde {round}",
+    "newVoyage": "Neue Fahrt",
+    "endVoyage": "Diese Fahrt beenden",
+    "endTitle": "Diese Fahrt beenden?",
+    "endBody": "Die gespeicherte Fahrt wird gelöscht und als unvollendet ins Logbuch eingetragen.",
+    "endYes": "Fahrt beenden",
+    "endNo": "Weitersegeln",
+    "log": "Logbuch",
+    "logEmpty": "Noch keine Fahrten",
+    "logLine": "{voyages, plural, one {# Fahrt} other {# Fahrten}} · {reached, plural, one {# erreichte} other {# erreichten}} Land",
+    "rules": "Regeln und Auslegungen",
+    "settings": "Einstellungen",
+    "credits": "Mitwirkende",
+    "language": "Sprache: {name}"
   },
   "common": {
     "you": "Du",
@@ -192,8 +220,53 @@
     "clearYes": "Logbuch leeren",
     "clearNo": "Logbuch behalten"
   },
+  "settings": {
+    "title": "EINSTELLUNGEN",
+    "back": "Start",
+    "language": "SPRACHE",
+    "theme": "DESIGN",
+    "themeHint": "Auto folgt deinem Handy. Tag ist die Seite der Regel, Nacht die Kartenvorderseite für Abendrunden.",
+    "atTable": "AM TISCH",
+    "awake": "Bildschirm anlassen",
+    "awakeHint": "Solange eine Fahrt offen ist",
+    "install": "App installieren",
+    "about": "ÜBER",
+    "source": "Quellcode",
+    "privacy": "Kein Konto, kein Tracking. Deine Fahrten bleiben auf diesem Handy."
+  },
+  "language": {
+    "title": "SPRACHE",
+    "note": "Die Übersetzungen sind größtenteils KI. Fehler gefunden? Sag es uns auf GitHub."
+  },
+  "credits": {
+    "title": "MITWIRKENDE",
+    "gameLabel": "DAS SPIEL",
+    "game": "Sail von Akiyama Koryo und Kozu Yusei. Illustration: Weberson Santiago. Verlag: Allplay.",
+    "variantLabel": "DIE SOLO-VARIANTE",
+    "variant": "Sail Solitaire, die Solo-Variante, von Chuck Rosselli auf BoardGameGeek.",
+    "appLabel": "DIESE APP",
+    "app": "Bootsmann ist eine inoffizielle Fan-App ohne Verbindung zu Allplay. Du brauchst dein eigenes Sail. Kein Konto, kein Tracking. Deine Fahrten bleiben auf diesem Handy.",
+    "fonts": "Bitter und Fira Sans Condensed, SIL Open Font License. Code: MIT.",
+    "allplay": "Sail bei Allplay",
+    "bgg": "Sail Solitaire auf BoardGameGeek",
+    "github": "Quellcode auf GitHub"
+  },
+  "pwa": {
+    "splashFooter": "Inoffizielle Fan-App · Sail von Akiyama Koryo und Kozu Yusei, Verlag Allplay",
+    "iosTitle": "AUFS IPHONE",
+    "ios1": "Tippe in Safari auf „Teilen“.",
+    "ios2": "Wähle „Zum Home-Bildschirm“.",
+    "ios3": "Öffne sie vom Home-Bildschirm: Vollbild, offline.",
+    "iosOk": "Verstanden",
+    "offline": "Offline",
+    "fullScreen": "Vollbild",
+    "awake": "Bleibt an",
+    "offlineToast": "Du bist offline. Alles funktioniert weiter.",
+    "update": "Eine neue Version ist da.",
+    "reload": "Neu laden",
+    "saveBlocked": "Deine Fahrt wird nicht gespeichert: Dieser Browser blockiert den Speicher."
+  },
   "game": {
-    "continue": "Weiter · Runde {round}",
     "quiet": "AB JETZT KEIN WORT",
     "exchangeTitle": "RUNDE {round} · DER TAUSCH",
     "exchangeSub": "Kein Wort vom Austeilen bis zum letzten Stich. Der Bootsmann sagt eh nichts.",
@@ -202,8 +275,7 @@
     "exchange3": "Leg deine Karte verdeckt oben auf seinen Stapel. Jetzt kennst du seine erste Karte.",
     "exchangeTipTitle": "Warum die oberste?",
     "exchangeTip": "Sail Solitaire, Spiel: Der Bootsmann gibt dir seine oberste Karte; deine kommt oben auf seinen Stapel.",
-    "exchangeDone": "Getauscht · Stich 1",
-    "newVoyage": "Neue Fahrt"
+    "exchangeDone": "Getauscht · Stich 1"
   },
   "trick": {
     "eyebrowFirst": "{side, select, you {DU SPIELST AUS · DER BOOTSMANN FOLGT} other {DER BOOTSMANN SPIELT AUS · DU FOLGST}}",
@@ -319,8 +391,6 @@
     "awake": "Bildschirm anlassen",
     "awakeHint": "Solange eine Fahrt offen ist",
     "language": "Sprache",
-    "languageTitle": "SPRACHE",
-    "languageNote": "Die Übersetzungen sind größtenteils KI. Fehler gefunden? Sag es uns auf GitHub.",
     "themeTitle": "DESIGN",
     "themeNote": "Auto folgt deinem Handy. Tag ist die Seite der Regel, Nacht die Kartenvorderseite für Abendrunden.",
     "endTitle": "Diese Fahrt beenden?",

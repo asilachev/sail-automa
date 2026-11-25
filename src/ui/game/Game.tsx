@@ -4,11 +4,9 @@ import { currentStep, hud, replay, type VoyageEvent, type VoyageState } from '..
 import { Dialog, Dock, Hud, useToasts } from '../components/index.ts'
 import { useT } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
-import { usePrefs } from '../state/PrefsContext.ts'
 import { useCaptainsLog } from '../state/history.ts'
 import { useVoyage } from '../state/useVoyage.ts'
 import { RulingsSheet } from '../newVoyage/RulingsSheet.tsx'
-import { useWakeLock } from '../state/useWakeLock.ts'
 import styles from './game.module.css'
 import {
   CannonWheelSheet,
@@ -42,7 +40,6 @@ export function Game({ initialLayer = null }: { initialLayer?: GameLayer | null 
   const toasts = useToasts()
   const api = useVoyage()
   const { record } = useCaptainsLog()
-  const { prefs } = usePrefs()
   const [layer, setLayer] = useState<GameLayer | null>(initialLayer)
   // The picks to show again after Change on the order (screen-only).
   const [draft, setDraft] = useState<TrickPicks | null>(null)
@@ -54,7 +51,6 @@ export function Game({ initialLayer = null }: { initialLayer?: GameLayer | null 
   })
   const undoLast = api.undo
   const step = voyage ? currentStep(voyage.state) : null
-  useWakeLock(prefs.wakeLock && voyage !== null)
 
   const over = step?.kind === 'won' || step?.kind === 'lost'
   useEffect(() => {

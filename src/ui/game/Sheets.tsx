@@ -25,7 +25,6 @@ import {
 } from '../../engine/index.ts'
 import {
   Button,
-  LanguageRow,
   ListRow,
   Picture,
   SegmentGroup,
@@ -35,6 +34,7 @@ import {
   ToggleRow,
 } from '../components/index.ts'
 import { LANGS, useI18n, useT } from '../i18n/index.ts'
+import { LanguageSheet } from '../home/Sheets.tsx'
 import { usePrefs } from '../state/PrefsContext.ts'
 import { THEMES, type Theme } from '../state/prefs.ts'
 import styles from './game.module.css'
@@ -135,34 +135,6 @@ export function MenuSheet({
       {inner === 'language' ? <LanguageSheet onClose={() => setInner(null)} /> : null}
       {inner === 'theme' ? <ThemeSheet onClose={() => setInner(null)} /> : null}
     </>
-  )
-}
-
-/** The language picker over the menu (F2 · Language). */
-function LanguageSheet({ onClose }: { onClose: () => void }) {
-  const t = useT()
-  const { lang, setLang } = useI18n()
-  return (
-    <Sheet title={t('gameMenu.languageTitle')} onClose={onClose}>
-      {(close) => (
-        <>
-          {LANGS.map((l) => (
-            <LanguageRow
-              key={l.code}
-              code={l.code.toUpperCase()}
-              name={l.name}
-              lang={l.tag}
-              selected={l.code === lang}
-              onSelect={() => {
-                setLang(l.code)
-                close()
-              }}
-            />
-          ))}
-          <p className={styles.sheetNote}>{t('gameMenu.languageNote')}</p>
-        </>
-      )}
-    </Sheet>
   )
 }
 

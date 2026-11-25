@@ -1,0 +1,142 @@
+/* F1 · Install on iPhone and A1 · Splash (~/Graphics/sail-automa.pen). */
+.benefits {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.benefit svg {
+  color: var(--accent);
+}
+
+.ok {
+  padding: 2px 0 5px;
+}
+
+/* ── The splash: the board's sea, the same in day and night ── */
+.splash {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(110deg, #1f9e8e, #62c09a 50%, #b4da8e);
+  color: #231f20;
+  transition: opacity var(--motion-fade) var(--ease-exit);
+}
+
+.splash[data-leaving='true'] {
+  opacity: 0;
+}
+
+.contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+
+/* The design's 390 × 844 frame, centred on the screen. */
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 390px;
+  height: 844px;
+  transform: translate(-50%, -50%);
+}
+
+.calm {
+  position: absolute;
+  top: 150px;
+  left: 5px;
+  width: 380px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #5fbe9a, #5fbe9ae6 50%, #5fbe9a00);
+}
+
+.tentacle {
+  width: 49px;
+  height: 59px;
+}
+
+.cloud {
+  width: 128px;
+  height: 96px;
+}
+
+.island {
+  width: 59px;
+  height: 54px;
+}
+
+.bigTentacle {
+  width: 140px;
+  height: 168px;
+}
+
+.ship {
+  width: 165px;
+  height: 152px;
+}
+
+.brand {
+  position: absolute;
+  top: 230px;
+  left: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.helm {
+  width: 124px;
+  height: 110px;
+}
+
+.wordmark {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 55px;
+}
+
+.sub {
+  margin: 14px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.footer {
+  position: absolute;
+  bottom: max(44px, calc(env(safe-area-inset-bottom) + 10px));
+  left: 50%;
+  width: 198px;
+  margin: 0;
+  color: #231f20d9;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+  transform: translateX(-50%);
+}

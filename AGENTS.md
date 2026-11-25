@@ -87,10 +87,12 @@ src/
                  the dev server only
     game/     the voyage at the table (C1–C9) and its sheets (D1–D6); `/?fixture=` on the dev server
     i18n/     translations: locales/{en,es,de,ru,sr}.json (ICU), loader, t(), typography
-    pwa/      install prompt, splash, persistent storage
+    home/     Home (A2, A3), its sea scene, the Language and Credits sheets
+    pwa/      install card and iPhone sheet, splash, offline and update toasts, persistent storage
+    settings/ Settings (A4)
     state/    preferences (theme, language, wake lock), the saved voyage, storage, wake lock
     styles/   global.css: the design's tokens and fonts
-  test/     shared test setup and helpers (startVoyage, renderGame, playTrick)
+  test/     shared test setup and helpers (renderApp, saveScript, startVoyage, renderGame, playTrick)
 e2e/        Playwright smoke test against the production build
 site/       the landing page: index.html template, styles.css, locales/*.json, shots.json, CNAME
 scripts/    build-site.mjs (the landing page), screenshots.mjs (its app screenshots), gen-icons.mjs

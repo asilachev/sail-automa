@@ -45,7 +45,7 @@ export function Picture({
   name: ArtName
   size: number
   alt?: string
-  className?: string
+  className?: string | undefined
 }) {
   return (
     <img
