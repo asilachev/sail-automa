@@ -86,6 +86,87 @@
     "default": "POR DEFECTO",
     "change": "Cambiar"
   },
+  "newVoyage": {
+    "title": "NUEVA TRAVESÍA",
+    "back": "Inicio",
+    "scenario": "ESCENARIO",
+    "scenarioHint": "Del libro de escenarios.",
+    "learning": "Aprendizaje",
+    "scenarioName": "{scenario, select, learning {Escenario de aprendizaje} other {Escenario {scenario}}}",
+    "seat": "TU ASIENTO",
+    "seatLeft": "Salida a mi izquierda",
+    "seatRight": "Salida a mi derecha",
+    "seatHint": "Así las flechas de la app apuntan hacia donde navega tu barco.",
+    "difficulty": "DIFICULTAD",
+    "easy": "Fácil",
+    "easyDesc": "Dos cartas de pirata compartidas. Quien gane la baza puede usar cualquiera.",
+    "medium": "Normal",
+    "mediumDesc": "Una carta de pirata cada uno. Quien gane puede usar la suya.",
+    "hard": "Difícil",
+    "hardDesc": "Solo tú tienes carta de pirata. El contramaestre, ninguna.",
+    "pirate": "EL PIRATA DEL CONTRAMAESTRE",
+    "cw": "El contramaestre tiene el pirata Cañón + Timón",
+    "cwHint": "La app te guía en su cambio de cartas.",
+    "hardNote": "En Difícil el contramaestre no tiene carta de pirata.",
+    "rulings": "Aclaraciones",
+    "rulingsLine": "{changed, plural, =0 {{total} · por defecto} one {{total} · # cambiada} other {{total} · # cambiadas}}",
+    "next": "Siguiente · prepara la mesa"
+  },
+  "setup": {
+    "title": "PREPARA LA MESA",
+    "back": "Nueva travesía",
+    "sub": "{scenario} · {difficulty, select, easy {Fácil} medium {Normal} other {Difícil}} · marca cada línea al hacerla",
+    "line1": "Monta el tablero del océano. Pon los tableros de juego y del kraken en extremos opuestos.",
+    "line2": "Coloca las fichas {scenario, select, learning {del escenario de aprendizaje} other {del escenario {scenario}}}:\nIslas: {islands}\nKraken: {kraken}\nMeta: {end}\n{storms, plural, one {Tormenta: columna {columns}} other {Tormentas: columnas {columns}}}",
+    "line3": "{pirates, select, easy {Cartas de pirata: dos compartidas, junto al tablero.} easyCw {Cartas de pirata: dos compartidas, junto al tablero; una es Cañón + Timón.} mediumCw {Cartas de pirata: una para ti y Cañón + Timón para el contramaestre.} hard {Carta de pirata: una para ti. El contramaestre no tiene.} other {Cartas de pirata: una para ti y una para el contramaestre.}}",
+    "line4": "El kraken en su casilla inferior izquierda, el 3. Cubos de bazas en 0.",
+    "line5": "Disco de ronda en I, en tu lado: sales tú primero.",
+    "line6": "Barco en la ficha de salida.",
+    "line7": "Mazo del kraken: los seis 1 y 2 barajados, boca arriba, la carta del kraken debajo.",
+    "line8": "Mazo de jugadores: del 3 al 9 barajados, boca abajo.",
+    "line9": "Reparte 9 cartas para ti y 9 boca abajo al montón del contramaestre. No mires sus cartas.",
+    "noteAll": "Marca las {n} líneas para zarpar",
+    "note": "{n, plural, one {Marca la última línea para zarpar} other {Marca las # líneas que faltan para zarpar}}",
+    "go": "Zarpar"
+  },
+  "rulings": {
+    "title": "ACLARACIONES",
+    "lead": "Donde las reglas callan, un ajuste con valor por defecto. Cámbialo solo a propósito.",
+    "pastEnd": {
+      "q": "El barco pasa de largo la meta",
+      "lose": "Pierdes",
+      "nothing": "No pasa nada",
+      "source": "Reglas rusas, p. 4; Allplay en BGG"
+    },
+    "bosunPirate": {
+      "q": "Quién decide si el contramaestre usa su pirata",
+      "you": "Tú, cuando gana la baza",
+      "source": "Sail Solitaire dice «puede usar»"
+    },
+    "cannonWheel": {
+      "q": "Nueva acción del pirata Cañón + Timón",
+      "owner": "Solo su dueño",
+      "anyWinner": "Quien gane la baza",
+      "source": "Allplay en BGG, 2023"
+    },
+    "shortDeal": {
+      "q": "Faltan cartas para repartir 9",
+      "evenly": "Reparte por igual hasta donde llegue",
+      "source": "Sin regla; decisión nuestra"
+    },
+    "fourthTrick": {
+      "q": "La acción de la cuarta baza",
+      "resolve": "Se resuelve y luego termina la ronda",
+      "endFirst": "Primero termina la ronda",
+      "source": "Orden del reglamento; BGG, sin confirmar"
+    }
+  },
+  "abandon": {
+    "title": "¿Abandonar esta travesía?",
+    "body": "Una travesía nueva borra la guardada. Queda en el cuaderno como sin terminar.",
+    "yes": "Abandonar y empezar otra",
+    "keep": "Seguir navegando"
+  },
   "settings": {
     "title": "AJUSTES",
     "back": "Inicio",

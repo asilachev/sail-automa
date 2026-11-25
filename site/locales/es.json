@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "how": "Cómo funciona",
+    "features": "Funciones",
+    "languages": "Idiomas",
+    "get": "Consigue el juego",
+    "credits": "Créditos",
+    "menu": "Menú",
+    "language": "Idioma"
+  },
+  "openApp": "Abrir la app",
+  "hero": {
+    "eyebrow": "SAIL · COMPAÑERO EN SOLITARIO",
+    "title": "Juega a Sail en solitario, con un contramaestre callado.",
+    "lead": "Un compañero gratuito para el móvil para Sail Solitaire, de Chuck Rosselli. El contramaestre ocupa el otro lado del barco: tú volteas sus cartas y la app lleva las bazas, el kraken y las tormentas.",
+    "github": "Ver en GitHub",
+    "note": "Gratis · sin conexión · sin cuenta · 5 idiomas"
+  },
+  "companion": {
+    "eyebrow": "LA MESA SIGUE SIENDO LA MESA",
+    "title": "Un compañero, no un juego digital",
+    "lead": "Sail se queda en tu mesa. La app solo hace lo engorroso de jugar en solitario.",
+    "table": {
+      "title": "En tu mesa",
+      "items": [
+        "El tablero del océano, el barco y las fichas del escenario",
+        "Todas las cartas: tu mano, los dos mazos y el descarte",
+        "El montón boca abajo del contramaestre, de nueve cartas",
+        "Las cartas de pirata que elegiste"
+      ]
+    },
+    "app": {
+      "title": "En la app",
+      "items": [
+        "Cómo juega el contramaestre cada baza",
+        "La orden para cada par de símbolos",
+        "El mazo del kraken: cuándo sale su carta y lo que cuesta",
+        "Las tormentas, las rondas y tu cuaderno de bitácora"
+      ]
+    }
+  },
+  "get": {
+    "eyebrow": "TRAE TU PROPIA CAJA",
+    "title": "Necesitas Sail",
+    "lead": "Contramaestre es un ayudante hecho por fans. Consigue el juego en su editorial o en una tienda cercana y apoya a quienes lo crearon.",
+    "publisher": {
+      "text": "La editorial de Sail, con las reglas y dónde comprarlo."
+    },
+    "shop": {
+      "title": "Una tienda cercana",
+      "text": "Una tienda elegida para el idioma de esta página, con su nombre y la edición que vende."
+    },
+    "bgg": {
+      "text": "Sail, sus foros y Sail Solitaire, de Chuck Rosselli."
+    }
+  },
+  "how": {
+    "eyebrow": "UNA TRAVESÍA",
+    "title": "Cómo va una travesía",
+    "lead": "Prepara la mesa como dice el reglamento y deja que la app lleve al contramaestre baza a baza.",
+    "steps": [
+      {
+        "title": "Elige escenario y dificultad",
+        "text": "Fácil comparte dos cartas de pirata, Normal le da una al contramaestre y Difícil, ninguna."
+      },
+      {
+        "title": "Marca la preparación",
+        "text": "Nueve líneas del reglamento y la variante. Zarpar espera a que estén todas."
+      },
+      {
+        "title": "Juega la baza",
+        "text": "La app dice cómo juega el contramaestre: voltea hasta que salga tu color, o sale con su carta de arriba."
+      },
+      {
+        "title": "Toca quién gana y los símbolos",
+        "text": "Recibes la orden: adónde va el barco y cuántas veces ataca el kraken."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "LO QUE RECUERDA",
+    "title": "Todo lo que las reglas en papel te piden recordar",
+    "combo": {
+      "title": "Cada combinación, resuelta",
+      "text": "Pares de timón, kraken, cola y cañón convertidos en un movimiento y sus ataques."
+    },
+    "kraken": {
+      "title": "El mazo del kraken, contado",
+      "text": "Sabe cuándo sale la carta del kraken y lo que costará el final de la ronda."
+    },
+    "storms": {
+      "title": "Tormentas y rondas",
+      "text": "Las tormentas tras las rondas II y IV, y quién sale en cada ronda."
+    },
+    "undo": {
+      "title": "Deshaz cualquier toque",
+      "text": "Un error en la mesa se arregla con un toque; el registro muestra cada paso."
+    },
+    "offline": {
+      "title": "Sin conexión, instalable, despierta",
+      "text": "Instálala en tu pantalla de inicio. Funciona sin conexión y mantiene la pantalla encendida."
+    },
+    "log": {
+      "title": "Cuaderno de bitácora",
+      "text": "Victorias e intentos de cada escenario y dificultad, guardados en tu teléfono."
+    }
+  },
+  "gallery": {
+    "eyebrow": "DENTRO DE LA APP",
+    "title": "Cinco pasos de una travesía"
+  },
+  "languages": {
+    "title": "Cinco idiomas",
+    "lead": "Inglés, español, alemán, ruso y serbio en cirílico. La app sigue a tu teléfono y puedes cambiar cuando quieras. Las traducciones son sobre todo de IA: se agradecen correcciones."
+  },
+  "install": {
+    "eyebrow": "ES TUYA",
+    "title": "Instálala o aloja tu propia copia",
+    "phone": {
+      "title": "En tu teléfono",
+      "iphone": "iPhone: ábrela en Safari, toca Compartir y luego «Añadir a pantalla de inicio».",
+      "android": "Android y Chrome de escritorio: toca Instalar en la tarjeta de Inicio."
+    },
+    "host": {
+      "title": "Tu propia copia",
+      "text": "Es una app estática sin servidor: ejecuta la imagen de Docker o despliega el repositorio en Vercel."
+    }
+  },
+  "credits": {
+    "game": {
+      "label": "EL JUEGO",
+      "text": "Sail, de Akiyama Koryo y Kozu Yusei, ilustrado por Weberson Santiago, publicado por Allplay."
+    },
+    "variant": {
+      "label": "LA VARIANTE EN SOLITARIO",
+      "text": "Sail Solitaire, de Chuck Rosselli, en BoardGameGeek."
+    },
+    "app": {
+      "label": "ESTA APP",
+      "text": "App no oficial hecha por fans, sin relación con Allplay; necesitas tu propia copia de Sail. Código bajo licencia MIT; el juego, sus reglas y su arte pertenecen a sus dueños."
+    },
+    "privacy": "Sin cookies ni cuentas. Tus travesías se quedan en tu teléfono."
+  },
+  "shots": {
+    "home": "Inicio",
+    "rules": "Reglas: las combinaciones"
+  }
+}

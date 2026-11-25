@@ -1,0 +1,19 @@
+{
+  "$comment": "The app screenshots the landing page shows (#13). npm run site:shots writes .screenshots/<lang>/<id>.png at size × scale; scripts/build-site.mjs copies them into _site. screen is the design frame each one matches; alt is a text key in site/locales.",
+  "size": { "width": 390, "height": 844, "scale": 2 },
+  "shots": [
+    { "id": "01", "screen": "A3", "what": "Home, a voyage in progress", "alt": "shots.home" },
+    { "id": "02", "screen": "B1", "what": "New voyage", "alt": "how.steps.0.title" },
+    { "id": "03", "screen": "B3", "what": "Set up the table", "alt": "how.steps.1.title" },
+    { "id": "04", "screen": "C2", "what": "You lead", "alt": "how.steps.2.title" },
+    { "id": "05", "screen": "C5", "what": "The order", "alt": "how.steps.3.title" },
+    {
+      "id": "06",
+      "screen": "C8",
+      "what": "Round end, storm check",
+      "alt": "features.storms.title"
+    },
+    { "id": "07", "screen": "D6", "what": "Rules: the combos", "alt": "shots.rules" },
+    { "id": "08", "screen": "E3", "what": "Captain's log", "alt": "features.log.title" }
+  ]
+}

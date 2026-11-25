@@ -60,17 +60,21 @@ export function ToggleRow({
   hint,
   checked,
   onChange,
+  disabled = false,
 }: {
   label: string
   hint?: string
   checked: boolean
   onChange: (checked: boolean) => void
+  /** Greyed out and inert when another choice rules it out (New voyage on Hard, design B5). */
+  disabled?: boolean
 }) {
   const id = useId()
   return (
     <button
       type="button"
       role="switch"
+      disabled={disabled}
       aria-checked={checked}
       aria-labelledby={`${id}-l`}
       aria-describedby={hint ? `${id}-h` : undefined}

@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "how": "How it works",
+    "features": "Features",
+    "languages": "Languages",
+    "get": "Get the game",
+    "credits": "Credits",
+    "menu": "Menu",
+    "language": "Language"
+  },
+  "openApp": "Open the app",
+  "hero": {
+    "eyebrow": "SAIL · SOLITAIRE COMPANION",
+    "title": "Play Sail solo, with a silent Bosun.",
+    "lead": "A free phone companion for Chuck Rosselli's Sail Solitaire. The Bosun takes the other side of the ship: you flip its cards, and the app keeps the tricks, the Kraken and the storms.",
+    "github": "View on GitHub",
+    "note": "Free · works offline · no account · 5 languages"
+  },
+  "companion": {
+    "eyebrow": "THE TABLE STAYS THE TABLE",
+    "title": "A companion, not a digital game",
+    "lead": "Sail stays on your table. The app only does what's fiddly when you play alone.",
+    "table": {
+      "title": "On your table",
+      "items": [
+        "The ocean board, the ship and the scenario's tokens",
+        "Every card: your hand, both decks and the discard pile",
+        "The Bosun's face-down stack of nine",
+        "The Pirate cards you picked"
+      ]
+    },
+    "app": {
+      "title": "In the app",
+      "items": [
+        "How the Bosun plays each trick",
+        "The order for every pair of symbols",
+        "The Kraken deck: when its card comes up, and what it costs",
+        "Storm checks, the rounds and your captain's log"
+      ]
+    }
+  },
+  "get": {
+    "eyebrow": "BRING YOUR OWN BOX",
+    "title": "You need Sail itself",
+    "lead": "Bosun is a fan-made helper. Get the game from its publisher or a shop near you, and support the people who made it.",
+    "publisher": {
+      "text": "The publisher of Sail, with the rules and where to buy it."
+    },
+    "shop": {
+      "title": "A shop near you",
+      "text": "A store picked for this page's language, named, with the edition it sells."
+    },
+    "bgg": {
+      "text": "Sail, its forums, and Sail Solitaire by Chuck Rosselli."
+    }
+  },
+  "how": {
+    "eyebrow": "ONE VOYAGE",
+    "title": "How a voyage goes",
+    "lead": "Set up as the rulebook says, then let the app run the Bosun one trick at a time.",
+    "steps": [
+      {
+        "title": "Pick a scenario and a difficulty",
+        "text": "Easy shares two Pirate cards, Medium gives the Bosun its own, Hard gives it none."
+      },
+      {
+        "title": "Tick the table setup",
+        "text": "Nine lines from the rulebook and the variant. Set sail waits until every one is done."
+      },
+      {
+        "title": "Play the trick",
+        "text": "The app says how the Bosun plays: flip until your colour shows, or lead with its top card."
+      },
+      {
+        "title": "Tap the winner and the symbols",
+        "text": "You get the order: where the ship goes, and how often the Kraken attacks."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "WHAT IT REMEMBERS",
+    "title": "Everything the paper rules ask you to remember",
+    "combo": {
+      "title": "Every combo, resolved",
+      "text": "Helm, kraken, tail and cannon pairs, turned into a move and its attacks."
+    },
+    "kraken": {
+      "title": "The Kraken deck, counted",
+      "text": "It knows when the Kraken card comes up, and what the round's end will cost."
+    },
+    "storms": {
+      "title": "Storms and rounds",
+      "text": "The storm checks after rounds II and IV, and who leads each round."
+    },
+    "undo": {
+      "title": "Undo any tap",
+      "text": "A slip at the table is one tap to fix; the ship's log shows every step."
+    },
+    "offline": {
+      "title": "Offline, installable, awake",
+      "text": "Install it to your home screen. It works without a network and keeps the screen on."
+    },
+    "log": {
+      "title": "Captain's log",
+      "text": "Wins and tries for every scenario at every difficulty, kept on your phone."
+    }
+  },
+  "gallery": {
+    "eyebrow": "INSIDE THE APP",
+    "title": "Five steps of a voyage"
+  },
+  "languages": {
+    "title": "Five languages",
+    "lead": "English, Spanish, German, Russian and Serbian in Cyrillic. The app follows your phone, and you can switch at any time. The translations are mostly AI: corrections are welcome."
+  },
+  "install": {
+    "eyebrow": "YOURS TO KEEP",
+    "title": "Install it, or host your own",
+    "phone": {
+      "title": "On your phone",
+      "iphone": "iPhone: open it in Safari, tap Share, then Add to Home Screen.",
+      "android": "Android and desktop Chrome: tap Install on the card on Home."
+    },
+    "host": {
+      "title": "Your own copy",
+      "text": "It's a static app with no server: run the Docker image, or deploy the repository to Vercel."
+    }
+  },
+  "credits": {
+    "game": {
+      "label": "THE GAME",
+      "text": "Sail by Akiyama Koryo and Kozu Yusei, illustrated by Weberson Santiago, published by Allplay."
+    },
+    "variant": {
+      "label": "THE SOLO VARIANT",
+      "text": "Sail Solitaire by Chuck Rosselli, on BoardGameGeek."
+    },
+    "app": {
+      "label": "THIS APP",
+      "text": "An unofficial fan app, not affiliated with Allplay; you need your own copy of Sail. Code under the MIT licence; the game, its rules and art belong to their owners."
+    },
+    "privacy": "No cookies, no accounts. Your voyages stay on your phone."
+  },
+  "shots": {
+    "home": "Home",
+    "rules": "Rules: the combos"
+  }
+}
