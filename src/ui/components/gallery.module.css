@@ -1,0 +1,35 @@
+/* The dev-only kit gallery (KitGallery.tsx). */
+.page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 16px 24px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.section {
+  margin: 12px 0 0;
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.maps {
+  display: flex;
+  justify-content: space-around;
+}

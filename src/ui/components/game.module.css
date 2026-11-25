@@ -1,0 +1,368 @@
+/* The bridge and the bars: Components → HUD · play area, Dock, Action Bar, Action Bar · game,
+   Mini Map. The play area keeps its printed board colours in both themes. */
+
+/* ── Action bar: the one primary action, pinned at the bottom ── */
+.actionBar {
+  position: sticky;
+  z-index: 10;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.actionBar[data-dock='true'] {
+  gap: 6px;
+  padding: 12px 0 env(safe-area-inset-bottom);
+}
+
+.actionBar[data-dock='true'] > .note,
+.actionBar[data-dock='true'] > .action {
+  padding: 0 16px;
+}
+
+.action {
+  /* Room for the button's edge. */
+  padding-bottom: 5px;
+}
+
+.note {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ── Dock: Undo, Log, Rules, Menu ── */
+.dock {
+  display: flex;
+  padding: 2px 12px 0;
+  background: var(--bg);
+}
+
+.dockItem {
+  display: flex;
+  min-width: 0;
+  height: 52px;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.dockItem:active:not(:disabled) {
+  background: var(--surface);
+  color: var(--text-1);
+}
+
+.dockItem:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── HUD: the play-area board ── */
+.hud {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 6px 16px 8px;
+  border-bottom: 2px solid var(--pennant);
+  background: linear-gradient(180deg, var(--play-2), var(--play));
+  color: #231f20;
+}
+
+.board {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tricks {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trackLabel {
+  width: 84px;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track[data-side='bosun'] .trackLabel {
+  color: #22529a;
+}
+
+.cell {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--pennant);
+  color: #ffffffb3;
+  font-family: var(--font-num);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cell[data-won='true'] {
+  background: var(--gold);
+  color: #231f20;
+}
+
+.round {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.diamonds {
+  display: flex;
+  gap: 1px;
+}
+
+/* The zigzag: I, III and V high, II and IV low; a cloud over each storm round. */
+.roundSpace {
+  display: flex;
+  width: 30px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.roundSpace[data-low='true'] {
+  padding-top: 24px;
+}
+
+.roundSpace[data-low='false'] {
+  padding-bottom: 12px;
+}
+
+.roundSpace[data-storm='true'] {
+  padding-top: 0;
+}
+
+.diamond {
+  position: relative;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-num);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.diamond::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px solid #231f20;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+.diamond[data-state='past']::before {
+  background: #231f2026;
+}
+
+.diamond[data-state='now']::before {
+  border-width: 2px;
+  background: var(--gold);
+}
+
+.diamond > span {
+  position: relative;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.captionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.captionValue {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.kraken {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: var(--sea-deep);
+  color: #f4f0c2;
+}
+
+.krakenRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.krakenLabel {
+  flex: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.deck {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.card {
+  width: 8px;
+  height: 13px;
+  flex: none;
+  border: 1px solid #f4f0c2;
+  border-radius: 2px;
+  background: var(--card-face);
+}
+
+.card[data-kind='kraken'] {
+  background: var(--danger);
+}
+
+.card[data-kind='below'] {
+  border-color: #f4f0c2b3;
+  background: none;
+}
+
+.left {
+  min-width: 0;
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: end;
+}
+
+.attacksLabel {
+  min-width: 0;
+  flex: 1;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dial {
+  display: flex;
+  flex: none;
+  gap: 4px;
+}
+
+.dialSpace {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f4f0c2;
+  color: #231f20;
+  font-family: var(--font-num);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.dialSpace[data-now='true'] {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/* ── Mini map: where the ship goes ── */
+.miniMap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.miniSide {
+  color: var(--text-1);
+}
+
+.miniSide[data-side='bosun'] {
+  color: var(--sky);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 28px);
+  gap: 3px;
+}
+
+.miniCell {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1.5px var(--navy);
+  color: var(--text-1);
+}
+
+.miniCell[data-target='true'] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.dockItem > span:first-child,
+.roundSpace > svg {
+  display: flex;
+  flex: none;
+}
