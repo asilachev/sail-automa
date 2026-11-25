@@ -1,0 +1,851 @@
+/* The voyage at the table: design C1 to C9 and the sheets D1 to D6 (~/Graphics/sail-automa.pen,
+   Frame 4). Colours are the tokens in global.css; the board map keeps the printed board's sea. */
+
+.game {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text-1);
+}
+
+.step {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px 16px 14px;
+}
+
+.content[data-roomy='true'] {
+  gap: 20px;
+  padding: 16px 16px 24px;
+}
+
+/* ── Title block ── */
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eyebrow,
+.label {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.labelDanger {
+  composes: label;
+  color: var(--danger);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.sub {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.section {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hint {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.section > .hint:last-child {
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.caption {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.prompt {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.flipsSoFar {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.notice {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--sky-soft);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ── How the Bosun follows / leads ── */
+.howOpen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--edge-surface);
+}
+
+.howHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.howLabel {
+  margin: 0;
+  color: var(--sky);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hide {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  margin: -8px -8px -8px 0;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.howFolded {
+  display: flex;
+  width: 100%;
+  min-height: 58px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--edge-surface);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: start;
+}
+
+.howFolded > span {
+  flex: 1;
+}
+
+.howIcon {
+  flex: none;
+  color: var(--sky);
+}
+
+.howCaret {
+  flex: none;
+  color: var(--text-3);
+}
+
+/* The flipped cards: face up (slate), the one that follows ringed orange, then face down. */
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+}
+
+.cardUp,
+.cardDown {
+  display: flex;
+  width: 30px;
+  height: 42px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.cardUp {
+  background: var(--card-face);
+  box-shadow: inset 0 0 0 1.5px var(--card-edge);
+  color: #f7f3ea99;
+}
+
+.cardUp[data-plays='true'] {
+  box-shadow: inset 0 0 0 2.5px var(--accent);
+  color: var(--accent);
+}
+
+.cardDown {
+  background: var(--card-back);
+  box-shadow: inset 0 0 0 1.5px var(--card-back-ink);
+}
+
+.cardDown > span {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--card-back-ink);
+  border-radius: 8px;
+}
+
+/* ── Trick summary: who took it, the pair, Change ── */
+.summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 4px 0 14px;
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.summaryIcon {
+  display: flex;
+  color: var(--sky);
+}
+
+.summaryIcon[data-side='you'] {
+  color: var(--gold);
+}
+
+.summaryText {
+  min-width: 0;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pairIcons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.linkButton {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── The order card ── */
+.orderCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 4px 0 var(--edge-accent-soft);
+}
+
+.orderHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.orderLabel {
+  margin: 0;
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.orderText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.combo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.orderLine {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.orderHint {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.attackBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+}
+
+.attackText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.attackText > p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.krakenBadge {
+  flex: none;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: var(--danger);
+  color: var(--on-danger);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ── The board map: a strip of the ocean board's diamond grid ── */
+.boardMap {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 326 / 104;
+  border-radius: 12px;
+  border: 1.5px solid #17403f;
+  background: linear-gradient(110deg, #1f9e8e 0%, #62c09a 50%, #b4da8e 100%);
+}
+
+/* The sea's contour lines over the gradient, at the design's 38 %. */
+.boardMap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../assets/art/sea-contours.svg') center / cover;
+  opacity: 0.38;
+}
+
+.boardSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lattice {
+  fill: none;
+  stroke: #f4f0c2;
+  stroke-opacity: 0.7;
+  stroke-width: 1;
+}
+
+.startCell {
+  fill: #17403f73;
+}
+
+.targetCell {
+  fill: #fbf6e3e6;
+  stroke: #f26a3d;
+  stroke-width: 1.5;
+}
+
+.boardArrow {
+  position: absolute;
+  display: flex;
+  color: #f26a3d;
+}
+
+.boardShip {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  transform: translate(-50%, -54%);
+}
+
+.boardMap[data-mirrored='true'] .boardShip img {
+  transform: scaleX(-1);
+}
+
+.boardSide {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  height: 20px;
+  align-items: center;
+  padding: 0 9px;
+  border-radius: 10px;
+  background: #fbf6e3;
+  color: #231f20;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.boardSide[data-side='bosun'] {
+  top: 8px;
+  color: #22529a;
+}
+
+.boardSide[data-side='you'] {
+  bottom: 8px;
+}
+
+.boardMap[data-mirrored='true'] .boardSide {
+  right: auto;
+  left: 10px;
+}
+
+/* ── Did the ship move onto a token? Four small segments, two by two ── */
+.tokens > div > div:last-child {
+  flex-wrap: wrap;
+  row-gap: 13px;
+}
+
+.tokens button {
+  flex: 1 1 calc(50% - 5px);
+  min-height: 44px;
+}
+
+/* ── Pirate note ── */
+.pirate {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px 4px;
+  border-radius: 14px;
+  background: var(--sky-soft);
+}
+
+.pirateHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pirateHead > svg {
+  flex: none;
+  margin-top: 1px;
+  color: var(--sky);
+}
+
+.link {
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sky);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: start;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── C8 · round end ── */
+.attacks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 1.5px var(--danger),
+    0 4px 0 var(--edge-danger-soft);
+}
+
+.attacksLabel {
+  margin: 0;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.attackList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.attackItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.attackItem[data-cycle='true'] {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+}
+
+.attackN {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--danger);
+  color: var(--on-danger);
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.attackBody {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fury {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.fury > svg,
+.furyTo {
+  display: flex;
+  color: var(--danger);
+}
+
+.storm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--edge-surface);
+}
+
+.stormHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stormLabel {
+  margin: 0;
+  color: var(--storm);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stormQ {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ── The result placeholder (#8 builds E1, E2) ── */
+.result {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+/* ── Sheets ── */
+.menuGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 6px;
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.sheetLead {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sheetNote {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.sheetButtons {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0 5px;
+}
+
+.sheetButtons > * {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+/* D4 · Ship's log */
+.logList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logCode {
+  width: 58px;
+  flex: none;
+  padding-top: 1px;
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.logText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.logTitle {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.logDetail {
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.logSymbols {
+  display: flex;
+  flex: none;
+  gap: 2px;
+}
+
+/* D5 · Fix the trackers */
+.stepper {
+  display: flex;
+  min-height: 60px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 14px;
+  border-radius: var(--radius-control);
+  background: var(--bg);
+}
+
+.stepper[data-changed='true'] {
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+
+.stepperBody {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepperLabel {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.stepperHint {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.stepperControl {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepperButton {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text-1);
+}
+
+.stepperButton:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.stepperButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stepperValue {
+  width: 44px;
+  font-family: var(--font-num);
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* D6 · the combos */
+.comboList,
+.cannonList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comboRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.comboRow:last-child {
+  border-bottom: 0;
+}
+
+.comboPair {
+  display: flex;
+  width: 86px;
+  flex: none;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.comboText {
+  min-width: 0;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.comboText[data-quiet='true'] {
+  color: var(--text-2);
+}
+
+.cannonList {
+  gap: 6px;
+}
+
+.cannonRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.35;
+}

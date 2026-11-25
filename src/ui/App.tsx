@@ -13,6 +13,9 @@ import {
   type Lang,
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
+import { openFixture } from './game/fixtureRoute.ts'
+import { Game, type GameLayer } from './game/Game.tsx'
+import { CombosSheet } from './game/Sheets.tsx'
 import { Home } from './home/Home.tsx'
 import { CaptainsLog } from './log/CaptainsLog.tsx'
 import { NavContext, type Nav, type ScreenName } from './nav.ts'
@@ -123,17 +126,24 @@ const SCREENS: readonly ScreenName[] = [
   'settings',
 ]
 
-/** Dev server only: `/?screen=setup` opens on a screen, for visual checks. Never in a build. */
-function devScreen(): ScreenName | null {
+/**
+ * Dev server only: `/?screen=setup` opens on a screen, for visual checks; `/?fixture=orderAttack`
+ * (or `?script=x Yhh`) saves an engine fixture as the voyage and opens the game on it, and
+ * `&layer=menu` opens a sheet on top (game/fixtureRoute.ts). Never in a build.
+ */
+function devScreen(): { screen: ScreenName; layer: GameLayer | null } | null {
   if (!import.meta.env.DEV) return null
+  const fixture = openFixture(location.search)
   const name = new URLSearchParams(location.search).get('screen')
-  return SCREENS.find((s) => s === name) ?? null
+  const screen = SCREENS.find((s) => s === name) ?? (fixture ? 'game' : null)
+  return screen ? { screen, layer: fixture?.layer ?? null } : null
 }
 
 function Shell() {
   // Every launch opens on Home without motion (board 03: moments never replay on a reload).
+  const [dev] = useState(devScreen)
   const [route, setRoute] = useState<Route>(() => ({
-    screen: devScreen() ?? 'home',
+    screen: dev?.screen ?? 'home',
     motion: 'none',
     n: 0,
   }))
@@ -160,7 +170,7 @@ function Shell() {
     <NavContext.Provider value={nav}>
       <InstallProvider offerOnce={route.screen === 'home' && splash === 'off'}>
         <Screen key={route.n} motion={route.motion}>
-          <View screen={route.screen} />
+          <View screen={route.screen} layer={route.n === 0 ? (dev?.layer ?? null) : null} />
         </Screen>
       </InstallProvider>
       {splash === 'off' ? null : <Splash leaving={splash === 'leaving'} />}
@@ -169,8 +179,10 @@ function Shell() {
 }
 
 /** The view for each screen. Screens not built yet show Home. */
-function View({ screen }: { screen: ScreenName }) {
+function View({ screen, layer }: { screen: ScreenName; layer: GameLayer | null }) {
   switch (screen) {
+    case 'game':
+      return <Game initialLayer={layer} />
     case 'newVoyage':
       return <NewVoyage />
     case 'setup':
@@ -183,6 +195,17 @@ function View({ screen }: { screen: ScreenName }) {
       return <Settings />
     case 'home':
     default:
-      return <Home onRules={() => {}} />
+      return <HomeWithRules />
   }
+}
+
+/** Home, whose Rules and rulings row opens the combos (D6), as the game's dock does. */
+function HomeWithRules() {
+  const [rules, setRules] = useState(false)
+  return (
+    <>
+      <Home onRules={() => setRules(true)} />
+      {rules ? <CombosSheet onClose={() => setRules(false)} /> : null}
+    </>
+  )
 }

@@ -66,6 +66,7 @@ You need Node 22 or later (`.nvmrc`). Use npm.
 | Other | What it does |
 | --- | --- |
 | `npm run dev` | Dev server (`-- --host` to open it on a phone on the same Wi-Fi) |
+| Dev-only routes | `/?kit` the component kit; `/?screen=setup` opens a screen; `/?fixture=orderAttack` saves an engine fixture (`src/engine/fixtures.ts → FIXTURES`) as the voyage and opens the game on it, `/?script=x%20Yhh` the same for any fixture script, and `&layer=menu` (or `log`, `rules`, `rulings`, `fix`, `swap`, `end`) opens that sheet on top. Builds leave them out |
 | `npm run site` | The landing page into `_site/`, one page per language (`scripts/build-site.mjs`); fails on a missing text or file. Missing screenshots become marked placeholder tiles with a warning until `SITE_REQUIRE_SHOTS=1`. Preview: `npx vite preview --outDir _site` |
 | `npm run e2e` | Build, then the Playwright smoke test on a 390×844 touch screen (needs Google Chrome; `CHROME_PATH` picks another) |
 | `npm run lint` / `format` / `format:check` / `typecheck` | Oxlint (warnings fail), Prettier (Markdown excluded), `tsc -b` strict |
@@ -84,13 +85,14 @@ src/
   ui/       React UI
     components/  the kit from the design's Components board (index.ts); `/?kit` shows them all on
                  the dev server only
+    game/     the voyage at the table (C1–C9) and its sheets (D1–D6); `/?fixture=` on the dev server
     i18n/     translations: locales/{en,es,de,ru,sr}.json (ICU), loader, t(), typography
     home/     Home (A2, A3), its sea scene, the Language and Credits sheets
     pwa/      install card and iPhone sheet, splash, offline and update toasts, persistent storage
     settings/ Settings (A4)
     state/    preferences (theme, language, wake lock), the saved voyage, storage, wake lock
     styles/   global.css: the design's tokens and fonts
-  test/     shared test setup and helpers (renderApp, saveScript)
+  test/     shared test setup and helpers (renderApp, saveScript, startVoyage, renderGame, playTrick)
 e2e/        Playwright smoke test against the production build
 site/       the landing page: index.html template, styles.css, locales/*.json, shots.json, CNAME
 scripts/    build-site.mjs (the landing page), screenshots.mjs (its app screenshots), gen-icons.mjs
