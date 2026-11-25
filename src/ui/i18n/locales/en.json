@@ -1,0 +1,10 @@
+{
+  "app": {
+    "name": "Bosun",
+    "wordmark": "BOSUN",
+    "sub": "A solo partner for Sail"
+  },
+  "home": {
+    "footer": "Unofficial fan app. You need your own copy of Sail."
+  }
+}

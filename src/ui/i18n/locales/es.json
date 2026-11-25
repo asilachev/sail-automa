@@ -1,0 +1,10 @@
+{
+  "app": {
+    "name": "Contramaestre",
+    "wordmark": "BOSUN",
+    "sub": "Un compañero en solitario para Sail"
+  },
+  "home": {
+    "footer": "App no oficial hecha por fans. Necesitas tu propia copia de Sail."
+  }
+}

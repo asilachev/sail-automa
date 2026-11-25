@@ -1,0 +1,378 @@
+/* Tokens from the design: ~/Graphics/sail-automa.pen → 01 · Tokens (day is the rulebook page,
+   night the card face). Generated once from the design's variables; keep them in step with it. */
+
+/* Bundled and precached fonts, Latin and Cyrillic, SIL OFL, from the @fontsource packages.
+   `block` instead of `swap`: no reflow when they arrive. */
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/bitter/files/bitter-latin-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/bitter/files/bitter-latin-ext-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/bitter/files/bitter-cyrillic-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Bitter';
+  font-style: normal;
+  font-display: block;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/bitter/files/bitter-cyrillic-ext-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 400;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-latin-400-normal.woff2')
+    format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 500;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-latin-500-normal.woff2')
+    format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 600;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-latin-600-normal.woff2')
+    format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 700;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-latin-700-normal.woff2')
+    format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 400;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-cyrillic-400-normal.woff2')
+    format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 500;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-cyrillic-500-normal.woff2')
+    format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 600;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-cyrillic-600-normal.woff2')
+    format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Fira Sans Condensed';
+  font-style: normal;
+  font-display: block;
+  font-weight: 700;
+  src: url('../../../node_modules/@fontsource/fira-sans-condensed/files/fira-sans-condensed-cyrillic-700-normal.woff2')
+    format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+:root {
+  color-scheme: light;
+  --font-display: 'Bitter', Georgia, serif;
+  --font-num: 'Bitter', Georgia, serif;
+  --font-body: 'Fira Sans Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --radius-chip: 12px;
+  --radius-control: 14px;
+  --radius-card: 18px;
+  --radius-sheet: 26px;
+  --motion-push: 240ms;
+  --motion-fade: 160ms;
+  --motion-sheet-in: 280ms;
+  --motion-sheet-out: 180ms;
+  --motion-dialog-in: 200ms;
+  --motion-dialog-out: 140ms;
+  --motion-dialog-guard: 300ms;
+  --motion-toast-in: 200ms;
+  --motion-toast-out: 160ms;
+  --motion-toast-hold: 2400ms;
+  --motion-toast-hold-undo: 4000ms;
+  --motion-reduced: 120ms;
+  --motion-flip: 420ms;
+  --motion-sail: 520ms;
+  --motion-attack: 360ms;
+  --motion-pip: 200ms;
+  --motion-tick: 160ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-settle: cubic-bezier(0.3, 1.35, 0.5, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-press: 90ms;
+  --motion-release: 160ms;
+  --bg: #ffffff;
+  --surface: #eef9fe;
+  --surface-2: #d2f0fc;
+  --line: #cfe3ea;
+  --text-1: #231f20;
+  --text-2: #55575a;
+  --text-3: #7a7c80;
+  --accent: #f26a3d;
+  --on-accent: #231f20;
+  --accent-soft: #f26a3d1f;
+  --gold: #f2cf3a;
+  --on-gold: #231f20;
+  --gold-soft: #f2cf3a40;
+  --danger: #d9342b;
+  --on-danger: #ffffff;
+  --danger-soft: #d9342b14;
+  --sky: #22529a;
+  --sky-soft: #22529a14;
+  --storm: #23504f;
+  --card-face: #50696a;
+  --card-edge: #3d5455;
+  --scrim: #231f2080;
+  --panel: #9ce1f9;
+  --accent-text: #b8441c;
+  --navy: #22529a;
+  --on-navy: #ffffff;
+  --on-card: #f7f3ea;
+  --sea-light: #9ad39a;
+  --sea: #3fb49a;
+  --sea-deep: #23504f;
+  --contour: #f4f0c2;
+  --play: #dce87e;
+  --play-2: #c6dd69;
+  --kraken-token: #eae56c;
+  --island: #a0673f;
+  --pennant: #161414;
+  --card-back: #b4532a;
+  --card-back-ink: #2d8a82;
+  --gold-text: #7a5d00;
+  --edge-accent: #b8491f;
+  --edge-danger: #a3241d;
+  --edge-line: #b5d3de;
+  --edge-surface: #c3dfea;
+  --edge-card: #2e4445;
+  --edge-ink: #000000;
+  --edge-accent-soft: #e7b9a6;
+  --edge-gold: #d9bc3a;
+  --edge-hero: #17403f;
+  --edge-panel: #74c3de;
+  --bevel: #ffffff66;
+  --bevel-soft: #ffffff2e;
+  --edge-danger-soft: #edbeb9;
+}
+
+/* Night: the card face. Auto follows the phone; Settings can pin day or night (data-theme). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='day']) {
+    color-scheme: dark;
+    --bg: #22383a;
+    --surface: #2c4446;
+    --surface-2: #385355;
+    --line: #46625f;
+    --text-1: #f7f3ea;
+    --text-2: #c3d3d1;
+    --text-3: #93a9a7;
+    --accent: #f7804f;
+    --on-accent: #231f20;
+    --accent-soft: #f7804f26;
+    --gold: #f2cf3a;
+    --on-gold: #231f20;
+    --gold-soft: #f2cf3a33;
+    --danger: #f0644f;
+    --on-danger: #231f20;
+    --danger-soft: #f0644f26;
+    --sky: #9ce1f9;
+    --sky-soft: #9ce1f926;
+    --storm: #a9c4c2;
+    --card-face: #50696a;
+    --card-edge: #6c8788;
+    --scrim: #000000a6;
+    --panel: #2d5966;
+    --accent-text: #f7804f;
+    --navy: #9ce1f9;
+    --on-navy: #231f20;
+    --on-card: #f7f3ea;
+    --sea-light: #6fb98a;
+    --sea: #2e9c88;
+    --sea-deep: #163b3a;
+    --contour: #e9e6b6;
+    --play: #b9c866;
+    --play-2: #a6b957;
+    --kraken-token: #e3de63;
+    --island: #a0673f;
+    --pennant: #0e0c0c;
+    --card-back: #b4532a;
+    --card-back-ink: #2d8a82;
+    --gold-text: #f2cf3a;
+    --edge-accent: #b04a22;
+    --edge-danger: #b03e2e;
+    --edge-line: #132426;
+    --edge-surface: #182b2d;
+    --edge-card: #152628;
+    --edge-ink: #b9b3a3;
+    --edge-accent-soft: #8c5238;
+    --edge-gold: #7c6d22;
+    --edge-hero: #0e2a29;
+    --edge-panel: #1b3a44;
+    --bevel: #ffffff40;
+    --bevel-soft: #ffffff24;
+    --edge-danger-soft: #7b3b31;
+  }
+}
+:root[data-theme='night'] {
+  color-scheme: dark;
+  --bg: #22383a;
+  --surface: #2c4446;
+  --surface-2: #385355;
+  --line: #46625f;
+  --text-1: #f7f3ea;
+  --text-2: #c3d3d1;
+  --text-3: #93a9a7;
+  --accent: #f7804f;
+  --on-accent: #231f20;
+  --accent-soft: #f7804f26;
+  --gold: #f2cf3a;
+  --on-gold: #231f20;
+  --gold-soft: #f2cf3a33;
+  --danger: #f0644f;
+  --on-danger: #231f20;
+  --danger-soft: #f0644f26;
+  --sky: #9ce1f9;
+  --sky-soft: #9ce1f926;
+  --storm: #a9c4c2;
+  --card-face: #50696a;
+  --card-edge: #6c8788;
+  --scrim: #000000a6;
+  --panel: #2d5966;
+  --accent-text: #f7804f;
+  --navy: #9ce1f9;
+  --on-navy: #231f20;
+  --on-card: #f7f3ea;
+  --sea-light: #6fb98a;
+  --sea: #2e9c88;
+  --sea-deep: #163b3a;
+  --contour: #e9e6b6;
+  --play: #b9c866;
+  --play-2: #a6b957;
+  --kraken-token: #e3de63;
+  --island: #a0673f;
+  --pennant: #0e0c0c;
+  --card-back: #b4532a;
+  --card-back-ink: #2d8a82;
+  --gold-text: #f2cf3a;
+  --edge-accent: #b04a22;
+  --edge-danger: #b03e2e;
+  --edge-line: #132426;
+  --edge-surface: #182b2d;
+  --edge-card: #152628;
+  --edge-ink: #b9b3a3;
+  --edge-accent-soft: #8c5238;
+  --edge-gold: #7c6d22;
+  --edge-hero: #0e2a29;
+  --edge-panel: #1b3a44;
+  --bevel: #ffffff40;
+  --bevel-soft: #ffffff24;
+  --edge-danger-soft: #7b3b31;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
