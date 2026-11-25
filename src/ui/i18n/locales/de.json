@@ -6,5 +6,56 @@
   },
   "home": {
     "footer": "Inoffizielle Fan-App. Du brauchst dein eigenes Sail."
+  },
+  "common": {
+    "you": "Du",
+    "bosun": "Bootsmann",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "closeTitle": "{title} schließen",
+    "dismiss": "Ausblenden"
+  },
+  "theme": {
+    "label": "Design",
+    "auto": "Auto",
+    "day": "Tag",
+    "night": "Nacht"
+  },
+  "dock": {
+    "label": "Werkzeuge der Fahrt",
+    "undo": "Zurück",
+    "log": "Protokoll",
+    "rules": "Regeln",
+    "menu": "Menü"
+  },
+  "hud": {
+    "label": "Spielbereich",
+    "tricks": "{side}: {n} von 4 Stichen",
+    "round": "RUNDE",
+    "of": "von V",
+    "krakenDeck": "KRAKENSTAPEL",
+    "left": "{n, plural, one {noch # Karte} other {noch # Karten}}",
+    "attacks": "Angriffe bei Rundenende",
+    "skull": "Totenkopf"
+  },
+  "symbols": {
+    "helm": "Steuerrad",
+    "helmKraken": "Steuer & Krake",
+    "tail": "Flosse",
+    "cannon": "Kanone"
+  },
+  "miniMap": {
+    "bosun": "Zum Bootsmann",
+    "you": "Zu dir",
+    "straight": "Ein Feld geradeaus"
+  },
+  "install": {
+    "title": "App installieren",
+    "sub": "Vollbild, offline, Bildschirm bleibt an.",
+    "button": "Installieren"
+  },
+  "ruling": {
+    "default": "STANDARD",
+    "change": "Ändern"
   }
 }

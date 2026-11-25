@@ -80,9 +80,11 @@ caching in step with `docker/nginx.conf` and `docker/security-headers.inc`.
 src/
   engine/   pure TypeScript: scenarios, the voyage's state and events, orders, the Kraken deck
   ui/       React UI
+    components/  the kit from the design's Components board (index.ts); `/?kit` shows them all on
+                 the dev server only
     i18n/     translations: locales/{en,es,de,ru,sr}.json (ICU), loader, t(), typography
     pwa/      install prompt, splash, persistent storage
-    state/    preferences, storage, wake lock
+    state/    preferences (theme, language, wake lock), the saved voyage, storage, wake lock
     styles/   global.css: the design's tokens and fonts
   test/     shared test setup
 e2e/        Playwright smoke test against the production build

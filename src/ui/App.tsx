@@ -1,50 +1,150 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import { Screen } from './components/Screen.tsx'
+import { Toaster } from './components/Toaster.tsx'
 import {
+  browserLanguages,
+  detectLang,
   I18nContext,
   LANGS,
   loadCatalog,
+  loadedCatalog,
   translatorFor,
+  useT,
   type I18n,
   type Lang,
 } from './i18n/index.ts'
-import { loadPrefs, savePrefs } from './state/prefs.ts'
-import { browserLanguages, detectLang } from './i18n/index.ts'
+import type { ScreenMotion } from './motion.ts'
+import { NavContext, type Nav, type ScreenName } from './nav.ts'
+import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
+import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
+import { applyTheme } from './state/theme.ts'
 import styles from './app.module.css'
 
+/** The kit gallery for visual checks, `/?kit`: only on the dev server, never in a build. */
+const KitGallery = import.meta.env.DEV
+  ? lazy(() => import('./components/KitGallery.tsx').then((m) => ({ default: m.KitGallery })))
+  : null
+
 /**
- * The app shell. For now it shows the wordmark: the screens come one issue at a time, from the
- * design (~/Graphics/sail-automa.pen, sections A to F).
+ * The app shell: preferences (language, theme), translations and toasts around the current
+ * screen. The screens come one issue at a time, from the design (~/Graphics/sail-automa.pen,
+ * sections A to F); each adds its view to `View`.
  */
 export function App() {
-  const [lang, setLangState] = useState<Lang>(
-    () => loadPrefs().language ?? detectLang(browserLanguages()),
+  const [prefs, setPrefs] = useState<Prefs>(loadPrefs)
+  const update = useCallback<PrefsApi['update']>(
+    (change) =>
+      setPrefs((prev) => {
+        const next = { ...prev, ...change }
+        savePrefs(next)
+        return next
+      }),
+    [],
   )
+  const prefsApi = useMemo<PrefsApi>(() => ({ prefs, update }), [prefs, update])
 
+  // Auto follows the phone, live; day and night pin it.
+  useEffect(() => {
+    applyTheme(prefs.theme)
+    if (prefs.theme !== 'auto' || typeof window.matchMedia !== 'function') return
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const onChange = () => applyTheme('auto')
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [prefs.theme])
+
+  const preferred = prefs.language ?? detectLang(browserLanguages())
+  // A language's file is loaded before it goes on screen, so text never flashes in English.
+  const [lang, setLang] = useState<Lang>(() => (loadedCatalog(preferred) ? preferred : 'en'))
+  useEffect(() => {
+    if (lang === preferred) return
+    let cancelled = false
+    loadCatalog(preferred)
+      .then(() => {
+        if (!cancelled) setLang(preferred)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [lang, preferred])
+  const i18n = useMemo<I18n>(
+    () => ({ lang, t: translatorFor(lang), setLang: (language) => update({ language }) }),
+    [lang, update],
+  )
   useEffect(() => {
     document.documentElement.lang = LANGS.find((l) => l.code === lang)?.tag ?? lang
   }, [lang])
 
-  const i18n = useMemo<I18n>(
-    () => ({
-      lang,
-      t: translatorFor(lang),
-      setLang(next) {
-        void loadCatalog(next).then(() => {
-          savePrefs({ ...loadPrefs(), language: next })
-          setLangState(next)
-        })
-      },
-    }),
-    [lang],
-  )
+  // iOS Safari plays :active (the PRESS state) only once the page listens for touches.
+  useEffect(() => {
+    const noop = () => {}
+    document.addEventListener('touchstart', noop, { passive: true })
+    return () => document.removeEventListener('touchstart', noop)
+  }, [])
 
   return (
-    <I18nContext.Provider value={i18n}>
-      <main className={styles.shell} aria-label={i18n.t('app.name')}>
-        <h1 className={styles.wordmark}>{i18n.t('app.wordmark')}</h1>
-        <p className={styles.sub}>{i18n.t('app.sub')}</p>
-        <p className={styles.footer}>{i18n.t('home.footer')}</p>
-      </main>
-    </I18nContext.Provider>
+    <PrefsContext.Provider value={prefsApi}>
+      <I18nContext.Provider value={i18n}>
+        <Toaster>
+          <Shell />
+        </Toaster>
+      </I18nContext.Provider>
+    </PrefsContext.Provider>
+  )
+}
+
+interface Route {
+  readonly screen: ScreenName
+  readonly motion: ScreenMotion
+  /** Counts navigations, so going to the same screen again still remounts it. */
+  readonly n: number
+}
+
+function Shell() {
+  // Every launch opens on Home without motion (board 03: moments never replay on a reload).
+  const [route, setRoute] = useState<Route>({ screen: 'home', motion: 'none', n: 0 })
+  const nav = useMemo<Nav>(
+    () => ({
+      screen: route.screen,
+      go: (screen, motion = 'fade') => setRoute((r) => ({ screen, motion, n: r.n + 1 })),
+    }),
+    [route.screen],
+  )
+
+  if (KitGallery && new URLSearchParams(location.search).has('kit'))
+    return (
+      <Suspense fallback={null}>
+        <KitGallery />
+      </Suspense>
+    )
+
+  return (
+    <NavContext.Provider value={nav}>
+      <Screen key={route.n} motion={route.motion}>
+        <View screen={route.screen} />
+      </Screen>
+    </NavContext.Provider>
+  )
+}
+
+/** The view for each screen. Screens not built yet show Home. */
+function View({ screen }: { screen: ScreenName }) {
+  switch (screen) {
+    case 'home':
+    default:
+      return <HomePlaceholder />
+  }
+}
+
+/** Stands in for Home (design A2) until its issue builds it. */
+function HomePlaceholder() {
+  const t = useT()
+  return (
+    <main className={styles.shell} aria-label={t('app.name')}>
+      <h1 className={styles.wordmark}>{t('app.wordmark')}</h1>
+      <p className={styles.sub}>{t('app.sub')}</p>
+      <p className={styles.footer}>{t('home.footer')}</p>
+    </main>
   )
 }

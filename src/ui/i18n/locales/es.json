@@ -6,5 +6,56 @@
   },
   "home": {
     "footer": "App no oficial hecha por fans. Necesitas tu propia copia de Sail."
+  },
+  "common": {
+    "you": "Tú",
+    "bosun": "Contramaestre",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "closeTitle": "Cerrar {title}",
+    "dismiss": "Descartar"
+  },
+  "theme": {
+    "label": "Tema",
+    "auto": "Auto",
+    "day": "Día",
+    "night": "Noche"
+  },
+  "dock": {
+    "label": "Herramientas de la travesía",
+    "undo": "Deshacer",
+    "log": "Registro",
+    "rules": "Reglas",
+    "menu": "Menú"
+  },
+  "hud": {
+    "label": "Zona de juego",
+    "tricks": "{side}: {n} de 4 bazas",
+    "round": "RONDA",
+    "of": "de V",
+    "krakenDeck": "MAZO KRAKEN",
+    "left": "{n, plural, one {queda # carta} other {quedan # cartas}}",
+    "attacks": "Ataques al final de ronda",
+    "skull": "Calavera"
+  },
+  "symbols": {
+    "helm": "Timón",
+    "helmKraken": "Timón y kraken",
+    "tail": "Cola",
+    "cannon": "Cañón"
+  },
+  "miniMap": {
+    "bosun": "Hacia el contramaestre",
+    "you": "Hacia ti",
+    "straight": "Una casilla recto"
+  },
+  "install": {
+    "title": "Instala la app",
+    "sub": "Pantalla completa, sin conexión, pantalla encendida.",
+    "button": "Instalar"
+  },
+  "ruling": {
+    "default": "POR DEFECTO",
+    "change": "Cambiar"
   }
 }
