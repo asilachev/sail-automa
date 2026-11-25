@@ -14,7 +14,9 @@ import {
   type Lang,
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
+import { CaptainsLog } from './log/CaptainsLog.tsx'
 import { NavContext, type Nav, type ScreenName } from './nav.ts'
+import { VoyageEnd } from './result/VoyageEnd.tsx'
 import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
@@ -103,7 +105,15 @@ interface Route {
   readonly n: number
 }
 
-const SCREENS: readonly ScreenName[] = ['home', 'newVoyage', 'setup', 'game', 'log', 'settings']
+const SCREENS: readonly ScreenName[] = [
+  'home',
+  'newVoyage',
+  'setup',
+  'game',
+  'result',
+  'log',
+  'settings',
+]
 
 /** Dev server only: `/?screen=setup` opens on a screen, for visual checks. Never in a build. */
 function devScreen(): ScreenName | null {
@@ -150,6 +160,10 @@ function View({ screen }: { screen: ScreenName }) {
       return <NewVoyage />
     case 'setup':
       return <Setup />
+    case 'result':
+      return <VoyageEnd />
+    case 'log':
+      return <CaptainsLog />
     case 'home':
     default:
       return <HomePlaceholder />

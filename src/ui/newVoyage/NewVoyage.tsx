@@ -23,6 +23,7 @@ import {
 import { useT } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
 import { saveLastSettings } from '../state/lastSettings.ts'
+import { useCaptainsLog } from '../state/history.ts'
 import { useVoyage } from '../state/useVoyage.ts'
 import { BackBar } from './BackBar.tsx'
 import styles from './newVoyage.module.css'
@@ -38,6 +39,7 @@ export function NewVoyage() {
   const t = useT()
   const nav = useNav()
   const { voyage, end } = useVoyage()
+  const { record } = useCaptainsLog()
   const [settings, setSettings] = useState<Settings>(draftSettings)
   const [rulingsOpen, setRulingsOpen] = useState(false)
   // A finished voyage needs no asking; one in progress does (design 00: ending and abandoning ask).
@@ -154,6 +156,8 @@ export function NewVoyage() {
           body={t('abandon.body')}
           confirmLabel={t('abandon.yes')}
           onConfirm={() => {
+            // It goes into the captain's log as unfinished, as the dialog says (#8).
+            if (voyage) record(voyage)
             end()
             setAsking(false)
           }}
