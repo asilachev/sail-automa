@@ -1,0 +1,145 @@
+/* New voyage, Set up the table (design B1–B3, B5; night N3). */
+
+.page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.backBar {
+  display: flex;
+  padding: max(4px, env(safe-area-inset-top)) 8px 4px;
+}
+
+.back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.back:active {
+  background: var(--surface);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 24px;
+  padding: 4px 16px 24px;
+}
+
+.content[data-tight='true'] {
+  gap: 18px;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.sub {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* The group's own gap holds the edge room; the hint sits right under it. */
+.hint {
+  margin: -5px 0 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.eyebrow {
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.checklist {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.line {
+  display: block;
+}
+
+.rulingsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lead {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* The design draws the rulings as page-coloured cards on the sheet's surface (B4). */
+.rulingsList {
+  --surface: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* B1 draws the six scenario chips on one line: 44 px numbers, Learning filling the rest. */
+.scenarios [data-wrap='true'] {
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.scenarios [aria-pressed] {
+  width: 44px;
+}
+
+.scenarios [aria-pressed][data-wide='true'] {
+  min-width: 0;
+  flex: 1;
+  padding: 0 6px;
+}
+
+/* Under a row with no group around it: the section's own gap. */
+.hint[data-after='row'] {
+  margin-top: 0;
+}
