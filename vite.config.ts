@@ -14,7 +14,10 @@ export default defineConfig({
     // waits for RELOAD (prompt mode) instead of reloading mid-game.
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      // The icon set comes from `npm run icons` (scripts/gen-icons.mjs, design board 05).
+      includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png'],
+      // workbox.globPatterns already precaches the icons, minus the 1024 px one below.
+      includeManifestIcons: false,
       manifest: {
         name: 'Bosun: a solo partner for Sail',
         short_name: 'Bosun',
@@ -31,11 +34,15 @@ export default defineConfig({
         icons: [
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'pwa-1024x1024.png', sizes: '1024x1024', type: 'image/png' },
+          { src: 'maskable-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
           { src: 'maskable-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,jpg,woff2,webmanifest}'],
+        // The 1024 px icon is for stores and splash generators, not worth precaching (300 KB).
+        globIgnores: ['**/pwa-1024x1024.png'],
         navigateFallback: 'index.html',
       },
     }),
