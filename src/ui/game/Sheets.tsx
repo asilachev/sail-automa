@@ -8,6 +8,7 @@ import {
   Minus,
   Plus,
   Scroll,
+  Users,
   Wrench,
   XCircle,
 } from '@phosphor-icons/react'
@@ -34,7 +35,7 @@ import {
   ToggleRow,
 } from '../components/index.ts'
 import { LANGS, useI18n, useT } from '../i18n/index.ts'
-import { LanguageSheet } from '../home/Sheets.tsx'
+import { CreditsSheet, LanguageSheet } from '../home/Sheets.tsx'
 import { usePrefs } from '../state/PrefsContext.ts'
 import { THEMES, type Theme } from '../state/prefs.ts'
 import styles from './game.module.css'
@@ -61,7 +62,7 @@ export function MenuSheet({
   const t = useT()
   const { lang } = useI18n()
   const { prefs, update } = usePrefs()
-  const [inner, setInner] = useState<'language' | 'theme' | null>(null)
+  const [inner, setInner] = useState<'language' | 'theme' | 'credits' | null>(null)
   return (
     <>
       <Sheet title={t('gameMenu.title')} onClose={onClose}>
@@ -127,6 +128,11 @@ export function MenuSheet({
                   value={t(`theme.${prefs.theme}`)}
                   onClick={() => setInner('theme')}
                 />
+                <ListRow
+                  icon={<Users size={20} weight="fill" />}
+                  label={t('home.credits')}
+                  onClick={() => setInner('credits')}
+                />
               </div>
             </>
           )
@@ -134,6 +140,7 @@ export function MenuSheet({
       </Sheet>
       {inner === 'language' ? <LanguageSheet onClose={() => setInner(null)} /> : null}
       {inner === 'theme' ? <ThemeSheet onClose={() => setInner(null)} /> : null}
+      {inner === 'credits' ? <CreditsSheet onClose={() => setInner(null)} /> : null}
     </>
   )
 }
