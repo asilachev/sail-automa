@@ -3,9 +3,6 @@ import { Button } from './components/Button.tsx'
 import { numeral } from './components/pieces.ts'
 import { Screen } from './components/Screen.tsx'
 import { Toaster } from './components/Toaster.tsx'
-import { openFixture } from './game/fixtureRoute.ts'
-import { Game, type GameLayer } from './game/Game.tsx'
-import { Result } from './game/Result.tsx'
 import {
   browserLanguages,
   detectLang,
@@ -19,12 +16,17 @@ import {
   type Lang,
 } from './i18n/index.ts'
 import type { ScreenMotion } from './motion.ts'
+import { openFixture } from './game/fixtureRoute.ts'
+import { Game, type GameLayer } from './game/Game.tsx'
+import { CaptainsLog } from './log/CaptainsLog.tsx'
 import { NavContext, useNav, type Nav, type ScreenName } from './nav.ts'
+import { VoyageEnd } from './result/VoyageEnd.tsx'
 import { PrefsContext, type PrefsApi } from './state/PrefsContext.ts'
 import { loadPrefs, savePrefs, type Prefs } from './state/prefs.ts'
 import { applyTheme } from './state/theme.ts'
 import { useVoyage } from './state/useVoyage.ts'
-import { useVoyageContext, VoyageContext } from './state/VoyageContext.ts'
+import { NewVoyage } from './newVoyage/NewVoyage.tsx'
+import { Setup } from './newVoyage/Setup.tsx'
 import styles from './app.module.css'
 
 /** The kit gallery for visual checks, `/?kit`: only on the dev server, never in a build. */
@@ -108,19 +110,37 @@ interface Route {
   readonly n: number
 }
 
+const SCREENS: readonly ScreenName[] = [
+  'home',
+  'newVoyage',
+  'setup',
+  'game',
+  'result',
+  'log',
+  'settings',
+]
+
+/**
+ * Dev server only: `/?screen=setup` opens on a screen, for visual checks; `/?fixture=orderAttack`
+ * (or `?script=x Yhh`) saves an engine fixture as the voyage and opens the game on it, and
+ * `&layer=menu` opens a sheet on top (game/fixtureRoute.ts). Never in a build.
+ */
+function devScreen(): { screen: ScreenName; layer: GameLayer | null } | null {
+  if (!import.meta.env.DEV) return null
+  const fixture = openFixture(location.search)
+  const name = new URLSearchParams(location.search).get('screen')
+  const screen = SCREENS.find((s) => s === name) ?? (fixture ? 'game' : null)
+  return screen ? { screen, layer: fixture?.layer ?? null } : null
+}
+
 function Shell() {
-  // The dev-only fixture route, `/?fixture=orderAttack`: saves the fixture before the voyage
-  // loads, and opens the game on it (game/fixtureRoute.ts). Never in a build.
-  const [fixture] = useState<{ layer: GameLayer | null } | null>(() =>
-    import.meta.env.DEV ? openFixture(location.search) : null,
-  )
-  const voyage = useVoyage()
   // Every launch opens on Home without motion (board 03: moments never replay on a reload).
-  const [route, setRoute] = useState<Route>({
-    screen: fixture ? 'game' : 'home',
+  const [dev] = useState(devScreen)
+  const [route, setRoute] = useState<Route>(() => ({
+    screen: dev?.screen ?? 'home',
     motion: 'none',
     n: 0,
-  })
+  }))
   const nav = useMemo<Nav>(
     () => ({
       screen: route.screen,
@@ -137,23 +157,27 @@ function Shell() {
     )
 
   return (
-    <VoyageContext.Provider value={voyage}>
-      <NavContext.Provider value={nav}>
-        <Screen key={route.n} motion={route.motion}>
-          <View screen={route.screen} gameLayer={route.n === 0 ? (fixture?.layer ?? null) : null} />
-        </Screen>
-      </NavContext.Provider>
-    </VoyageContext.Provider>
+    <NavContext.Provider value={nav}>
+      <Screen key={route.n} motion={route.motion}>
+        <View screen={route.screen} layer={route.n === 0 ? (dev?.layer ?? null) : null} />
+      </Screen>
+    </NavContext.Provider>
   )
 }
 
 /** The view for each screen. Screens not built yet show Home. */
-function View({ screen, gameLayer }: { screen: ScreenName; gameLayer: GameLayer | null }) {
+function View({ screen, layer }: { screen: ScreenName; layer: GameLayer | null }) {
   switch (screen) {
     case 'game':
-      return <Game initialLayer={gameLayer} />
+      return <Game initialLayer={layer} />
+    case 'newVoyage':
+      return <NewVoyage />
+    case 'setup':
+      return <Setup />
     case 'result':
-      return <Result />
+      return <VoyageEnd />
+    case 'log':
+      return <CaptainsLog />
     case 'home':
     default:
       return <HomePlaceholder />
@@ -162,12 +186,12 @@ function View({ screen, gameLayer }: { screen: ScreenName; gameLayer: GameLayer 
 
 /**
  * Stands in for Home (design A2) until its issue (#5) builds it: the wordmark, and Continue when
- * a voyage is saved, so the game (#7) can be reached.
+ * a voyage is saved, and New voyage, so the game (#7) can be reached.
  */
 function HomePlaceholder() {
   const t = useT()
   const nav = useNav()
-  const { voyage } = useVoyageContext()
+  const { voyage } = useVoyage()
   return (
     <main className={styles.shell} aria-label={t('app.name')}>
       <h1 className={styles.wordmark}>{t('app.wordmark')}</h1>
@@ -177,6 +201,9 @@ function HomePlaceholder() {
           {t('game.continue', { round: numeral(voyage.state.round) })}
         </Button>
       ) : null}
+      <Button variant="secondary" onClick={() => nav.go('newVoyage', 'push')}>
+        {t('game.newVoyage')}
+      </Button>
       <p className={styles.footer}>{t('home.footer')}</p>
     </main>
   )

@@ -5,16 +5,16 @@ import { Dialog, Dock, Hud, useToasts } from '../components/index.ts'
 import { useT } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
 import { usePrefs } from '../state/PrefsContext.ts'
-import { useVoyageContext } from '../state/VoyageContext.ts'
+import { useCaptainsLog } from '../state/history.ts'
+import { useVoyage } from '../state/useVoyage.ts'
+import { RulingsSheet } from '../newVoyage/RulingsSheet.tsx'
 import { useWakeLock } from '../state/useWakeLock.ts'
-import { voyageEnded } from './ended.ts'
 import styles from './game.module.css'
 import {
   CannonWheelSheet,
   CombosSheet,
   FixTrackersSheet,
   MenuSheet,
-  RulingsSheet,
   ShipsLogSheet,
   type MenuTarget,
 } from './Sheets.tsx'
@@ -40,7 +40,8 @@ export function Game({ initialLayer = null }: { initialLayer?: GameLayer | null 
   const t = useT()
   const nav = useNav()
   const toasts = useToasts()
-  const api = useVoyageContext()
+  const api = useVoyage()
+  const { record } = useCaptainsLog()
   const { prefs } = usePrefs()
   const [layer, setLayer] = useState<GameLayer | null>(initialLayer)
   // The picks to show again after Change on the order (screen-only).
@@ -177,7 +178,8 @@ export function Game({ initialLayer = null }: { initialLayer?: GameLayer | null 
           body={t('gameMenu.endBody')}
           confirmLabel={t('gameMenu.endYes')}
           onConfirm={() => {
-            voyageEnded(voyage)
+            // The captain's log notes it as unfinished before the save is cleared (#8).
+            record(voyage)
             api.end()
             nav.go('home', 'back')
           }}

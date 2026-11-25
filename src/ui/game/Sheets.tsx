@@ -15,12 +15,9 @@ import { useState } from 'react'
 import {
   canApply,
   changedRulings,
-  DEFAULT_RULINGS,
-  RULING_KEYS,
   TRACK,
   trackers,
   type CardSymbol,
-  type Rulings,
   type Trackers,
   type TrackIndex,
   type VoyageEvent,
@@ -31,14 +28,13 @@ import {
   LanguageRow,
   ListRow,
   Picture,
-  RulingRow,
   SegmentGroup,
   Sheet,
   Step,
   Steps,
   ToggleRow,
 } from '../components/index.ts'
-import { LANGS, useI18n, useT, type Translate } from '../i18n/index.ts'
+import { LANGS, useI18n, useT } from '../i18n/index.ts'
 import { usePrefs } from '../state/PrefsContext.ts'
 import { THEMES, type Theme } from '../state/prefs.ts'
 import styles from './game.module.css'
@@ -183,47 +179,6 @@ function ThemeSheet({ onClose }: { onClose: () => void }) {
         onChange={(theme) => update({ theme })}
       />
       <p className={styles.sheetNote}>{t('gameMenu.themeNote')}</p>
-    </Sheet>
-  )
-}
-
-// ── B4, read-only · this voyage's rulings ──────────────────────────────────────────────────
-
-const RULING_NUMBER: Readonly<Record<keyof Rulings, number>> = {
-  pastEnd: 1,
-  bosunPirate: 2,
-  cannonWheel: 3,
-  shortDeal: 4,
-  fourthTrick: 5,
-}
-
-/** The answer's words for a ruling's value (docs/automa.md → Rulings). */
-function rulingAnswer(t: Translate, key: keyof Rulings, rulings: Rulings): string {
-  const n = RULING_NUMBER[key]
-  const isDefault = rulings[key] === DEFAULT_RULINGS[key]
-  return isDefault
-    ? t(`voyageRulings.r${n}a` as 'voyageRulings.r1a')
-    : t(`voyageRulings.r${n}alt` as 'voyageRulings.r1alt')
-}
-
-/** This voyage's rulings, as New voyage set them (B4, read-only: they're fixed for the voyage). */
-export function RulingsSheet({ rulings, onClose }: { rulings: Rulings; onClose: () => void }) {
-  const t = useT()
-  return (
-    <Sheet title={t('voyageRulings.title')} onClose={onClose}>
-      <p className={styles.sheetLead}>{t('voyageRulings.lead')}</p>
-      {RULING_KEYS.map((key) => {
-        const n = RULING_NUMBER[key]
-        return (
-          <RulingRow
-            key={key}
-            question={t(`voyageRulings.r${n}q` as 'voyageRulings.r1q')}
-            answer={rulingAnswer(t, key, rulings)}
-            source={t(`voyageRulings.r${n}s` as 'voyageRulings.r1s')}
-            isDefault={rulings[key] === DEFAULT_RULINGS[key]}
-          />
-        )
-      })}
     </Sheet>
   )
 }
