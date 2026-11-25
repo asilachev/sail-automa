@@ -32,3 +32,6 @@ npm-debug.log*
 
 
 .screenshots/
+
+# Vercel CLI link (vercel link)
+.vercel/

@@ -9,7 +9,7 @@ it, so Claude Code, Codex and any other agent read the same rules.
 | --- | --- |
 | **What** | Bosun: a phone-first PWA that runs Chuck Rosselli's Sail Solitaire, so one person can play the board game Sail solo with the physical game |
 | **Visibility** | public |
-| **Live** | landing page `bosun.silachev.com` (GitHub Pages, `.github/workflows/pages.yml` on push to `master`); app `app.bosun.silachev.com` (Vercel's Git integration on push to `master`); image `ghcr.io/asilachev/sail-automa` (`docker.yml`). Not live yet: the owner adds the DNS and connects Vercel |
+| **Live** | landing page `bosun.silachev.com` (GitHub Pages: `pages.yml` deploys on push to `master`); app `app.bosun.silachev.com` (Vercel project `sail-automa`, also at `sail-automa.vercel.app`; deploys on push to `master` once Vercel's GitHub connection is on, until then `vercel deploy --prod`); image `ghcr.io/asilachev/sail-automa` (`docker.yml`). Both custom domains wait for the owner's DNS records |
 | **Autonomy** | ship |
 | **Footprint** | full |
 | **Stays here** | nothing beyond the core rules |
@@ -61,7 +61,7 @@ You need Node 22 or later (`.nvmrc`). Use npm.
 | `test` | `npm test` (Vitest: the `engine` project on Node, the `ui` project on jsdom) |
 | `build` | `npm run build` |
 | `shots` | `npm run site:shots`: the app screenshots the landing page shows (`site/shots.json`), into `.screenshots/<lang>/`; the flows that reach each screen come with #12 |
-| `live` | none yet (the owner connects the hosts) |
+| `live` | `npm run live`: both addresses answer, the app's shell, assets, manifest and headers, and every landing page language linking the app (`-- --app <url> --site <url>` to check other addresses) |
 
 | Other | What it does |
 | --- | --- |
