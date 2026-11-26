@@ -16,6 +16,7 @@
  * | `e`            | round end done                                                        |
  * | `d`            | new deal done                                                         |
  * | `fix:a,b,t,p`  | fix the trackers: above, below, track (0–3), player deck              |
+ * | `fix:a,b,t,p,r,y,b` | the same, and the round (1–5) and the tricks, yours and the Bosun's |
  *
  * Symbols: `h` helm, `k` helm & kraken, `t` tail, `c` cannon. Any token takes `*n` to repeat it:
  * `Y!*4` is four quiet tricks you win.
@@ -23,7 +24,15 @@
 import type { TrackIndex } from './kraken.ts'
 import type { CardSymbol } from './orders.ts'
 import { DEFAULT_SETTINGS, type Settings } from './settings.ts'
-import { replay, type Side, type Token, type VoyageEvent, type VoyageState } from './voyage.ts'
+import {
+  replay,
+  type FixEvent,
+  type Round,
+  type Side,
+  type Token,
+  type VoyageEvent,
+  type VoyageState,
+} from './voyage.ts'
 
 const SYMBOL: Readonly<Record<string, CardSymbol>> = {
   h: 'helm',
@@ -57,15 +66,18 @@ function parseToken(token: string): VoyageEvent[] {
       },
     ]
   }
-  const fix = /^fix:(\d+),(\d+),(\d+),(\d+)$/.exec(token)
+  const fix = /^fix:(\d+),(\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?$/.exec(token)
   if (fix) {
-    const [above, below, track, playerDeck] = fix.slice(1).map(Number) as [
+    const [above, below, track, playerDeck] = fix.slice(1, 5).map(Number) as [
       number,
       number,
       number,
       number,
     ]
-    return [{ type: 'fix', above, below, track: track as TrackIndex, playerDeck }]
+    const event: FixEvent = { type: 'fix', above, below, track: track as TrackIndex, playerDeck }
+    if (fix[5] === undefined) return [event]
+    const [round, you, bosun] = fix.slice(5).map(Number) as [number, number, number]
+    return [{ ...event, round: round as Round, tricks: { you, bosun } }]
   }
   if (/^f[hktc]$/.test(token)) return [{ type: 'flip', symbol: symbolOf(token[1], token) }]
   const ship = /^@([okep])$/.exec(token)
@@ -140,7 +152,16 @@ export const FIXTURES = {
   /** Cannon + Cannon, then Tail: move straight; did the ship land on a token? */
   cannonTail: { script: 'x Ycc ft' },
   /** The Bosun won and has the Cannon + Wheel pirate: offer its swap. */
-  bosunCannonWheel: { script: 'x Bhh', settings: { bosunCannonWheel: true } },
+  bosunCannonWheel: { script: 'x Bhh', settings: { cannonWheel: 'bosun' } },
+  /** The Bosun won on Hard, you hold the Cannon + Wheel, any winner may use it: its swap. */
+  yourCannonWheelAnyWinner: {
+    script: 'x Bhh',
+    settings: {
+      difficulty: 'hard',
+      cannonWheel: 'you',
+      rulings: { ...DEFAULT_SETTINGS.rulings, cannonWheel: 'anyWinner' },
+    },
+  },
   /** Round I ends: three attacks, no storm check. */
   roundEnd: { script: QUIET_ROUND },
   /** Round II ends: attacks, then the storm check. */
@@ -157,6 +178,8 @@ export const FIXTURES = {
   lostPastEnd: { script: 'x Ytt @p .' },
   /** The trackers fixed by hand during trick 1. */
   fixed: { script: 'x fix:4,1,1,3' },
+  /** The round and the tricks fixed by hand: round III, trick 5 after 2 tricks each. */
+  fixedRound: { script: 'x Y!*2 fix:6,0,0,3,3,2,2' },
 } as const satisfies Record<string, { script: string; settings?: Partial<Settings> }>
 
 export type FixtureName = keyof typeof FIXTURES

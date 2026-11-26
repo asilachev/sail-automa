@@ -21,7 +21,7 @@ import {
 } from './kraken.ts'
 import { cannonAction, pairAction, type CardSymbol, type Move } from './orders.ts'
 import { scenario } from './scenarios.ts'
-import { bosunHasCannonWheel, type Settings } from './settings.ts'
+import { cannonWheelHolder, type CannonWheel, type Settings } from './settings.ts'
 
 export type Side = 'you' | 'bosun'
 export const SIDES: readonly Side[] = ['you', 'bosun']
@@ -41,12 +41,23 @@ export const NUMBERED_CARDS = 27
 
 /** The trackers Fix the trackers sets (design D5). */
 export interface Trackers {
+  /** The round disc, I to V (#31). */
+  readonly round: Round
+  /** The trick cubes: 0 to 3 each while the round is in progress (#31). */
+  readonly tricks: Readonly<Record<Side, number>>
   readonly above: number
   readonly below: number
   /** The Kraken meeple's space, 0 to 3 (the skull would already have lost). */
   readonly track: TrackIndex
   readonly playerDeck: number
 }
+
+/**
+ * The `fix` event. The round and the tricks came with #31: a `fix` saved before them has neither,
+ * and leaves them as they are.
+ */
+export type FixEvent = { readonly type: 'fix' } & Omit<Trackers, 'round' | 'tricks'> &
+  Partial<Pick<Trackers, 'round' | 'tricks'>>
 
 export type VoyageEvent =
   | { readonly type: 'exchange' }
@@ -65,7 +76,7 @@ export type VoyageEvent =
   | { readonly type: 'storm'; readonly passed: boolean }
   | { readonly type: 'roundEndDone' }
   | { readonly type: 'dealt' }
-  | ({ readonly type: 'fix' } & Trackers)
+  | FixEvent
 
 export type LoseReason = 'roundFive' | 'storm' | 'krakenAlone' | 'skull' | 'pastEnd'
 
@@ -215,7 +226,12 @@ export interface PirateView {
   readonly mayUse: boolean
   /** Ruling 2: you decide for the Bosun. */
   readonly decidedBy: 'you'
-  /** The winner may use the Bosun's Cannon + Wheel pirate (ruling 3). */
+  /** Who holds the Cannon + Wheel pirate on this difficulty (`cannonWheelHolder`, #22). */
+  readonly holder: CannonWheel
+  /**
+   * The winner may use the Cannon + Wheel's action: its holder (or either side, when it's in
+   * Easy's shared pair) always; the other side too under ruling 3's "any trick winner".
+   */
   readonly cannonWheel: boolean
   /** The Bosun may use it: offer the special note's swap (screen-only, no event). */
   readonly swap: boolean
@@ -265,16 +281,20 @@ function endsRound(state: VoyageState): boolean {
   )
 }
 
+/**
+ * Who may use a Pirate card, and the Cannon + Wheel (docs/automa.md → Difficulty, Pirate cards;
+ * rulings 2 and 3). Whenever the Bosun may use the Cannon + Wheel, it does so through the
+ * variant's special note: its own, the shared pair's, or yours under "any trick winner" (#22).
+ */
 function pirateView(settings: Settings, winner: Side): PirateView {
-  const cw = bosunHasCannonWheel(settings)
-  const cannonWheel =
-    winner === 'bosun'
-      ? cw
-      : cw && (settings.difficulty === 'easy' || settings.rulings.cannonWheel === 'anyWinner')
+  const holder = cannonWheelHolder(settings)
+  const owns = holder === 'shared' || holder === winner
+  const cannonWheel = holder !== 'none' && (owns || settings.rulings.cannonWheel === 'anyWinner')
   return {
     winner,
     mayUse: settings.difficulty !== 'hard' || winner === 'you',
     decidedBy: settings.rulings.bosunPirate,
+    holder,
     cannonWheel,
     swap: winner === 'bosun' && cannonWheel,
   }
@@ -474,6 +494,8 @@ export function hud(state: VoyageState): Hud {
 
 /** The trackers as Fix the trackers shows them. */
 export const trackers = (state: VoyageState): Trackers => ({
+  round: state.round,
+  tricks: state.tricks,
   above: state.kraken.above,
   below: state.kraken.below,
   track: state.kraken.track,
@@ -659,11 +681,50 @@ function roundEndDone(state: VoyageState, event: VoyageEvent): VoyageState {
 
 const isCount = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= 0
 
-/** Fix the trackers (design D5): make the app match the table. */
-function fix(state: VoyageState, event: Extract<VoyageEvent, { type: 'fix' }>): VoyageState {
+/**
+ * Fix the trackers may change the trick cubes while the round is in progress: at the exchange,
+ * a trick or an order, before anyone has won a fourth trick (#31). Once the round is ending (a
+ * fourth trick's order, the round end, the deal) they stay as they are.
+ */
+export function canFixTricks(state: VoyageState): boolean {
+  const inProgress =
+    state.phase === 'exchange' || state.phase === 'trick' || state.phase === 'order'
+  return inProgress && state.tricks.you < TRICKS_TO_END && state.tricks.bosun < TRICKS_TO_END
+}
+
+/**
+ * The most tricks both cubes may show in all, after a fix: the cards each player was dealt, less
+ * one before an order (a trick needs cards left to play); at an order, its trick is counted.
+ */
+export const maxFixedTricks = (state: VoyageState): number =>
+  state.phase === 'order' ? state.cardsEach : state.cardsEach - 1
+
+const sameTricks = (a: Trackers['tricks'], b: Trackers['tricks']): boolean =>
+  a.you === b.you && a.bosun === b.bosun
+
+/**
+ * Fix the trackers (design D5): make the app match the table. It never decides a win or a loss:
+ * the step it leaves the voyage at does that, as usual (#31).
+ */
+function fix(state: VoyageState, event: FixEvent): VoyageState {
   const { above, below, track, playerDeck } = event
+  // A fix saved before #31 has no round or tricks: they stay.
+  const round = event.round ?? state.round
+  const tricks = event.tricks ?? state.tricks
   if (![above, below, track, playerDeck].every(isCount)) {
     throw new VoyageRuleError('Trackers are whole numbers, 0 or more')
+  }
+  if (!isCount(round) || round < 1 || round > ROUNDS) {
+    throw new VoyageRuleError(`The round is I to ${ROUNDS}`)
+  }
+  if (!sameTricks(tricks, state.tricks)) {
+    if (!canFixTricks(state)) throw new VoyageRuleError('The tricks change only mid-round')
+    if (![tricks.you, tricks.bosun].every((n) => isCount(n) && n < TRICKS_TO_END)) {
+      throw new VoyageRuleError('Each trick cube shows 0 to 3 mid-round')
+    }
+    if (tricks.you + tricks.bosun > maxFixedTricks(state)) {
+      throw new VoyageRuleError('More tricks than the cards dealt allow')
+    }
   }
   if (track > 3) throw new VoyageRuleError('The Kraken stands on 3, 3, 4 or 5')
   if (above + below === 0) {
@@ -673,11 +734,13 @@ function fix(state: VoyageState, event: Extract<VoyageEvent, { type: 'fix' }>): 
     throw new VoyageRuleError(`The game has ${NUMBERED_CARDS} numbered cards`)
   }
   const before = trackers(state)
-  const after: Trackers = { above, below, track, playerDeck }
+  const after: Trackers = { round, tricks: { ...tricks }, above, below, track, playerDeck }
   return {
     ...state,
+    round,
+    tricks: after.tricks,
     kraken: { above, below, track },
     playerDeck,
-    log: log(state, { kind: 'fix', round: state.round, before, after }),
+    log: log(state, { kind: 'fix', round, before, after }),
   }
 }

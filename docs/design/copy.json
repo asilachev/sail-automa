@@ -1008,11 +1008,11 @@
     "sr": "Одговорите на проверу олује"
   },
   "t.end.furyFirst": {
-    "en": "From now on, 3 attacks at each round end.",
-    "es": "Desde ahora, 3 ataques al final de cada ronda.",
-    "de": "Ab jetzt 3 Angriffe bei jedem Rundenende.",
-    "ru": "Теперь 3 атаки в конце каждого раунда.",
-    "sr": "Од сада 3 напада на крају сваке рунде."
+    "en": "The Kraken moves to the next space: still 3 attacks at each round end.",
+    "es": "El kraken pasa a la siguiente casilla: siguen siendo 3 ataques al final de cada ronda.",
+    "de": "Die Krake rückt ein Feld weiter: weiterhin 3 Angriffe bei jedem Rundenende.",
+    "ru": "Кракен переходит на следующую ячейку: по-прежнему 3 атаки в конце каждого раунда.",
+    "sr": "Кракен прелази на следеће поље: и даље 3 напада на крају сваке рунде."
   },
   "t.deal.title": {
     "en": "ROUND III · NEW DEAL",
@@ -2051,11 +2051,11 @@
     "sr": "II · крај"
   },
   "t.x.041": {
-    "en": "Kraken ×3, its card cycled: 3× → 4×",
-    "es": "Kraken ×3, su carta dio la vuelta: 3× → 4×",
-    "de": "Krake ×3, ihre Karte rotierte: 3× → 4×",
-    "ru": "Кракен ×3, его карта ушла вниз: 3× → 4×",
-    "sr": "Кракен ×3, његова карта је отишла на дно: 3× → 4×"
+    "en": "Kraken ×3, then it moved one space along its track: now 4 attacks",
+    "es": "Kraken ×3, luego avanzó una casilla en su tablero: ahora 4 ataques",
+    "de": "Krake ×3, dann zog sie ein Feld auf der Krakenleiste weiter: jetzt 4 Angriffe",
+    "ru": "Кракен ×3, затем фигурка сдвинулась на одну ячейку: теперь 4 атаки",
+    "sr": "Кракен ×3, затим је прешао једно поље даље: сада 4 напада"
   },
   "t.x.042": {
     "en": "Storm passed",

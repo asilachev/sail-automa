@@ -60,11 +60,23 @@ describe('Set up the table: the lines (docs/rules.md → Setup; docs/automa.md �
   it('lays out the Pirate cards by difficulty on line 3 (docs/automa.md → Difficulty)', () => {
     expect(lines({ difficulty: 'easy' })[2]).toBe('Pirate cards: two, shared, beside the board.')
     expect(lines({ difficulty: 'medium' })[2]).toBe('Pirate cards: one for you, one for the Bosun.')
-    expect(lines({ difficulty: 'medium', bosunCannonWheel: true })[2]).toBe(
+    expect(lines({ difficulty: 'medium', cannonWheel: 'bosun' })[2]).toBe(
       'Pirate cards: one for you, the Cannon + Wheel for the Bosun.',
     )
-    expect(lines({ difficulty: 'hard', bosunCannonWheel: true })[2]).toBe(
+    expect(lines({ difficulty: 'hard', cannonWheel: 'bosun' })[2]).toBe(
       'Pirate card: one for you. The Bosun has none.',
+    )
+  })
+
+  it('lays out the Cannon + Wheel where its holder sits (#22)', () => {
+    expect(lines({ difficulty: 'easy', cannonWheel: 'shared' })[2]).toBe(
+      'Pirate cards: two, shared, beside the board; one is the Cannon + Wheel.',
+    )
+    expect(lines({ difficulty: 'medium', cannonWheel: 'you' })[2]).toBe(
+      'Pirate cards: the Cannon + Wheel for you, one for the Bosun.',
+    )
+    expect(lines({ difficulty: 'hard', cannonWheel: 'you' })[2]).toBe(
+      'Pirate card: the Cannon + Wheel for you. The Bosun has none.',
     )
   })
 

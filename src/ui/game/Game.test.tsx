@@ -1,7 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { fixture, fromScript } from '../../engine/index.ts'
+import { DEFAULT_RULINGS, fixture, fromScript } from '../../engine/index.ts'
 import { playTrick, renderGame } from '../../test/game.tsx'
 import { loadLog } from '../state/history.ts'
 import { loadVoyage, VOYAGE_KEY } from '../state/voyage.ts'
@@ -111,6 +111,32 @@ describe('the order (C5)', () => {
   it('reminds nothing for the Bosun on Hard, where it has no Pirate card', () => {
     renderGame(fromScript('x Bkh', { difficulty: 'hard' }))
     expect(screen.queryByText(/may use its Pirate card/)).not.toBeInTheDocument()
+  })
+
+  it('ruling 3, any trick winner: the Bosun may use your Cannon + Wheel by its swap (#22)', () => {
+    renderGame(fixture('yourCannonWheelAnyWinner'))
+    expect(
+      screen.getByText('The Bosun won: it may use your Cannon + Wheel. You decide for it.'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Using Cannon + Wheel? Follow its swap' }),
+    ).toBeInTheDocument()
+  })
+
+  it('ruling 3, only its owner: you holding it, the Bosun gets no swap', () => {
+    renderGame(fromScript('x Bkh', { cannonWheel: 'you' }))
+    expect(
+      screen.getByText('The Bosun won: it may use its Pirate card. You decide for it.'),
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Follow its swap/ })).not.toBeInTheDocument()
+  })
+
+  it('ruling 3, any trick winner: you may use the Bosun’s Cannon + Wheel when you win', () => {
+    const anyWinner = { ...DEFAULT_RULINGS, cannonWheel: 'anyWinner' } as const
+    renderGame(fromScript('x Ykh', { cannonWheel: 'bosun', rulings: anyWinner }))
+    expect(
+      screen.getByText('You won: you may use your Pirate card or the Bosun’s Cannon + Wheel.'),
+    ).toBeInTheDocument()
   })
 
   it('walks through the Bosun’s Cannon + Wheel swap (C7)', async () => {
@@ -323,7 +349,15 @@ describe('the ship’s log (D4) and Fix the trackers (D5)', () => {
       within(sheet).getByRole('button', { name: 'Fewer: Cards above the Kraken card' }),
     )
     await user.click(save)
-    expect(events().at(-1)).toEqual({ type: 'fix', above: 5, below: 0, track: 0, playerDeck: 3 })
+    expect(events().at(-1)).toEqual({
+      type: 'fix',
+      round: 1,
+      tricks: { you: 0, bosun: 0 },
+      above: 5,
+      below: 0,
+      track: 0,
+      playerDeck: 3,
+    })
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
     await user.click(screen.getByRole('button', { name: 'Log' }))
     const log = screen.getByRole('dialog', { name: 'SHIP’S LOG' })
@@ -332,6 +366,44 @@ describe('the ship’s log (D4) and Fix the trackers (D5)', () => {
     await user.click(screen.getByRole('button', { name: 'Undo' }))
     expect(await screen.findByText('Undone: the tracker fix')).toBeInTheDocument()
     expect(events().some((e) => e.type === 'fix')).toBe(false)
+  })
+
+  it('fixes the round and both trick counts (D5, #31)', async () => {
+    const user = userEvent.setup()
+    renderGame(fromScript('x Y!'))
+    await user.click(screen.getByRole('button', { name: 'Menu' }))
+    await user.click(screen.getByRole('button', { name: 'Fix the trackers' }))
+    const sheet = await screen.findByRole('dialog', { name: 'FIX THE TRACKERS' })
+    expect(within(sheet).getByText('ROUND AND TRICKS')).toBeInTheDocument()
+    const round = within(sheet).getByRole('group', { name: 'Round' })
+    expect(round).toHaveTextContent(/^RoundI$/)
+    await user.click(within(sheet).getByRole('button', { name: 'More: Round' }))
+    await user.click(within(sheet).getByRole('button', { name: 'More: Round' }))
+    expect(round).toHaveTextContent(/^RoundIII$/)
+    await user.click(within(sheet).getByRole('button', { name: 'More: Tricks · Bosun' }))
+    await user.click(within(sheet).getByRole('button', { name: 'More: Tricks · You' }))
+    await user.click(within(sheet).getByRole('button', { name: 'More: Tricks · You' }))
+    // Each trick cube stops at 3 mid-round.
+    expect(within(sheet).getByRole('button', { name: 'More: Tricks · You' })).toBeDisabled()
+    await user.click(within(sheet).getByRole('button', { name: 'Save fixes' }))
+    expect(events().at(-1)).toMatchObject({ round: 3, tricks: { you: 3, bosun: 1 } })
+    expect(heading()).toHaveTextContent('TRICK 5')
+    await user.click(screen.getByRole('button', { name: 'Log' }))
+    const log = screen.getByRole('dialog', { name: 'SHIP’S LOG' })
+    expect(within(log).getAllByRole('listitem')[0]).toHaveTextContent('Round III · tricks 3–1')
+  })
+
+  it('keeps the tricks as they are once the round is ending (#31)', async () => {
+    const user = userEvent.setup()
+    renderGame(fromScript('x Y!*4'))
+    await user.click(screen.getByRole('button', { name: 'Menu' }))
+    await user.click(screen.getByRole('button', { name: 'Fix the trackers' }))
+    const sheet = await screen.findByRole('dialog', { name: 'FIX THE TRACKERS' })
+    for (const side of ['You', 'Bosun']) {
+      expect(within(sheet).getByRole('button', { name: `More: Tricks · ${side}` })).toBeDisabled()
+      expect(within(sheet).getByRole('button', { name: `Fewer: Tricks · ${side}` })).toBeDisabled()
+    }
+    expect(within(sheet).getByRole('button', { name: 'More: Round' })).toBeEnabled()
   })
 
   it('won’t save a Kraken deck with no numbered card', async () => {

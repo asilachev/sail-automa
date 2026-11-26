@@ -3,8 +3,10 @@ import { useState } from 'react'
 import {
   RULING_KEYS,
   SCENARIOS,
-  bosunHasCannonWheel,
+  cannonWheelHolder,
+  cannonWheelOptions,
   changedRulings,
+  type CannonWheel,
   type Difficulty,
   type ScenarioId,
   type Seat,
@@ -18,7 +20,6 @@ import {
   ListRow,
   OptionCards,
   SegmentGroup,
-  ToggleRow,
 } from '../components/index.ts'
 import { useT } from '../i18n/index.ts'
 import { useNav } from '../nav.ts'
@@ -32,7 +33,7 @@ import { draftSettings } from './texts.ts'
 
 /**
  * B1 · New voyage (B5 on Hard): the scenario (Learning and 1 to 5, docs/decisions.md), your seat,
- * the difficulty, the Bosun's Cannon + Wheel pirate and the rulings (B4). It starts from the last
+ * the difficulty, who holds the Cannon + Wheel pirate (#22) and the rulings (B4). It starts from the last
  * voyage's settings. When a voyage is saved, it first asks to abandon it (D7).
  */
 export function NewVoyage() {
@@ -102,18 +103,23 @@ export function NewVoyage() {
           onChange={(difficulty) => set({ difficulty })}
         />
 
-        <div className={styles.section} role="group" aria-labelledby="new-voyage-pirate">
-          <span id="new-voyage-pirate" className={styles.eyebrow}>
-            {t('newVoyage.pirate')}
-          </span>
-          {/* On Hard the Bosun has no Pirate card (docs/automa.md → Difficulty): greyed, B5. */}
-          <ToggleRow
-            label={t('newVoyage.cw')}
-            hint={t('newVoyage.cwHint')}
-            checked={bosunHasCannonWheel(settings)}
-            disabled={hard}
-            onChange={(bosunCannonWheel) => set({ bosunCannonWheel })}
+        <div className={styles.section}>
+          {/*
+           * Who holds the Cannon + Wheel (#22), from the difficulty's holders: on Easy it is in
+           * the shared pair or not; on Hard the Bosun has no Pirate card (B5's note).
+           */}
+          <SegmentGroup<CannonWheel>
+            label={t('newVoyage.cwHolder')}
+            showLabel
+            size="small"
+            options={cannonWheelOptions(settings.difficulty).map((value) => ({
+              value,
+              label: t('newVoyage.cwOption', { holder: value }),
+            }))}
+            value={cannonWheelHolder(settings)}
+            onChange={(cannonWheel) => set({ cannonWheel })}
           />
+          <p className={styles.hint}>{t('newVoyage.cwHolderHint')}</p>
           {hard ? (
             <p className={styles.hint} data-after="row">
               {t('newVoyage.hardNote')}
@@ -134,7 +140,7 @@ export function NewVoyage() {
           iconEnd={<ArrowRight size={20} weight="fill" aria-hidden />}
           onClick={() => {
             // Set up the table reads them back, also after a reload.
-            saveLastSettings(settings)
+            saveLastSettings({ ...settings, cannonWheel: cannonWheelHolder(settings) })
             nav.go('setup', 'push')
           }}
         >

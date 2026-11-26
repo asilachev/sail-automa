@@ -380,27 +380,97 @@ describe('Pirate cards (docs/automa.md → Difficulty; rulings 2 and 3)', () => 
   })
 
   it('offers the Cannon + Wheel swap when the Bosun wins and has that pirate', () => {
-    expect(order('x Bhh', { bosunCannonWheel: true }).pirate).toMatchObject({
+    expect(order('x Bhh', { cannonWheel: 'bosun' }).pirate).toMatchObject({
+      holder: 'bosun',
       cannonWheel: true,
       swap: true,
     })
     expect(order('x Bhh').pirate.swap).toBe(false)
-    expect(order('x Yhh', { bosunCannonWheel: true }).pirate.swap).toBe(false)
-    expect(order('x Bhh', { bosunCannonWheel: true, difficulty: 'hard' }).pirate.swap).toBe(false)
+    expect(order('x Yhh', { cannonWheel: 'bosun' }).pirate.swap).toBe(false)
+  })
+})
+
+/**
+ * Ruling 3 (docs/automa.md → Rulings) × who holds the Cannon + Wheel pirate (#22). `cannonWheel`
+ * says the trick's winner may use its action; `swap` that the Bosun does, by the special note.
+ */
+describe('ruling 3: who may use the Cannon + Wheel action', () => {
+  const owner = rulings({ cannonWheel: 'owner' })
+  const anyWinner = rulings({ cannonWheel: 'anyWinner' })
+  const pirate = (winner: 'Y' | 'B', settings: Partial<Settings>) =>
+    order(`x ${winner}hh`, settings).pirate
+
+  it('nobody holds it: nobody uses it, under either option', () => {
+    for (const r of [owner, anyWinner]) {
+      for (const w of ['Y', 'B'] as const) {
+        expect(pirate(w, { cannonWheel: 'none', ...r })).toMatchObject({
+          holder: 'none',
+          cannonWheel: false,
+          swap: false,
+        })
+      }
+    }
   })
 
-  it('ruling 3, default: only its owner uses the Cannon + Wheel action', () => {
-    expect(order('x Yhh', { bosunCannonWheel: true }).pirate.cannonWheel).toBe(false)
+  it('only its owner, the Bosun holds it: the Bosun uses it when it wins, you don’t', () => {
+    const s = { cannonWheel: 'bosun', ...owner } as const
+    expect(pirate('B', s)).toMatchObject({ cannonWheel: true, swap: true })
+    expect(pirate('Y', s)).toMatchObject({ cannonWheel: false, swap: false })
   })
 
-  it('ruling 3, alternative: any trick winner may use it', () => {
-    const s = { bosunCannonWheel: true, ...rulings({ cannonWheel: 'anyWinner' }) }
-    expect(order('x Yhh', s).pirate.cannonWheel).toBe(true)
+  it('only its owner, you hold it: you use it when you win; the Bosun never swaps', () => {
+    const s = { cannonWheel: 'you', ...owner } as const
+    expect(pirate('Y', s)).toMatchObject({ holder: 'you', cannonWheel: true, swap: false })
+    expect(pirate('B', s)).toMatchObject({ cannonWheel: false, swap: false })
   })
 
-  it('Easy shares the Cannon + Wheel pirate with whoever wins', () => {
-    const s = { bosunCannonWheel: true, difficulty: 'easy' } as const
-    expect(order('x Yhh', s).pirate).toMatchObject({ cannonWheel: true, swap: false })
+  it('any trick winner, the Bosun holds it: you may use it too when you win', () => {
+    const s = { cannonWheel: 'bosun', ...anyWinner } as const
+    expect(pirate('Y', s)).toMatchObject({ cannonWheel: true, swap: false })
+    expect(pirate('B', s)).toMatchObject({ cannonWheel: true, swap: true })
+  })
+
+  it('any trick winner, you hold it: the Bosun uses yours by the special note when it wins', () => {
+    const s = { cannonWheel: 'you', ...anyWinner } as const
+    expect(pirate('B', s)).toMatchObject({ holder: 'you', cannonWheel: true, swap: true })
+    expect(pirate('Y', s)).toMatchObject({ cannonWheel: true, swap: false })
+  })
+
+  it('Easy: in the shared pair, whoever wins may use it, under either option', () => {
+    for (const r of [owner, anyWinner]) {
+      const s = { difficulty: 'easy', cannonWheel: 'shared', ...r } as const
+      expect(pirate('Y', s)).toMatchObject({ holder: 'shared', cannonWheel: true, swap: false })
+      expect(pirate('B', s)).toMatchObject({ holder: 'shared', cannonWheel: true, swap: true })
+    }
+  })
+
+  it('Easy: an old save’s Bosun holder means the shared pair', () => {
+    const s = { difficulty: 'easy', cannonWheel: 'bosun' } as const
+    expect(pirate('Y', s)).toMatchObject({ holder: 'shared', cannonWheel: true })
+  })
+
+  it('Hard: the Bosun can’t hold it, so a Bosun holder means nobody', () => {
+    const s = { difficulty: 'hard', cannonWheel: 'bosun', ...anyWinner } as const
+    expect(pirate('B', s)).toMatchObject({ holder: 'none', cannonWheel: false, swap: false })
+  })
+
+  it('Hard, you hold it: only you under its default; the Bosun swaps under any trick winner', () => {
+    const hard = { difficulty: 'hard', cannonWheel: 'you' } as const
+    expect(pirate('Y', { ...hard, ...owner })).toMatchObject({ cannonWheel: true, swap: false })
+    expect(pirate('B', { ...hard, ...owner })).toMatchObject({
+      mayUse: false,
+      cannonWheel: false,
+      swap: false,
+    })
+    expect(pirate('B', { ...hard, ...anyWinner })).toMatchObject({
+      mayUse: false,
+      cannonWheel: true,
+      swap: true,
+    })
+  })
+
+  it('Medium: the shared pair isn’t offered, so it means nobody', () => {
+    expect(pirate('B', { cannonWheel: 'shared' })).toMatchObject({ holder: 'none', swap: false })
   })
 })
 
@@ -446,12 +516,76 @@ describe('fix the trackers (design D5)', () => {
   })
 
   it('logs what changed', () => {
+    const tricks = { you: 0, bosun: 0 }
     expect(shipsLog(play('x fix:4,1,1,2'))[0]).toEqual({
       kind: 'fix',
       round: 1,
-      before: { above: 6, below: 0, track: 0, playerDeck: 3 },
-      after: { above: 4, below: 1, track: 1, playerDeck: 2 },
+      before: { round: 1, tricks, above: 6, below: 0, track: 0, playerDeck: 3 },
+      after: { round: 1, tricks, above: 4, below: 1, track: 1, playerDeck: 2 },
     })
+  })
+
+  it('a fix without the round and the tricks (saved before #31) leaves them as they are', () => {
+    const s = play('x Y! B! fix:4,1,1,2')
+    expect(hud(s)).toMatchObject({ round: 1, tricks: { you: 1, bosun: 1 } })
+  })
+
+  it('sets the round and both trick counts (#31)', () => {
+    const s = play('x Y! fix:6,0,0,3,3,2,1')
+    expect(hud(s)).toMatchObject({ round: 3, tricks: { you: 2, bosun: 1 } })
+    expect(currentStep(s)).toMatchObject({ kind: 'trick', round: 3, trick: 4 })
+    expect(shipsLog(s)[0]).toMatchObject({
+      kind: 'fix',
+      round: 3,
+      before: { round: 1, tricks: { you: 1, bosun: 0 } },
+      after: { round: 3, tricks: { you: 2, bosun: 1 } },
+    })
+  })
+
+  it('the round is I to V', () => {
+    expect(hud(play('x fix:6,0,0,3,5,0,0')).round).toBe(5)
+    rejects('x fix:6,0,0,3,0,0,0')
+    rejects('x fix:6,0,0,3,6,0,0')
+  })
+
+  it('each trick cube shows 0 to 3 while the round is in progress', () => {
+    expect(hud(play('x fix:6,0,0,3,1,3,3')).tricks).toEqual({ you: 3, bosun: 3 })
+    rejects('x fix:6,0,0,3,1,4,0')
+    rejects('x fix:6,0,0,3,1,0,4')
+  })
+
+  it('the tricks fit in the cards dealt: fewer than cards each before a trick', () => {
+    // 24 cards, less round I's three attacks: 21, so 3 each (ruling 4), so at most 2 tricks played before the next one.
+    const short = 'x fix:24,0,0,0 Y!*4 e d x'
+    expect(currentStep(play(short))).toMatchObject({ kind: 'trick', round: 2 })
+    expect(hud(play(`${short} fix:21,0,0,0,2,1,1`)).tricks).toEqual({ you: 1, bosun: 1 })
+    rejects(`${short} fix:21,0,0,0,2,2,1`)
+  })
+
+  it('at an order, its trick is counted: the tricks may reach the cards each', () => {
+    const short = 'x fix:24,0,0,0 Y!*4 e d x Y! Yhh'
+    expect(hud(play(`${short} fix:21,0,0,0,2,2,1`)).tricks).toEqual({ you: 2, bosun: 1 })
+    expect(step(`${short} fix:21,0,0,0,2,2,1`)).toMatchObject({
+      kind: 'order',
+      order: { endsRound: true },
+    })
+  })
+
+  it('the tricks stay as they are once the round is ending', () => {
+    // The fourth trick's order, the round end and the deal.
+    for (const at of ['x Y!*3 Yhh', 'x Y!*4', 'x Y!*4 e']) {
+      const t = hud(play(at)).tricks
+      expect(() => play(`${at} fix:6,0,0,3,1,${t.you},${t.bosun}`), at).not.toThrow()
+      rejects(`${at} fix:6,0,0,3,1,1,1`)
+    }
+  })
+
+  it('never decides a win or a loss', () => {
+    // Round V, with the tricks one short of the end: still a trick to play.
+    expect(step('x fix:6,0,0,3,5,3,3')).toMatchObject({ kind: 'trick', round: 5, trick: 7 })
+    // Round V's end loses only once its round end is done.
+    expect(step('x Y!*4 fix:6,0,0,3,5,4,0')).toMatchObject({ kind: 'roundEnd', round: 5 })
+    expect(step('x Y!*4 fix:6,0,0,3,5,4,0 e')).toMatchObject({ kind: 'lost', reason: 'roundFive' })
   })
 
   it('works at any step of a voyage in progress', () => {

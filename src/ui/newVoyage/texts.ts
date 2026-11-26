@@ -1,7 +1,7 @@
 import {
   DEFAULT_SETTINGS,
   RULING_OPTIONS,
-  bosunHasCannonWheel,
+  cannonWheelHolder,
   scenario,
   type Rulings,
   type Settings,
@@ -24,8 +24,10 @@ export function nextOption<K extends keyof Rulings>(key: K, value: Rulings[K]): 
 
 /** Which Pirate cards to lay out (docs/automa.md → Difficulty), and the Cannon + Wheel's place. */
 function pirates(settings: Settings): string {
-  if (settings.difficulty === 'hard') return 'hard'
-  return bosunHasCannonWheel(settings) ? `${settings.difficulty}Cw` : settings.difficulty
+  const holder = cannonWheelHolder(settings)
+  if (holder === 'none') return settings.difficulty
+  // easyCw (in the shared pair), mediumCw (the Bosun's), mediumCwYou, hardCwYou.
+  return `${settings.difficulty}Cw${holder === 'you' ? 'You' : ''}`
 }
 
 /**

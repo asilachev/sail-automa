@@ -8,7 +8,7 @@ const settings: Settings = {
   scenario: 3,
   difficulty: 'hard',
   seat: 'right',
-  bosunCannonWheel: true,
+  cannonWheel: 'you',
   rulings: { ...DEFAULT_SETTINGS.rulings, pastEnd: 'nothing' },
 }
 
@@ -25,6 +25,12 @@ describe('the last settings (remembered for the next New voyage)', () => {
   it('still load when a ruling was added since (saved data is a promise)', () => {
     localStorage.setItem(LAST_SETTINGS_KEY, JSON.stringify({ scenario: 2, difficulty: 'easy' }))
     expect(loadLastSettings()).toEqual({ ...DEFAULT_SETTINGS, scenario: 2, difficulty: 'easy' })
+  })
+
+  it('still load when saved before #22, with bosunCannonWheel', () => {
+    const old = { scenario: 2, difficulty: 'medium', bosunCannonWheel: true }
+    localStorage.setItem(LAST_SETTINGS_KEY, JSON.stringify(old))
+    expect(loadLastSettings()).toEqual({ ...DEFAULT_SETTINGS, scenario: 2, cannonWheel: 'bosun' })
   })
 
   it('are null when unreadable, without throwing', () => {
