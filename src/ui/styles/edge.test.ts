@@ -24,18 +24,14 @@ describe('the top edge on the iPhone Home Screen (#50)', () => {
     expect(raw).toEqual([])
   })
 
-  it('adds the strip only in the installed iPhone app, in portrait, without trusting the inset', () => {
+  it('adds the strip only in the installed iPhone app, in portrait', () => {
     expect(global).toMatch(/:root \{\s*--top-inset: env\(safe-area-inset-top, 0px\);/)
     expect(global).toMatch(
-      /@supports \(-webkit-touch-callout: none\) \{\s*@media \(display-mode: standalone\) and \(orientation: portrait\) \{\s*:root \{\s*--top-inset: calc\(max\(env\(safe-area-inset-top, 0px\), 59px\) \+ 40px\);/,
+      /@supports \(-webkit-touch-callout: none\) \{\s*@media \(display-mode: standalone\) and \(orientation: portrait\) \{\s*:root \{\s*--top-inset: calc\(env\(safe-area-inset-top, 0px\) \+ 40px\);/,
     )
   })
 
-  it('covers the strip with a fixed band in the page colour', () => {
-    const band = /body::before \{([^}]*)\}/.exec(global)?.[1] ?? ''
-    expect(band).toMatch(/position: fixed;/)
-    expect(band).toMatch(/top: 0;/)
-    expect(band).toMatch(/height: var\(--top-inset\);/)
-    expect(band).toMatch(/background: var\(--bg\);/)
+  it('leaves the edge to the system: no band over the content', () => {
+    expect(global).not.toMatch(/body::before/)
   })
 })

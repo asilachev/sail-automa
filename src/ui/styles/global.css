@@ -387,13 +387,11 @@ button {
 
 /*
  * The top edge (#50). In an app opened from the iPhone Home Screen, iOS 26 and later draw a blur
- * over the status bar and about 40 pt below it ("scroll edge effect", WebKit bug 301994); no CSS
- * or meta tag turns it off. Since iOS 26.1 the page also runs under the status bar while
- * env(safe-area-inset-top) says 0, so the inset can't be trusted there: the strip is at least
- * 59 pt (the Dynamic Island's status bar) plus 40 pt. A fixed band in the page colour covers it,
- * with a hairline once the page scrolls under it (main.tsx sets data-scrolled), and every screen
- * starts below it. Elsewhere --top-inset is the safe area. Screens pad by --top-inset, never by the
- * raw inset (styles/edge.test.ts).
+ * over the status bar and about 40 pt of the page below it ("scroll edge effect", WebKit bug
+ * 301994); no CSS or meta tag turns it off. There, in portrait, every screen starts 40 px further
+ * down, so nothing is blurred at rest; scrolled content passes under the system's blur, as in
+ * native apps, with no band or line of ours. Elsewhere --top-inset is the safe area. Screens pad
+ * by --top-inset, never by the raw inset (styles/edge.test.ts).
  */
 :root {
   --top-inset: env(safe-area-inset-top, 0px);
@@ -402,25 +400,9 @@ button {
 @supports (-webkit-touch-callout: none) {
   @media (display-mode: standalone) and (orientation: portrait) {
     :root {
-      --top-inset: calc(max(env(safe-area-inset-top, 0px), 59px) + 40px);
+      --top-inset: calc(env(safe-area-inset-top, 0px) + 40px);
     }
   }
-}
-
-body::before {
-  position: fixed;
-  z-index: 15;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: var(--top-inset);
-  background: var(--bg);
-  content: '';
-  pointer-events: none;
-}
-
-html[data-scrolled] body::before {
-  box-shadow: 0 1px 0 var(--line);
 }
 
 @media (prefers-reduced-motion: reduce) {

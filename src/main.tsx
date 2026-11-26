@@ -8,12 +8,6 @@ import { loadPrefs, takeLanguageFromUrl } from './ui/state/prefs.ts'
 
 listenForInstallPrompt()
 
-// The top edge's band draws a hairline once the page scrolls under it (global.css, #50).
-const markScrolled = () => {
-  document.documentElement.toggleAttribute('data-scrolled', window.scrollY > 0)
-}
-window.addEventListener('scroll', markScrolled, { passive: true })
-
 const root = document.getElementById('root')
 if (!root) throw new Error('Missing #root element')
 
