@@ -215,7 +215,7 @@ export function TrickStep({
             onChange={(winner) => setPicks((p) => ({ ...p, winner }))}
           />
         </section>
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.symbols}`}>
           <p className={styles.label} aria-hidden="true">
             {t('trick.symbols')}
           </p>

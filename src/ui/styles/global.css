@@ -220,9 +220,17 @@
   --bevel: #ffffff66;
   --bevel-soft: #ffffff2e;
   --edge-danger-soft: #edbeb9;
+  /* Small text in the danger colour (labels, tags): the same red by day. */
+  --danger-text: #d9342b;
+  /* The Bosun's name on the play-area board (HUD). */
+  --board-navy: #22529a;
 }
 
-/* Night: the card face. Auto follows the phone; Settings can pin day or night (data-theme). */
+/* Night: the card face. Auto follows the phone; Settings can pin day or night (data-theme).
+   Three text tokens are lighter than the design's night values so small text keeps 4.5:1 on the
+   night surfaces and their soft tints (#14): --text-3 (#93a9a7 in the design), --accent-text
+   (#f7804f) and --danger-text (#f0644f); --board-navy, the Bosun's name on the night board, is
+   darker than the design's #22529a. Fills, borders and large text keep the design's colours. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='day']) {
     color-scheme: dark;
@@ -232,7 +240,7 @@
     --line: #46625f;
     --text-1: #f7f3ea;
     --text-2: #c3d3d1;
-    --text-3: #93a9a7;
+    --text-3: #a2b4b1;
     --accent: #f7804f;
     --on-accent: #231f20;
     --accent-soft: #f7804f26;
@@ -249,7 +257,7 @@
     --card-edge: #6c8788;
     --scrim: #000000a6;
     --panel: #2d5966;
-    --accent-text: #f7804f;
+    --accent-text: #ffab85;
     --navy: #9ce1f9;
     --on-navy: #231f20;
     --on-card: #f7f3ea;
@@ -278,6 +286,8 @@
     --bevel: #ffffff40;
     --bevel-soft: #ffffff24;
     --edge-danger-soft: #7b3b31;
+    --danger-text: #ffa294;
+    --board-navy: #183f7a;
   }
 }
 :root[data-theme='night'] {
@@ -288,7 +298,7 @@
   --line: #46625f;
   --text-1: #f7f3ea;
   --text-2: #c3d3d1;
-  --text-3: #93a9a7;
+  --text-3: #a2b4b1;
   --accent: #f7804f;
   --on-accent: #231f20;
   --accent-soft: #f7804f26;
@@ -305,7 +315,7 @@
   --card-edge: #6c8788;
   --scrim: #000000a6;
   --panel: #2d5966;
-  --accent-text: #f7804f;
+  --accent-text: #ffab85;
   --navy: #9ce1f9;
   --on-navy: #231f20;
   --on-card: #f7f3ea;
@@ -334,6 +344,8 @@
   --bevel: #ffffff40;
   --bevel-soft: #ffffff24;
   --edge-danger-soft: #7b3b31;
+  --danger-text: #ffa294;
+  --board-navy: #183f7a;
 }
 
 *,
