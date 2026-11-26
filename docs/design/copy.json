@@ -342,26 +342,47 @@
     "ru": "Карта пирата есть только у вас, у боцмана её нет.",
     "sr": "Само ви имате карту пирата, боцман нема."
   },
-  "t.new.pirate": {
-    "en": "THE BOSUN'S PIRATE",
-    "es": "EL PIRATA DEL CONTRAMAESTRE",
-    "de": "DER PIRAT DES BOOTSMANNS",
-    "ru": "ПИРАТ БОЦМАНА",
-    "sr": "ПИРАТ БОЦМАНА"
+  "t.new.cwHolder": {
+    "en": "CANNON + WHEEL PIRATE",
+    "es": "PIRATA CAÑÓN + TIMÓN",
+    "de": "PIRAT KANONE + STEUERRAD",
+    "ru": "ПИРАТ «ПУШКА + ШТУРВАЛ»",
+    "sr": "ПИРАТ „ТОП + КОРМИЛО“"
   },
-  "t.new.cw": {
-    "en": "The Bosun has the Cannon + Wheel pirate",
-    "es": "El contramaestre tiene el pirata Cañón + Timón",
-    "de": "Der Bootsmann hat den Piraten Kanone + Steuerrad",
-    "ru": "У боцмана пират «Пушка + штурвал»",
-    "sr": "Боцман има пирата „Топ + кормило“"
+  "t.new.cwNone": {
+    "en": "Not in play",
+    "es": "No está en juego",
+    "de": "Nicht im Spiel",
+    "ru": "Не в игре",
+    "sr": "Није у игри"
   },
-  "t.new.cwHint": {
-    "en": "The app walks you through its card swap.",
-    "es": "La app te guía en su cambio de cartas.",
-    "de": "Die App führt dich durch seinen Kartentausch.",
-    "ru": "Приложение подскажет, как он меняет карту.",
-    "sr": "Апликација вас води кроз његову замену карата."
+  "t.new.cwYou": {
+    "en": "You",
+    "es": "Tú",
+    "de": "Du",
+    "ru": "У вас",
+    "sr": "Код вас"
+  },
+  "t.new.cwBosun": {
+    "en": "Bosun",
+    "es": "Contramaestre",
+    "de": "Bootsmann",
+    "ru": "У боцмана",
+    "sr": "Код боцмана"
+  },
+  "t.new.cwShared": {
+    "en": "In the shared pair",
+    "es": "Entre las compartidas",
+    "de": "Unter den geteilten",
+    "ru": "Среди общих",
+    "sr": "Међу заједничким"
+  },
+  "t.new.cwHolderHint": {
+    "en": "Who has it at the table. When the Bosun uses it, the app walks you through its card swap.",
+    "es": "Quién lo tiene en la mesa. Cuando lo usa el contramaestre, la app te guía en su cambio de cartas.",
+    "de": "Wer ihn am Tisch hat. Nutzt ihn der Bootsmann, führt dich die App durch seinen Kartentausch.",
+    "ru": "У кого он за столом. Когда его применяет боцман, приложение подскажет, как он меняет карту.",
+    "sr": "Ко га има за столом. Кад га боцман користи, апликација вас води кроз његову замену карата."
   },
   "t.new.rulings": {
     "en": "Rulings",
@@ -1646,10 +1667,10 @@
   },
   "t.fix.save": {
     "en": "Save fixes",
-    "es": "Guardar cambios",
+    "es": "Guardar",
     "de": "Speichern",
-    "ru": "Сохранить правки",
-    "sr": "Сачувај исправке"
+    "ru": "Сохранить",
+    "sr": "Сачувај"
   },
   "t.fix.spaceHint": {
     "en": "Space 3 of 4 on the Kraken track",
@@ -1657,6 +1678,27 @@
     "de": "Feld 3 von 4 auf der Krakenleiste",
     "ru": "Клетка 3 из 4 на поле кракена",
     "sr": "Поље 3 од 4 на табли кракена"
+  },
+  "t.slog.fixCode": {
+    "en": "III · fix",
+    "es": "III · corrección",
+    "de": "III · Korrektur",
+    "ru": "III · правка",
+    "sr": "III · исправка"
+  },
+  "t.slog.fixTitle": {
+    "en": "Trackers fixed",
+    "es": "Marcadores corregidos",
+    "de": "Zähler korrigiert",
+    "ru": "Счётчики поправлены",
+    "sr": "Бројачи исправљени"
+  },
+  "t.slog.fixDetail": {
+    "en": "Round III · tricks 2–3 · Kraken deck 2 above, 1 below · 4× at round end · player deck 5",
+    "es": "Ronda III · bazas 2–3 · Mazo del kraken: 2 encima, 1 debajo · 4× al final de ronda · mazo de jugadores 5",
+    "de": "Runde III · Stiche 2–3 · Krakenstapel 2 oben, 1 unten · 4× bei Rundenende · Spielerstapel 5",
+    "ru": "Раунд III · взятки 2–3 · Колода кракена: 2 сверху, 1 снизу · 4× в конце раунда · колода навигации 5",
+    "sr": "Рунда III · штихови 2–3 · Шпил кракена: 2 изнад, 1 испод · 4× на крају рунде · шпил за играче 5"
   },
   "t.cred.title": {
     "en": "CREDITS",
@@ -2889,6 +2931,34 @@
     "de": "Du hast gewonnen: du darfst deine Piratenkarte nutzen.",
     "ru": "Взятка ваша: можете применить свою карту пирата.",
     "sr": "Штих је ваш: можете да користите своју карту пирата."
+  },
+  "t.order.pirateYouTheirs": {
+    "en": "You won: you may use your Pirate card or the Bosun's Cannon + Wheel.",
+    "es": "Ganaste: puedes usar tu carta de pirata o el Cañón + Timón del contramaestre.",
+    "de": "Du hast gewonnen: du darfst deine Piratenkarte oder Kanone + Steuerrad des Bootsmanns nutzen.",
+    "ru": "Взятка ваша: можете применить свою карту пирата или «Пушку + штурвал» боцмана.",
+    "sr": "Штих је ваш: можете да користите своју карту пирата или боцманов „Топ + кормило“."
+  },
+  "t.order.pirateBosunYours": {
+    "en": "The Bosun won: it may use its Pirate card or your Cannon + Wheel. You decide for it.",
+    "es": "Ganó el contramaestre: puede usar su carta de pirata o tu Cañón + Timón. Decides tú por él.",
+    "de": "Der Bootsmann hat gewonnen: er darf seine Piratenkarte oder deine Kanone + Steuerrad nutzen. Du entscheidest für ihn.",
+    "ru": "Взятка у боцмана: он может применить свою карту пирата или вашу «Пушку + штурвал». Решаете за него вы.",
+    "sr": "Штих је боцманов: може да користи своју карту пирата или ваш „Топ + кормило“. Ви одлучујете уместо њега."
+  },
+  "t.order.pirateBosunOnlyYours": {
+    "en": "The Bosun won: it may use your Cannon + Wheel. You decide for it.",
+    "es": "Ganó el contramaestre: puede usar tu Cañón + Timón. Decides tú por él.",
+    "de": "Der Bootsmann hat gewonnen: er darf deine Kanone + Steuerrad nutzen. Du entscheidest für ihn.",
+    "ru": "Взятка у боцмана: он может применить вашу «Пушку + штурвал». Решаете за него вы.",
+    "sr": "Штих је боцманов: може да користи ваш „Топ + кормило“. Ви одлучујете уместо њега."
+  },
+  "t.order.t6": {
+    "en": "TRICK 6 · THE ORDER",
+    "es": "BAZA 6 · LA ORDEN",
+    "de": "STICH 6 · DER BEFEHL",
+    "ru": "ВЗЯТКА 6 · ПРИКАЗ",
+    "sr": "ШТИХ 6 · НАРЕЂЕЊЕ"
   },
   "t.order.fixLink": {
     "en": "A Pirate card changed the Kraken deck? Fix the trackers",

@@ -19,7 +19,7 @@ the vector sources of the K3 drawings ("Section · Old drawing sources").
 | Components | Every reusable part: symbols, buttons, segments, chips, option cards, rows, sheet header, toast, install card, dialog, mini maps, board maps, HUD, dock, action bars |
 | A1–A5 | Launch and Home: the screens below |
 | B1–B7 | New voyage and setting up the table: the screens below |
-| C1–C10 | At the table: the screens below |
+| C1–C11 | At the table: the screens below |
 | D1–D8 | Menu, sheets and recovery: the screens below |
 | E1–E9 | End of the voyage and the captain's log: the screens below |
 | F1–F5 | PWA states: the screens below |
@@ -49,8 +49,8 @@ they show the Learning scenario where the design shows scenario 3.
 | B3 · Set up the table · all ticked, ready | `/?screen=setup`, tick all nine |
 | B4 · Rulings · sheet | The Rulings row on B1, or `/?fixture=exchange&layer=rulings` |
 | B5 · New voyage · Hard | `/?screen=newVoyage`, pick Hard and change one ruling ("5 rulings · 1 changed") |
-| B6 · Set up the table · Learning, last line left | `/?screen=newVoyage`: Learning, Medium, the Cannon + Wheel switch on, Next, then tick eight lines |
-| B7 · Set up the table · line 3 for each Pirate choice | As B6, with Easy (switch off and on), Medium with the switch on, and Hard |
+| B6 · Set up the table · Learning, last line left | `/?screen=newVoyage`: Learning, Medium, the Cannon + Wheel pirate with the Bosun, Next, then tick eight lines |
+| B7 · Set up the table · line 3 for each Pirate choice | As B6, with Easy (not in play, then in the shared pair), Medium with the Bosun holding it, and Hard |
 | C1 · Round I · the exchange | `/?fixture=exchange` |
 | C2 · Trick 1 · you lead · how-to open | `/?fixture=trickYouLead` |
 | C3 · Trick 6 · the Bosun leads · how-to folded | `/?fixture=trickBosunLeads` |
@@ -61,11 +61,13 @@ they show the Learning scenario where the design shows scenario 3.
 | C8 · Round II ends · the Kraken and the storm | `/?fixture=roundEndStorm` |
 | C9 · Round III · new deal | `/?fixture=deal` (round II's deal) |
 | C10 · Round end · the Kraken's first move, 3 → 3 | `/?script=x%20fix:1,3,0,9%20Y!*4`: round I ends with the Kraken card second from the top, so the Kraken moves from the first 3 to the second |
+| C11 · The order · Pirate reminders for the Cannon + Wheel | A board of the three reminders under ruling 3's "any trick winner": `/?fixture=yourCannonWheelAnyWinner` shows the Hard one; the Medium ones need that ruling and the Cannon + Wheel with the Bosun (you won) or with you (the Bosun won) on New voyage |
 | D1 · Menu · sheet | `/?fixture=orderAttack&layer=menu` |
 | D2 · End this voyage? · dialog | `/?fixture=orderAttack&layer=end` |
 | D3 · Undone · toast | `/?fixture=orderAttack`, tap Undo |
-| D4 · Ship's log · sheet | `/?fixture=orderAttack&layer=log` |
+| D4 · Ship's log · sheet | `/?fixture=orderAttack&layer=log`; its fix line with the round and the tricks: `/?fixture=fixedRound&layer=log` |
 | D5 · Fix the trackers · sheet | `/?fixture=orderAttack&layer=fix` |
+| D5 · Fix the trackers · sheet · the round ending, tricks locked | `/?script=x%20Y!*3%20Yhh&layer=fix`: a fourth trick's order, so the trick steppers are disabled |
 | D6 · Rules · the combos · sheet | `/?fixture=orderAttack&layer=rules` |
 | D7 · Abandon this voyage? · dialog | `/?fixture=exchange&screen=newVoyage` (or New voyage on Home while a voyage is saved) |
 | D8 · Theme · sheet | `/?fixture=orderAttack&layer=menu`, tap Theme |
@@ -95,6 +97,11 @@ for every locale file.
 - The Kraken dial shows 3, 3, 4, 5, skull, and the scenario chips Learning and 1 to 5 (#3).
 - The round track's clouds sit on III and V: the storm checks happen as rounds II and IV end, so
   before III and V begin.
+- Night text tokens are lighter than the design's first night colours, for 4.5:1 on small text
+  (#14): `text-3` #a2b4b1, `accent-text` #ffab85, and `danger-text` (#d9342b by day, #ffa294 at
+  night) for small red labels; fills, borders and large numbers keep `danger`. `board-navy`
+  (#22529a by day, #183f7a at night) is the Bosun's name on the board, and the Kraken dial's
+  current space is #d9342b in both themes. Below 380 px the round track's diamonds overlap by 5 px.
 
 ## Look
 
