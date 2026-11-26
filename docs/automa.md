@@ -4,8 +4,9 @@ The app runs **Sail Solitaire**, Chuck Rosselli's fan solo variant of Sail
 ([`reference/sail-automa.pdf`](reference/sail-automa.pdf), 1 page, 11/10/2023; on BoardGameGeek
 as [Sail Solo Variant](https://boardgamegeek.com/filepage/268364/sail-solo-variant)). The variant's
 Dummy Player becomes **the Bosun**, a silent crewmate on the other side of the ship. Chuck Rosselli is
-credited wherever credits appear; the owner is asking him about the app, and his answer is
-honoured (docs/decisions.md, 2026-11-26).
+credited by name wherever credits appear. He agreed to the app being shared on the owner's own
+channels, not on BoardGameGeek, and asked to see the rulings below (docs/decisions.md,
+2026-11-26, #47).
 
 The official rules are in [`rules.md`](rules.md). Every gap the variant leaves is a ruling below:
 a setting with a default. Never change a default silently.

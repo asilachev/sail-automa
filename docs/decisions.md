@@ -3,6 +3,17 @@
 The owner's decisions about this project, newest first. A decision that belongs to another doc,
 such as a ruling in `docs/automa.md` or a screen in `docs/design.md`, lives there instead.
 
+## 2026-11-26 · Chuck Rosselli agreed: post it, credit him by name
+
+> That was a reply from author
+
+Chuck Rosselli answered the owner's GeekMail (#47). He is fine with the owner posting the app on
+the owner's own channels, with no need to post it on BoardGameGeek. He may be credited as "Chuck
+Rosselli", which is how the app already credits him. He asked to see the list of defaults the app
+chose where Sail Solitaire is silent; the owner sends it to him by email. Announcements (#18) may
+go ahead. Any calls he makes on the defaults become rulings in `docs/automa.md`, with his answer as
+the basis.
+
 ## 2026-11-26 · Chuck Rosselli hasn't been asked yet
 
 > draft a message to automa author asking if he's fine with me posting this app. I haven't asked yet
