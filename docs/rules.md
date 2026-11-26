@@ -11,8 +11,8 @@ file doesn't have, stop and raise it in the issue.
 | Sail rulebook v10, Allplay (EN, 4 pages) | [`reference/sail-rulebook-en.pdf`](reference/sail-rulebook-en.pdf) | Setup, gameplay, actions, cannon actions, hazards, winning and losing. Cited as **EN p.N** |
 | «Парус», правила игры (RU, 4 pages) | [`reference/sail-rulebook-ru.pdf`](reference/sail-rulebook-ru.pdf) | The five phases, the storm columns, the extra loss past the finish, and the Russian terms. Cited as **RU p.N** |
 | Scenario Book (2 pages) | [`reference/sail-scenarios.pdf`](reference/sail-scenarios.pdf) | Token positions and storm columns of the Learning scenario and scenarios 1 to 5. Cited as **SB p.N** |
-| Sail Solitaire, Chuck Rosselli, 11/10/2023 (1 page) | [`reference/sail-automa.pdf`](reference/sail-automa.pdf) | The solo variant: [`automa.md`](automa.md). Cited as **Solitaire** |
-| RulesPal FAQ, quoting Allplay and community answers on BoardGameGeek | Sail's BoardGameGeek forums (thread links to add with each ruling's issue) | Kraken damage order, round-end attacks, pirates. Cited as **BGG clarification** |
+| Sail Solitaire, Chuck Rosselli, 11/10/2023 (1 page), [on BoardGameGeek](https://boardgamegeek.com/filepage/268364/sail-solo-variant) | [`reference/sail-automa.pdf`](reference/sail-automa.pdf) | The solo variant: [`automa.md`](automa.md). Cited as **Solitaire** |
+| RulesPal FAQ, quoting Allplay and community answers on BoardGameGeek | Sail's forums on [BoardGameGeek](https://boardgamegeek.com/boardgame/377470/sail) (thread links still open in #16) | Kraken damage order, round-end attacks, pirates. Cited as **BGG clarification** |
 
 Credits (EN p.4): design Akiyama Koryo and Kozu Yusei; illustration Weberson Santiago; graphic
 design Anca Gavril and Daniel Profiri; developer Taylor Reiner; 3D artist Filip Gavril; published by

@@ -236,5 +236,5 @@ engine's fixture scripts (`scripts/screenshots.mjs`). It fails if any image has 
 ## Credits
 
 Sail is by Akiyama Koryo and Kozu Yusei, illustrated by Weberson Santiago and published by Allplay.
-Sail Solitaire is by Chuck Rosselli, on BoardGameGeek. Bosun is an unofficial fan app; see the
-[main README](../../README.md#credits).
+Sail Solitaire is by Chuck Rosselli, on [BoardGameGeek](https://boardgamegeek.com/filepage/268364/sail-solo-variant).
+Bosun is an unofficial fan app; see the [main README](../../README.md#credits).

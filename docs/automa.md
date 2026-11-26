@@ -1,7 +1,8 @@
 # Sail Solitaire: the Bosun
 
 The app runs **Sail Solitaire**, Chuck Rosselli's fan solo variant of Sail
-([`reference/sail-automa.pdf`](reference/sail-automa.pdf), 1 page, 11/10/2023). The variant's
+([`reference/sail-automa.pdf`](reference/sail-automa.pdf), 1 page, 11/10/2023; on BoardGameGeek
+as [Sail Solo Variant](https://boardgamegeek.com/filepage/268364/sail-solo-variant)). The variant's
 Dummy Player becomes **the Bosun**, a silent crewmate on the other side of the ship. Chuck Rosselli
 agreed to the app and is credited wherever credits appear (docs/decisions.md, 2026-11-25).
 
@@ -150,8 +151,10 @@ B4 · Rulings sheet in the design.
 | 4 | Too few cards to deal 9 each | Deal evenly, as far as the deck goes | — | No rule; only possible when the Kraken deck holds more than nine cards. Our call |
 | 5 | The fourth trick's action | Resolve it, then end the round | End the round first | The rulebook's order of play; a BGG reply, not confirmed by the publisher |
 
-The BGG thread links for rulings 1, 2, 3 and 5 are still to add (see the issue for the rulings
-sheet).
+The BGG thread links for rulings 1, 2, 3 and 5, and for the Kraken card using up one attack
+(rules.md → Kraken damage), are still open in #16: BoardGameGeek doesn't serve its threads to
+automated reads, so no answer could be confirmed yet. The rulings sheet's sources name no thread, so
+they stay as they are until a link is confirmed.
 
 ## Community etiquette
 
