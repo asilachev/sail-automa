@@ -21,12 +21,11 @@ const SITE_URL = 'https://bosun.silachev.com/'
 const STORAGE_KEY = 'bosun-site:lang'
 
 /**
- * Missing screenshots: while the app's screens are still being built (#4–#9) and the capture
- * flows come with #12, a missing file becomes a marked placeholder tile and a warning. Once every
- * shot exists, set this to true (or run with SITE_REQUIRE_SHOTS=1) so a missing one fails the
- * build, as the public layer asks.
+ * A missing screenshot fails the build, as the public layer asks: `npm run site:shots` captures
+ * every one from the app (#12). Set this to false for placeholder tiles instead, e.g. while a new
+ * shot's flow is being written.
  */
-const REQUIRE_SHOTS = process.env.SITE_REQUIRE_SHOTS === '1' || false
+const REQUIRE_SHOTS = true
 
 /** The languages, in the languages layer's order; English lives at the root. */
 const LANGS = [
@@ -339,7 +338,7 @@ for (const [, ref] of css.matchAll(/url\('([^')]+)'\)/g)) await check(`${out}sty
 if (missingShots.length) {
   console.warn(
     `! ${missingShots.length} screenshots missing, shown as placeholder tiles ` +
-      `(npm run site:shots; SITE_REQUIRE_SHOTS=1 makes this fail):\n  ${missingShots.join(' ')}`,
+      `(npm run site:shots; REQUIRE_SHOTS makes this fail):\n  ${missingShots.join(' ')}`,
   )
 }
 if (problems.length) {
