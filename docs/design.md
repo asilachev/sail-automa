@@ -17,15 +17,72 @@ the vector sources of the K3 drawings ("Section · Old drawing sources").
 | 04 · Every tap | What each control does |
 | 05 · Icon and favicons | The helm mark and the icon set |
 | Components | Every reusable part: symbols, buttons, segments, chips, option cards, rows, sheet header, toast, install card, dialog, mini maps, board maps, HUD, dock, action bars |
-| A1–A4 | Splash, Home (first visit, voyage in progress), Settings |
-| B1–B4 | New voyage options, Set up the table (in progress, all ticked), Rulings sheet |
-| C1–C9 | At the table: the exchange, you lead, the Bosun leads, the symbols, the order, cannon + cannon, the Bosun's Cannon + Wheel, round end with the storm check, the new deal |
-| D1–D7 | Menu, End this voyage?, Undone toast, Ship's log, Fix the trackers, Rules · the combos, Abandon this voyage? |
-| E1–E4 | Land ho, The Kraken wins, Captain's log, Clear the captain's log? |
-| F1–F4 | Install on iPhone, Language, Offline and update toasts, Credits |
-| N1–N8 | Night mode |
-| G rows, Language · ES, 360 px checks | Every screen in Spanish (other languages as variables), German and Russian at 360 px |
-| L1, L2 | Landing page, desktop 1440 and mobile 390 |
+| A1–A5 | Launch and Home: the screens below |
+| B1–B7 | New voyage and setting up the table: the screens below |
+| C1–C10 | At the table: the screens below |
+| D1–D8 | Menu, sheets and recovery: the screens below |
+| E1–E9 | End of the voyage and the captain's log: the screens below |
+| F1–F5 | PWA states: the screens below |
+| N1–N8 | Night mode: Home first visit (N1) and in progress (N2), Set up the table (N3), Trick 5 (N4), the order (N5), Round II ends (N6), Menu (N7), Land ho (N8) |
+| Section G: Language · ES, DE, RU, SR | Every screen below in that language, one row per language, frame names ending `· ES` and so on |
+| Language · 360 px checks | B1, C2, C5, C6 and C8 in German and Russian at 360 px |
+| L1–L6 | Landing page: desktop 1440 (L1) and mobile 390 (L2) in English, mobile 390 in Spanish (L3), German (L4), Russian (L5) and Serbian (L6) |
+
+### Every screen, and how to reach it
+
+Each screen below is drawn in English in its section of Frame 4 and again in Spanish, German,
+Russian and Serbian in Section G (F2 in English only). The second column says how to open that
+state on the dev server (`npm run dev`) with the dev-only routes in `AGENTS.md`: `?screen=`,
+`?fixture=` (engine fixtures, `src/engine/fixtures.ts`), `?script=` and `&layer=`. Add
+`&lang=es` (or `de`, `ru`, `sr`) for another language. The fixtures use the default settings, so
+they show the Learning scenario where the design shows scenario 3.
+
+| Frame | How to reach it |
+| --- | --- |
+| A1 · Splash | `/`, on a cold launch |
+| A2 · Home · first visit | `/` with empty storage |
+| A3 · Home · voyage in progress | `/?fixture=orderAttack&screen=home` |
+| A4 · Settings | `/?screen=settings` |
+| A5 · Home · Learning voyage, the Kraken on the skull | The Learning line: `/?fixture=exchange&screen=home`. The skull line has no route: the engine ends the voyage when the Kraken reaches the skull, so Home shows it only for a save that is already there |
+| B1 · New voyage · options | `/?screen=newVoyage` |
+| B2 · Set up the table · 5 of 9 ticked | `/?screen=setup`, tick five lines |
+| B3 · Set up the table · all ticked, ready | `/?screen=setup`, tick all nine |
+| B4 · Rulings · sheet | The Rulings row on B1, or `/?fixture=exchange&layer=rulings` |
+| B5 · New voyage · Hard | `/?screen=newVoyage`, pick Hard and change one ruling ("5 rulings · 1 changed") |
+| B6 · Set up the table · Learning, last line left | `/?screen=newVoyage`: Learning, Medium, the Cannon + Wheel switch on, Next, then tick eight lines |
+| B7 · Set up the table · line 3 for each Pirate choice | As B6, with Easy (switch off and on), Medium with the switch on, and Hard |
+| C1 · Round I · the exchange | `/?fixture=exchange` |
+| C2 · Trick 1 · you lead · how-to open | `/?fixture=trickYouLead` |
+| C3 · Trick 6 · the Bosun leads · how-to folded | `/?fixture=trickBosunLeads` |
+| C4 · Trick 5 · you lead · two of three picked | `/?fixture=trickYouLead`, pick the winner and one symbol |
+| C5 · Trick 5 · the order: helm & kraken + helm | `/?fixture=orderAttack` |
+| C6 · Trick 4 · cannon + cannon, then a tail | `/?fixture=cannonTail` (`cannonFlip` for the flip before it) |
+| C7 · The Bosun's Cannon + Wheel · sheet | `/?fixture=bosunCannonWheel&layer=swap` |
+| C8 · Round II ends · the Kraken and the storm | `/?fixture=roundEndStorm` |
+| C9 · Round III · new deal | `/?fixture=deal` (round II's deal) |
+| C10 · Round end · the Kraken's first move, 3 → 3 | `/?script=x%20fix:1,3,0,9%20Y!*4`: round I ends with the Kraken card second from the top, so the Kraken moves from the first 3 to the second |
+| D1 · Menu · sheet | `/?fixture=orderAttack&layer=menu` |
+| D2 · End this voyage? · dialog | `/?fixture=orderAttack&layer=end` |
+| D3 · Undone · toast | `/?fixture=orderAttack`, tap Undo |
+| D4 · Ship's log · sheet | `/?fixture=orderAttack&layer=log` |
+| D5 · Fix the trackers · sheet | `/?fixture=orderAttack&layer=fix` |
+| D6 · Rules · the combos · sheet | `/?fixture=orderAttack&layer=rules` |
+| D7 · Abandon this voyage? · dialog | `/?fixture=exchange&screen=newVoyage` (or New voyage on Home while a voyage is saved) |
+| D8 · Theme · sheet | `/?fixture=orderAttack&layer=menu`, tap Theme |
+| E1 · Land ho · you win | `/?fixture=won` |
+| E2 · The Kraken wins · you lose | `/?fixture=lostKrakenAlone` |
+| E3 · Captain's log | `/?screen=log` after opening a few of the E fixtures below: each result screen writes its voyage into the log |
+| E4 · Clear the captain's log? · dialog | E3, tap Clear the log |
+| E5 · Captain's log · nothing yet | `/?screen=log` with empty storage |
+| E6 · The Kraken wins · storm | `/?fixture=lostStorm` |
+| E7 · The Kraken wins · the skull | `/?script=x%20fix:0,4,3,3%20Bkh%20@o%20.` |
+| E8 · The Kraken wins · round V | `/?script=` with five rounds: `x fix:9,0,0,0 Y!*4 e d`, then the same with `B!*4 s+ e d`, `Y!*4 e d`, `B!*4 e d` and `Y!*4 e`, URL-encoded |
+| E9 · The Kraken wins · past the End | `/?fixture=lostPastEnd` |
+| F1 · Install on iPhone · sheet (once) | `/` in an iPhone Safari user agent, on the first visit |
+| F2 · Language · sheet | Home, tap the language chip |
+| F3 · Offline and update ready · toasts | Offline: DevTools → Network → Offline. Update ready: a production build (`npm run build`, `npx vite preview`) with a newer build deployed behind it |
+| F4 · Credits · sheet | Home, tap Credits |
+| F5 · Saving blocked · toast | `/` with site data blocked (Chrome: Settings → Site data) |
 
 The design's texts are variables themed by language (`t.*` for the app, `l.*` for the landing
 page). [`design/copy.json`](design/copy.json) is their export, in all five languages: the start
