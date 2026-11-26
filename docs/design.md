@@ -146,9 +146,10 @@ The owner's words, and what each changed. New notes go at the end.
 - **Install:** the install card on Home (A2); a one-time iPhone sheet (F1).
 - **Standalone layout:** `viewport-fit=cover`, safe areas, the action bar and dock above the home
   indicator, no overscroll. The iPhone status bar is opaque (`default`), in the theme's colour.
-  Installed from the Home Screen, iOS 26 and later still blur about 40 pt of the page below it,
-  and no CSS turns that off. So there, in portrait, a fixed 40 px band in the page colour covers
-  that strip and every screen starts below it (`--top-inset`, `global.css`; #50).
+  Installed from the Home Screen, iOS 26 and later still blur the status bar and about 40 pt
+  below it, and since 26.1 report a top safe area of 0. So there, in portrait, a fixed band in the
+  page colour covers at least 59 + 40 pt, with a hairline once the page scrolls under it, and
+  every screen starts below it (`--top-inset`, `global.css`; #50).
 - **Table ergonomics:** 44 px targets, 48 for the primary action; one screen per trick.
 - **Screen awake** while a voyage is open, with a switch in the menu and Settings.
 - **Never lose a voyage:** saved after every tap under a versioned key; `persist()` at Set sail;
