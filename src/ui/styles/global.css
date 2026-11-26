@@ -385,6 +385,39 @@ button {
   min-height: 100dvh;
 }
 
+/*
+ * The top edge (#50). In an app opened from the iPhone Home Screen, iOS 26 and later draw a blur
+ * over about 40 pt of the page below the status bar ("scroll edge effect", WebKit bug 301994); no
+ * CSS or meta tag turns it off. So, there only, a fixed band in the page colour covers that strip
+ * (WebKit paints a solid fixed box at the edge instead of blurring) and every screen starts below
+ * it. Elsewhere --edge-top is 0 and the band has no height. Screens pad by --top-inset, never by
+ * the raw safe-area inset (styles/edge.test.ts).
+ */
+:root {
+  --edge-top: 0px;
+  --top-inset: calc(env(safe-area-inset-top, 0px) + var(--edge-top));
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (display-mode: standalone) and (orientation: portrait) {
+    :root {
+      --edge-top: 2.5rem;
+    }
+  }
+}
+
+body::before {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--top-inset);
+  background: var(--bg);
+  content: '';
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
