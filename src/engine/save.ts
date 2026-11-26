@@ -10,6 +10,8 @@ import {
   replay,
   SIDES,
   TOKENS,
+  type FixEvent,
+  type Round,
   type Side,
   type Token,
   type VoyageEvent,
@@ -63,16 +65,21 @@ export function parseEvent(raw: unknown): VoyageEvent | null {
     case 'storm':
       return typeof raw.passed === 'boolean' ? { type: 'storm', passed: raw.passed } : null
     case 'fix': {
-      const { above, below, track, playerDeck } = raw
+      const { above, below, track, playerDeck, round, tricks } = raw
       if (![above, below, track, playerDeck].every(isCount)) return null
       // The reducer checks the ranges; here only the types.
-      return {
+      const event: FixEvent = {
         type: 'fix',
         above: above as number,
         below: below as number,
         track: track as TrackIndex,
         playerDeck: playerDeck as number,
       }
+      // The round and the tricks came with #31; a fix saved before them has neither.
+      if (round === undefined && tricks === undefined) return event
+      if (!isCount(round) || !isRecord(tricks)) return null
+      if (!isCount(tricks.you) || !isCount(tricks.bosun)) return null
+      return { ...event, round: round as Round, tricks: { you: tricks.you, bosun: tricks.bosun } }
     }
     default:
       return null

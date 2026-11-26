@@ -45,6 +45,28 @@ a setting with a default. Never change a default silently.
 - **The Bosun leads:** flip its top card; it leads with it, and you play against it normally.
 - You may inspect the face-up discard pile at any time.
 
+### The Cannon + Wheel pirate: who holds it (#22)
+
+New voyage asks who holds the Cannon + Wheel Pirate card, from the holders the difficulty allows
+(`cannonWheel` in the settings):
+
+| Difficulty | Holders offered |
+| --- | --- |
+| Easy | Not in play, or **in the shared pair** (`shared`): whoever wins the trick may use it, under either option of ruling 3, since both sides own the shared cards |
+| Medium | Not in play, you, or the Bosun |
+| Hard | Not in play, or you: the Bosun has no Pirate card |
+
+Who may use its action follows ruling 3: under the default, only its holder (either side, when it
+is in Easy's shared pair); under "any trick winner", whoever wins the trick. Whenever the Bosun
+uses it, its own or yours, it does so through the special note below. On Hard, "any trick
+winner" lets the Bosun use your Cannon + Wheel too, although it has no Pirate card of its own: the
+ruling is about the card's action, not about owning a card.
+
+A holder the difficulty doesn't offer reads as its nearest one (`cannonWheelHolder`): you or the
+Bosun on Easy is the shared pair; the shared pair on Medium or Hard, or the Bosun on Hard, is
+nobody. Settings saved before #22 had `bosunCannonWheel: boolean`; they load as `'bosun'` (true)
+or `'none'` (false), so an old Easy voyage with it still has it in the shared pair.
+
 ### The Bosun's Cannon + Wheel (special note)
 
 When the Bosun uses the Cannon + Wheel Pirate card:
@@ -85,8 +107,15 @@ previews, so the screen can show each attack's effect before the user does it at
 | deal | the next round, who leads, cards each | `dealt` |
 | won, lost | the reason and the round | none |
 
-`fix` (Fix the trackers) sets above, below, the meeple's space (0 to 3) and the player deck at any
-step before the end; it rejects a Kraken deck with no numbered card or more than 27 cards in all.
+`fix` (Fix the trackers) sets the round (I to V), both trick counts, above, below, the meeple's
+space (0 to 3) and the player deck at any step before the end; it rejects a Kraken deck with no
+numbered card or more than 27 cards in all. The trick counts change only while the round is in
+progress (the exchange, a trick, or an order before anyone has a fourth trick): 0 to 3 each, and
+fewer in all than the cards each player was dealt, or as many at an order, whose trick is counted.
+Once the round is ending (a fourth trick's order, the round end, the deal) they stay as they are.
+A fix never decides a win or a loss: the step it leaves does, as usual (a fix to round V loses at
+that round's end, not at once). A `fix` saved before #31 has no round or tricks and leaves them
+as they are (#31).
 
 - **The HUD's Kraken count** is the numbered cards in the Kraken deck, the Kraken card not counted:
   "6 cards left" at setup.
@@ -103,8 +132,8 @@ step before the end; it rejects a Kraken deck with no numbered card or more than
 - **Ruling 5's alternative** ends the round as soon as the fourth trick is won, and its action is
   not resolved; the log marks the trick as skipped.
 - **Pirate cards:** the order shows whether the winner may use one (Hard: only you), and offers the
-  Bosun's Cannon + Wheel swap when the Bosun wins and has that pirate. The swap changes no counts,
-  so it logs nothing.
+  Cannon + Wheel swap whenever the Bosun wins and may use that pirate (see who holds it, above).
+  The swap changes no counts, so it logs nothing.
 - **Saves** hold `{ version, settings, events }` (`SAVE_VERSION`, `src/engine/save.ts`); loading
   checks every event and replays them, and returns nothing for anything else.
 
@@ -117,7 +146,7 @@ B4 · Rulings sheet in the design.
 | --- | --- | --- | --- | --- |
 | 1 | The ship sails past the End token | You lose | Nothing happens | The Russian rulebook lists it (RU p.4); BGG clarification from Allplay; the English v10 doesn't |
 | 2 | Who decides if the Bosun uses its Pirate card | You, when it wins the trick | — | Sail Solitaire says the Dummy Player "may use" it; pirate powers are optional and need a trick win (BGG clarification) |
-| 3 | The Cannon + Wheel pirate's new action | Only its owner | Any trick winner | BGG clarification, Allplay, 2023, against the community's any-winner reading; the special note applies when the Bosun owns it |
+| 3 | The Cannon + Wheel pirate's new action | Only its owner | Any trick winner | BGG clarification, Allplay, 2023, against the community's any-winner reading; the special note applies whenever the Bosun uses it: its own, Easy's shared one, or yours under any trick winner (#22) |
 | 4 | Too few cards to deal 9 each | Deal evenly, as far as the deck goes | — | No rule; only possible when the Kraken deck holds more than nine cards. Our call |
 | 5 | The fourth trick's action | Resolve it, then end the round | End the round first | The rulebook's order of play; a BGG reply, not confirmed by the publisher |
 

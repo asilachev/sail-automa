@@ -21,6 +21,12 @@ function renderNewVoyage() {
 }
 
 const pressed = (name: string) => screen.getByRole('button', { name, pressed: true })
+const holderGroup = () => screen.getByRole('group', { name: 'CANNON + WHEEL PIRATE' })
+const holders = () =>
+  within(holderGroup())
+    .getAllByRole('button')
+    .map((b) => b.textContent)
+const holder = (name: string) => within(holderGroup()).getByRole('button', { name })
 
 describe('New voyage (design B1)', () => {
   it('offers the Learning scenario and 1 to 5 (docs/decisions.md), starting from the defaults', () => {
@@ -35,7 +41,8 @@ describe('New voyage (design B1)', () => {
     expect(pressed('Learning scenario')).toBeInTheDocument()
     expect(pressed('Start on my left')).toBeInTheDocument()
     expect(pressed('Medium')).toBeInTheDocument()
-    expect(screen.getByRole('switch', { name: /Cannon \+ Wheel/ })).not.toBeChecked()
+    expect(holders()).toEqual(['Not in play', 'You', 'Bosun'])
+    expect(pressed('Not in play')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Rulings' })).toHaveAccessibleDescription(
       '5 rulings · all defaults',
     )
@@ -49,18 +56,35 @@ describe('New voyage (design B1)', () => {
     expect(pressed('Easy')).toBeInTheDocument()
   })
 
-  it('greys out the Bosun’s Cannon + Wheel on Hard, where it has no Pirate card (B5)', async () => {
+  it('asks who holds the Cannon + Wheel: nobody, you or the Bosun on Medium (#22)', async () => {
     const { user } = renderNewVoyage()
-    const cw = screen.getByRole('switch', { name: /Cannon \+ Wheel/ })
-    await user.click(cw)
-    expect(cw).toBeChecked()
-    await user.click(screen.getByRole('button', { name: 'Hard' }))
-    expect(cw).toBeDisabled()
-    expect(cw).not.toBeChecked()
-    expect(screen.getByText('On Hard the Bosun has no Pirate card.')).toBeInTheDocument()
+    await user.click(holder('Bosun'))
+    expect(holder('Bosun')).toHaveAttribute('aria-pressed', 'true')
+    await user.click(screen.getByRole('button', { name: 'Next · set up the table' }))
+    expect(loadLastSettings()?.cannonWheel).toBe('bosun')
+  })
+
+  it('Easy: the Cannon + Wheel is in the shared pair or not in play', async () => {
+    const { user } = renderNewVoyage()
+    await user.click(holder('Bosun'))
     await user.click(screen.getByRole('button', { name: 'Easy' }))
-    expect(cw).toBeEnabled()
-    expect(cw).toBeChecked()
+    expect(holders()).toEqual(['Not in play', 'In the shared pair'])
+    // One of the two shared cards is it, whoever held it on Medium.
+    expect(holder('In the shared pair')).toHaveAttribute('aria-pressed', 'true')
+    await user.click(screen.getByRole('button', { name: 'Next · set up the table' }))
+    expect(loadLastSettings()?.cannonWheel).toBe('shared')
+  })
+
+  it('Hard: only you can hold the Cannon + Wheel; the Bosun has no Pirate card (B5)', async () => {
+    const { user } = renderNewVoyage()
+    await user.click(holder('Bosun'))
+    await user.click(screen.getByRole('button', { name: 'Hard' }))
+    expect(holders()).toEqual(['Not in play', 'You'])
+    expect(holder('Not in play')).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText('On Hard the Bosun has no Pirate card.')).toBeInTheDocument()
+    // Back on Medium, the Bosun still holds it.
+    await user.click(screen.getByRole('button', { name: 'Medium' }))
+    expect(holder('Bosun')).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('saves the choices and goes to Set up the table', async () => {

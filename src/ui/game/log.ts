@@ -85,12 +85,7 @@ export function logRows(t: Translate, state: VoyageState): LogRow[] {
           key,
           code: t('shipsLog.codeFix', { round }),
           title: t('shipsLog.fixTitle'),
-          detail: t('shipsLog.fixDetail', {
-            above: e.after.above,
-            below: e.after.below,
-            attacks: String(TRACK[e.after.track]),
-            deck: e.after.playerDeck,
-          }),
+          detail: fixDetail(t, e),
         })
         break
       case 'result':
@@ -104,6 +99,28 @@ export function logRows(t: Translate, state: VoyageState): LogRow[] {
     }
   }
   return rows
+}
+
+/** The trackers after a fix; the round and the tricks first when the fix changed them (#31). */
+function fixDetail(t: Translate, e: Extract<LogEntry, { kind: 'fix' }>): string {
+  const { before, after } = e
+  const kraken = t('shipsLog.fixDetail', {
+    above: after.above,
+    below: after.below,
+    attacks: String(TRACK[after.track]),
+    deck: after.playerDeck,
+  })
+  const roundTricks =
+    before.round !== after.round ||
+    before.tricks.you !== after.tricks.you ||
+    before.tricks.bosun !== after.tricks.bosun
+  if (!roundTricks) return kraken
+  const head = t('shipsLog.fixRound', {
+    round: numeral(after.round),
+    you: after.tricks.you,
+    bosun: after.tricks.bosun,
+  })
+  return `${head} · ${kraken}`
 }
 
 function trickDetail(t: Translate, e: Extract<LogEntry, { kind: 'trick' }>): string {

@@ -23,7 +23,7 @@ import {
 import { useT, type Translate } from '../i18n/index.ts'
 import styles from './game.module.css'
 import { OrderCard, TrickSummary } from './OrderCard.tsx'
-import { howToOpens, symbolName } from './words.ts'
+import { howToOpens, pirateKey, symbolName } from './words.ts'
 
 /** What every step gets from the game screen. */
 export interface StepProps<K extends Step['kind']> {
@@ -376,11 +376,11 @@ export function OrderStep({
             <p className={styles.hint}>{t('order.stopHint', { past: settings.rulings.pastEnd })}</p>
           </section>
         ) : null}
-        {order.pirate.mayUse && order.awaiting !== 'flip' ? (
+        {(order.pirate.mayUse || order.pirate.cannonWheel) && order.awaiting !== 'flip' ? (
           <aside className={styles.pirate}>
             <p className={styles.pirateHead}>
               <Flag size={18} weight="fill" aria-hidden />
-              <span>{t(order.winner === 'you' ? 'order.pirateYou' : 'order.pirateBosun')}</span>
+              <span>{t(pirateKey(order.pirate))}</span>
             </p>
             {order.pirate.swap ? (
               <button type="button" className={styles.link} onClick={onSwap}>

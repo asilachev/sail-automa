@@ -34,8 +34,9 @@ change it with the **EN** button at the top of Home, or under **Settings → Lan
    - **Difficulty** picks the Pirate cards (automa.md → The variant): **Easy** gives two shared
      Pirate cards, whoever wins the trick may use either; **Medium** gives one each, and the
      winner may use their own; **Hard** gives only you one.
-   - **The Bosun's pirate:** switch it on if the Bosun has the Cannon + Wheel Pirate card, and the
-     app walks you through its card swap.
+   - **Cannon + Wheel pirate:** who has that Pirate card at the table: not in play, you or the
+     Bosun (on Easy, in the shared pair or not; on Hard, only you). Whenever the Bosun may use it,
+     the app walks you through its card swap (automa.md → The Cannon + Wheel pirate).
    - **Rulings** (optional): the rulebooks and the variant leave five gaps. Each has a default; tap
      the row to read them and why (automa.md → Rulings).
 3. Tap **NEXT · SET UP THE TABLE** and set up as the rulebook says, with the variant's changes,
@@ -47,7 +48,7 @@ change it with the **EN** button at the top of Home, or under **Settings → Lan
 <table>
   <tr>
     <td align="center" valign="top"><img src="screenshots/01-home.png" width="250" alt="Home on the first visit: Play Sail solo, and how it plays"><br><sub>Home</sub></td>
-    <td align="center" valign="top"><img src="screenshots/02-new-voyage.png" width="250" alt="New voyage: scenario, seat, difficulty and the Bosun's pirate"><br><sub>New voyage</sub></td>
+    <td align="center" valign="top"><img src="screenshots/02-new-voyage.png" width="250" alt="New voyage: scenario, seat, difficulty and who holds the Cannon + Wheel"><br><sub>New voyage</sub></td>
     <td align="center" valign="top"><img src="screenshots/03-setup.png" width="250" alt="Set up the table: four of nine lines ticked, Set sail still waiting"><br><sub>Set up the table</sub></td>
   </tr>
 </table>
@@ -166,14 +167,15 @@ The bar at the bottom is there for the whole voyage.
   language, theme and the credits.
 
 **Fix the trackers** is for when the table and the app disagree, say after a Pirate card: set the
-cards above and below the Kraken card, the attacks at round end and the cards in the player deck,
-and tap **SAVE FIXES**. The fix goes into the ship's log, and Undo takes it back like any tap.
+round and both players' tricks (the tricks only while the round is in progress), the cards above
+and below the Kraken card, the attacks at round end and the cards in the player deck, and tap
+**SAVE FIXES**. The fix goes into the ship's log, and Undo takes it back like any tap.
 
 <table>
   <tr>
     <td align="center" valign="top"><img src="screenshots/12-menu.png" width="250" alt="Menu: back to home, end this voyage, rules, rulings, ship's log, fix the trackers"><br><sub>Menu</sub></td>
     <td align="center" valign="top"><img src="screenshots/13-ships-log.png" width="250" alt="The ship's log, newest first"><br><sub>Ship's log</sub></td>
-    <td align="center" valign="top"><img src="screenshots/14-fix.png" width="250" alt="Fix the trackers: Kraken deck, attacks at round end and the player deck"><br><sub>Fix the trackers</sub></td>
+    <td align="center" valign="top"><img src="screenshots/14-fix.png" width="250" alt="Fix the trackers: round, tricks, Kraken deck, attacks at round end and the player deck"><br><sub>Fix the trackers</sub></td>
   </tr>
 </table>
 

@@ -118,7 +118,13 @@ export function Game({ initialLayer = null }: { initialLayer?: GameLayer | null 
     const at = events.map((e) => e.type).lastIndexOf('trick')
     if (at < 0) return
     for (let i = events.length; i > at; i--) api.undo()
-    for (const later of events.slice(at + 1)) if (later.type === 'fix') api.dispatch(later)
+    for (const later of events.slice(at + 1)) {
+      if (later.type !== 'fix') continue
+      // A fix's tricks counted the trick being changed, which is replayed after it: keep the
+      // cubes as they were before that trick (#31).
+      const { tricks: _counted, ...rest } = later
+      api.dispatch(rest)
+    }
     setDraft({ winner, yours, bosuns })
   }
 
