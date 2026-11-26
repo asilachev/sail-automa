@@ -3,6 +3,16 @@
 The owner's decisions about this project, newest first. A decision that belongs to another doc,
 such as a ruling in `docs/automa.md` or a screen in `docs/design.md`, lives there instead.
 
+## 2026-11-26 · Chuck Rosselli hasn't been asked yet
+
+> draft a message to automa author asking if he's fine with me posting this app. I haven't asked yet
+
+This corrects the entry of 2026-11-25 ("Already asked, he's fine"). The owner is asking the author
+of Sail Solitaire now, by GeekMail. Until he answers (#47), the app is not announced anywhere (#18), and
+his answer is honoured: if he asks not to be credited, his name comes out of the app, the landing
+page, the README, the docs and future commits, and never goes back in. The app credits
+him as the variant's author in the meantime.
+
 ## 2026-11-26 · Stay with Sail Solitaire; no second variant
 
 > Ok, then we continue with solitaire.
@@ -28,13 +38,6 @@ Learning and 1 to 5.
 
 The owner checked the box: the Kraken board's spaces from the start are 3, 3, 4, 5, then the skull.
 The design drew 3, 4, 5, skull; the HUD's dial and the round-end texts change with it.
-
-## 2026-11-25 · Chuck Rosselli agreed; credit him
-
-> Already asked, he's fine
-
-The owner asked the author of Sail Solitaire before building on it. The app, the landing page and
-the README credit him as its author.
 
 ## 2026-11-25 · The wordmark is BOSUN in every language
 
