@@ -60,14 +60,14 @@ You need Node 22 or later (`.nvmrc`). Use npm.
 | `check` | `npm run check`: lint, format check, typecheck, tests and build, as CI's `check` job |
 | `test` | `npm test` (Vitest: the `engine` project on Node, the `ui` project on jsdom) |
 | `build` | `npm run build` |
-| `shots` | `npm run site:shots`: the app screenshots the landing page shows (`site/shots.json`), into `.screenshots/<lang>/`; the flows that reach each screen come with #12 |
+| `shots` | `npm run shots`: the guide's screenshots, one per step of a voyage, into `docs/guide/screenshots/`; `npm run site:shots`: the landing page's (`site/shots.json`) in every language, into `.screenshots/<lang>/`. Both from the production build, 780×1688, failing on any other size (`scripts/screenshots.mjs`; `-- --lang ru --only 08 --out dir`) |
 | `live` | `npm run live`: both addresses answer, the app's shell, assets, manifest and headers, and every landing page language linking the app (`-- --app <url> --site <url>` to check other addresses) |
 
 | Other | What it does |
 | --- | --- |
 | `npm run dev` | Dev server (`-- --host` to open it on a phone on the same Wi-Fi) |
 | Dev-only routes | `/?kit` the component kit; `/?screen=setup` opens a screen; `/?fixture=orderAttack` saves an engine fixture (`src/engine/fixtures.ts → FIXTURES`) as the voyage and opens the game on it, `/?script=x%20Yhh` the same for any fixture script, and `&layer=menu` (or `log`, `rules`, `rulings`, `fix`, `swap`, `end`) opens that sheet on top. Builds leave them out |
-| `npm run site` | The landing page into `_site/`, one page per language (`scripts/build-site.mjs`); fails on a missing text or file. Missing screenshots become marked placeholder tiles with a warning until `SITE_REQUIRE_SHOTS=1`. Preview: `npx vite preview --outDir _site` |
+| `npm run site` | The landing page into `_site/`, one page per language (`scripts/build-site.mjs`); fails on a missing text or file. Fails on a missing screenshot too: run `npm run site:shots` first. Preview: `npx vite preview --outDir _site` |
 | `npm run e2e` | Build, then the Playwright smoke test on a 390×844 touch screen (needs Google Chrome; `CHROME_PATH` picks another) |
 | `npm run lint` / `format` / `format:check` / `typecheck` | Oxlint (warnings fail), Prettier (Markdown excluded), `tsc -b` strict |
 | `docker build -t bosun .` | The production image (nginx on 8080) |
@@ -95,8 +95,10 @@ src/
   test/     shared test setup and helpers (renderApp, saveScript, startVoyage, renderGame, playTrick)
 e2e/        Playwright smoke test against the production build
 site/       the landing page: index.html template, styles.css, locales/*.json, shots.json, CNAME
-scripts/    build-site.mjs (the landing page), screenshots.mjs (its app screenshots), gen-icons.mjs
-docs/       rules, automa spec, design notes, decisions, design copy, reference PDFs
+scripts/    build-site.mjs (the landing page), screenshots.mjs (the guide's and the landing page's
+            screenshots), gen-icons.mjs
+docs/       rules, automa spec, design notes, decisions, design copy, reference PDFs, guide/ (the
+            user guide and its screenshots)
 ```
 
 **Conventions**

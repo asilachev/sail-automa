@@ -7,6 +7,12 @@ you flip its cards, and the app keeps the tricks, the Kraken and the storms.
 It is a *companion* to the physical game, not a digital version. The board, the cards, the ship
 and the Pirate cards stay on your table; the app stores only the symbols you tap.
 
+<p align="center">
+  <a href="docs/guide/README.md#3-a-trick"><img src="docs/guide/screenshots/05-you-lead.png" width="200" alt="Trick 1, you lead: how the Bosun follows"></a>
+  <a href="docs/guide/README.md#4-the-order"><img src="docs/guide/screenshots/08-order.png" width="200" alt="The order: where the ship goes and how often the Kraken attacks"></a>
+  <a href="docs/guide/README.md#5-the-round-ends"><img src="docs/guide/screenshots/10-round-end.png" width="200" alt="Round II ends: the Kraken attacks, then the storm check"></a>
+</p>
+
 > **Status:** in development. Work is planned in
 > [issues](https://github.com/asilachev/sail-automa/issues) and
 > [milestones](https://github.com/asilachev/sail-automa/milestones). The landing page will live at
@@ -21,6 +27,13 @@ and the Pirate cards stay on your table; the app stores only the symbols you tap
 - Sets up any scenario from the Scenario Book, Learning to 5.
 - Undo for every tap, saved after every tap, offline, installable, keeps the screen awake.
 - English, Español, Deutsch, Русский and Српски.
+
+## How to play
+
+Set up Sail as the rulebook says, with the variant's changes, and let the app run the Bosun. Each
+trick it tells you how the Bosun plays; you tap who took the trick and the two symbols, and it gives
+you the order. It counts the Kraken deck and the attacks, and asks the storm checks. The
+**[step-by-step guide](docs/guide/README.md)** walks through a whole voyage, screen by screen.
 
 ## Run it
 
