@@ -2,6 +2,7 @@ import {
   firstLeader,
   type CardSymbol,
   type Move,
+  type PirateView,
   type Side,
   type Step,
   type VoyageEvent,
@@ -9,7 +10,7 @@ import {
 } from '../../engine/index.ts'
 import { numeral, type Heading } from '../components/index.ts'
 import { SYMBOL_ART } from '../components/pieces.ts'
-import type { Translate } from '../i18n/index.ts'
+import type { MessageKey, Translate } from '../i18n/index.ts'
 
 export { SYMBOL_ART }
 
@@ -26,6 +27,18 @@ export function pairName(
   const pair = t('order.pair', { a: symbolName(t, yours), b: symbolName(t, bosuns) })
   if (flips.length === 0) return pair
   return t('order.thenFlips', { pair, flips: flips.map((s) => symbolName(t, s)).join(', ') })
+}
+
+/**
+ * The order's Pirate reminder (docs/automa.md → Pirate cards; ruling 3, #22): whose Pirate card
+ * the winner may use, naming the other side's Cannon + Wheel when "any trick winner" lets them.
+ */
+export function pirateKey(p: PirateView): MessageKey {
+  const othersCw = p.cannonWheel && p.holder !== 'shared' && p.holder !== p.winner
+  if (p.winner === 'you') return othersCw ? 'order.pirateYouTheirs' : 'order.pirateYou'
+  if (!othersCw) return 'order.pirateBosun'
+  // On Hard the Bosun has no Pirate card of its own: only yours.
+  return p.mayUse ? 'order.pirateBosunYours' : 'order.pirateBosunOnlyYours'
 }
 
 /** Where the ship goes on the map: toward the trick's winner, or straight. */

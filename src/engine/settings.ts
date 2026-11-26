@@ -45,16 +45,21 @@ export const DEFAULT_RULINGS: Rulings = {
   fourthTrick: 'resolve',
 }
 
+/**
+ * Who holds the Cannon + Wheel pirate (docs/automa.md → The Cannon + Wheel pirate, #22): nobody
+ * (it isn't in play), you, the Bosun, or, on Easy, the shared pair (whoever wins may use either).
+ * Each difficulty offers its own holders (`cannonWheelOptions`); `cannonWheelHolder` reads the
+ * setting for the chosen difficulty.
+ */
+export type CannonWheel = 'none' | 'you' | 'bosun' | 'shared'
+export const CANNON_WHEEL: readonly CannonWheel[] = ['none', 'you', 'bosun', 'shared']
+
 export interface Settings {
   readonly scenario: ScenarioId
   readonly difficulty: Difficulty
   readonly seat: Seat
-  /**
-   * The Bosun has the Cannon + Wheel pirate (in Easy, one of the two shared cards is it), so the
-   * app walks you through its swap (docs/automa.md → The Bosun's Cannon + Wheel). Ignored in Hard,
-   * where the Bosun has no Pirate card.
-   */
-  readonly bosunCannonWheel: boolean
+  /** Who holds the Cannon + Wheel pirate; it replaced `bosunCannonWheel: boolean` (#22). */
+  readonly cannonWheel: CannonWheel
   readonly rulings: Rulings
 }
 
@@ -62,7 +67,7 @@ export const DEFAULT_SETTINGS: Settings = {
   scenario: 'learning',
   difficulty: 'medium',
   seat: 'left',
-  bosunCannonWheel: false,
+  cannonWheel: 'none',
   rulings: DEFAULT_RULINGS,
 }
 
@@ -71,9 +76,27 @@ export function changedRulings(rulings: Rulings): number {
   return RULING_KEYS.filter((k) => rulings[k] !== DEFAULT_RULINGS[k]).length
 }
 
-/** The Bosun can use the Cannon + Wheel pirate: it has it, and the difficulty gives it a pirate. */
-export function bosunHasCannonWheel(settings: Settings): boolean {
-  return settings.bosunCannonWheel && settings.difficulty !== 'hard'
+/**
+ * Who may hold the Cannon + Wheel pirate on each difficulty (docs/automa.md → Difficulty): on Easy
+ * the two Pirate cards are shared, so it is in the pair or not; on Medium each side has one; on
+ * Hard only you have a Pirate card.
+ */
+export function cannonWheelOptions(difficulty: Difficulty): readonly CannonWheel[] {
+  if (difficulty === 'easy') return ['none', 'shared']
+  if (difficulty === 'hard') return ['none', 'you']
+  return ['none', 'you', 'bosun']
+}
+
+/**
+ * The Cannon + Wheel's holder for the settings' difficulty. A holder the difficulty doesn't offer
+ * reads as its nearest one: you or the Bosun on Easy is the shared pair (an old save's
+ * `bosunCannonWheel: true` on Easy meant "one of the two shared cards is it"); the shared pair on
+ * Medium or Hard, or the Bosun on Hard, is nobody.
+ */
+export function cannonWheelHolder(settings: Settings): CannonWheel {
+  const { cannonWheel, difficulty } = settings
+  if (cannonWheelOptions(difficulty).includes(cannonWheel)) return cannonWheel
+  return difficulty === 'easy' && cannonWheel !== 'none' ? 'shared' : 'none'
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -82,6 +105,20 @@ const isRecord = (v: unknown): v is Record<string, unknown> =>
 function pick<T>(value: unknown, options: readonly T[], fallback: T): T | undefined {
   if (value === undefined) return fallback
   return options.includes(value as T) ? (value as T) : undefined
+}
+
+/**
+ * The Cannon + Wheel's holder from saved data. Saves and last settings from before #22 have
+ * `bosunCannonWheel: boolean` instead: true is the Bosun (read as the shared pair on Easy and
+ * nobody on Hard, by `cannonWheelHolder`), false is nobody.
+ */
+function parseCannonWheel(raw: Record<string, unknown>): CannonWheel | undefined {
+  if (raw.cannonWheel !== undefined || raw.bosunCannonWheel === undefined) {
+    return pick(raw.cannonWheel, CANNON_WHEEL, DEFAULT_SETTINGS.cannonWheel)
+  }
+  if (raw.bosunCannonWheel === true) return 'bosun'
+  if (raw.bosunCannonWheel === false) return 'none'
+  return undefined
 }
 
 /**
@@ -95,7 +132,7 @@ export function parseSettings(raw: unknown): Settings | null {
   if (scenario === undefined) return null
   const difficulty = pick(raw.difficulty, DIFFICULTIES, DEFAULT_SETTINGS.difficulty)
   const seat = pick(raw.seat, SEATS, DEFAULT_SETTINGS.seat)
-  const cw = pick(raw.bosunCannonWheel, [true, false], DEFAULT_SETTINGS.bosunCannonWheel)
+  const cw = parseCannonWheel(raw)
   if (difficulty === undefined || seat === undefined || cw === undefined) return null
   const rawRulings = raw.rulings === undefined ? {} : raw.rulings
   if (!isRecord(rawRulings)) return null
@@ -110,7 +147,7 @@ export function parseSettings(raw: unknown): Settings | null {
     scenario,
     difficulty,
     seat,
-    bosunCannonWheel: cw,
+    cannonWheel: cw,
     // Every key was checked against RULING_OPTIONS above.
     rulings: rulings as unknown as Rulings,
   }

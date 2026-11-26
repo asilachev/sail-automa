@@ -18,6 +18,20 @@ describe('fixtures: any state from a script', () => {
     ])
   })
 
+  it('parses a fix with the round and the tricks (#31)', () => {
+    expect(parseScript('fix:1,2,3,4,5,2,1')).toEqual([
+      {
+        type: 'fix',
+        above: 1,
+        below: 2,
+        track: 3,
+        playerDeck: 4,
+        round: 5,
+        tricks: { you: 2, bosun: 1 },
+      },
+    ])
+  })
+
   it('expands quiet tricks and repeats', () => {
     expect(parseScript('B!*2')).toEqual([
       { type: 'trick', winner: 'bosun', yours: 'tail', bosuns: 'cannon' },
@@ -47,6 +61,7 @@ describe('fixtures: any state from a script', () => {
       cannonFlip: 'order',
       cannonTail: 'order',
       bosunCannonWheel: 'order',
+      yourCannonWheelAnyWinner: 'order',
       roundEnd: 'roundEnd',
       roundEndStorm: 'roundEnd',
       deal: 'deal',
@@ -55,6 +70,7 @@ describe('fixtures: any state from a script', () => {
       lostStorm: 'lost',
       lostPastEnd: 'lost',
       fixed: 'trick',
+      fixedRound: 'trick',
     }
     for (const name of Object.keys(FIXTURES) as FixtureName[]) {
       expect(currentStep(fixture(name).state).kind, name).toBe(expected[name])

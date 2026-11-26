@@ -15,10 +15,16 @@ import {
 import { useState } from 'react'
 import {
   canApply,
+  canFixTricks,
   changedRulings,
+  maxFixedTricks,
+  ROUNDS,
   TRACK,
+  TRICKS_TO_END,
   trackers,
   type CardSymbol,
+  type Round,
+  type Side,
   type Trackers,
   type TrackIndex,
   type VoyageEvent,
@@ -27,6 +33,7 @@ import {
 import {
   Button,
   ListRow,
+  numeral,
   Picture,
   SegmentGroup,
   Sheet,
@@ -252,7 +259,8 @@ function Stepper({
 }
 
 /**
- * D5 · Fix the trackers: make the app match the table when a Pirate card changed something. It
+ * D5 · Fix the trackers: make the app match the table when a Pirate card or a slip changed
+ * something: the round and the tricks (#31), the Kraken deck, its track and the player deck. It
  * dispatches the engine's `fix`, which goes into the ship's log and can be undone.
  */
 export function FixTrackersSheet({
@@ -269,6 +277,9 @@ export function FixTrackersSheet({
   const [draft, setDraft] = useState<Trackers>(before)
   const event: VoyageEvent = { type: 'fix', ...draft }
   const same =
+    draft.round === before.round &&
+    draft.tricks.you === before.tricks.you &&
+    draft.tricks.bosun === before.tricks.bosun &&
     draft.above === before.above &&
     draft.below === before.below &&
     draft.track === before.track &&
@@ -276,11 +287,41 @@ export function FixTrackersSheet({
   const valid = canApply(state, event)
   const set = (change: Partial<Trackers>) => setDraft((d) => ({ ...d, ...change }))
   const total = draft.above + draft.below + draft.playerDeck
+  // The trick cubes change only mid-round, 0 to 3 each, within the cards dealt (#31).
+  const tricksOpen = canFixTricks(state)
+  const tricksRoom = draft.tricks.you + draft.tricks.bosun < maxFixedTricks(state)
+  const trickRow = (side: Side) => {
+    const n = draft.tricks[side]
+    const setN = (value: number) => set({ tricks: { ...draft.tricks, [side]: value } })
+    return (
+      <Stepper
+        label={t(side === 'you' ? 'fixTrackers.tricksYou' : 'fixTrackers.tricksBosun')}
+        value={String(n)}
+        changed={n !== before.tricks[side]}
+        canLess={tricksOpen && n > 0}
+        canMore={tricksOpen && tricksRoom && n < TRICKS_TO_END - 1}
+        onLess={() => setN(n - 1)}
+        onMore={() => setN(n + 1)}
+      />
+    )
+  }
   return (
     <Sheet title={t('fixTrackers.title')} onClose={onClose}>
       {(close) => (
         <>
           <p className={styles.sheetLead}>{t('fixTrackers.lead')}</p>
+          <p className={styles.label}>{t('fixTrackers.roundTricks')}</p>
+          <Stepper
+            label={t('fixTrackers.round')}
+            value={numeral(draft.round)}
+            changed={draft.round !== before.round}
+            canLess={draft.round > 1}
+            canMore={draft.round < ROUNDS}
+            onLess={() => set({ round: (draft.round - 1) as Round })}
+            onMore={() => set({ round: (draft.round + 1) as Round })}
+          />
+          {trickRow('you')}
+          {trickRow('bosun')}
           <p className={styles.labelDanger}>{t('fixTrackers.kraken')}</p>
           <Stepper
             label={t('fixTrackers.above')}
