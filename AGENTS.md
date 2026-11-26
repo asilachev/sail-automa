@@ -9,7 +9,7 @@ it, so Claude Code, Codex and any other agent read the same rules.
 | --- | --- |
 | **What** | Bosun: a phone-first PWA that runs Chuck Rosselli's Sail Solitaire, so one person can play the board game Sail solo with the physical game |
 | **Visibility** | public |
-| **Live** | landing page `bosun.silachev.com` (GitHub Pages: `pages.yml` deploys on push to `master`); app `app.bosun.silachev.com` (Vercel project `sail-automa`, also at `sail-automa.vercel.app`; deploys on push to `master` once Vercel's GitHub connection is on, until then `vercel deploy --prod`); image `ghcr.io/asilachev/sail-automa` (`docker.yml`). Both custom domains wait for the owner's DNS records |
+| **Live** | landing page https://bosun.silachev.com (GitHub Pages, HTTPS enforced: `pages.yml` deploys on push to `master`); app https://app.bosun.silachev.com (Vercel project `sail-automa`, Git integration: deploys on push to `master`, with cookieless Web Analytics); image `ghcr.io/asilachev/sail-automa` (`docker.yml`). `npm run live` confirms both |
 | **Autonomy** | ship |
 | **Footprint** | full |
 | **Stays here** | nothing beyond the core rules |
