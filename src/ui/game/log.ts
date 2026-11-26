@@ -1,6 +1,7 @@
 import {
   shipsLog,
   TRACK,
+  type AttackEffect,
   type CardSymbol,
   type LogEntry,
   type TrackIndex,
@@ -54,7 +55,7 @@ export function logRows(t: Translate, state: VoyageState): LogRow[] {
           key,
           code: t('shipsLog.codeTrick', { round, n: e.trick }),
           title: pairName(t, e.yours, e.bosuns, e.flips),
-          detail: trickDetail(t, e),
+          detail: trickDetail(t, e, entries.slice(i + 1)),
           symbols: [e.yours, e.bosuns],
         })
         break
@@ -123,7 +124,11 @@ function fixDetail(t: Translate, e: Extract<LogEntry, { kind: 'fix' }>): string 
   return `${head} · ${kraken}`
 }
 
-function trickDetail(t: Translate, e: Extract<LogEntry, { kind: 'trick' }>): string {
+function trickDetail(
+  t: Translate,
+  e: Extract<LogEntry, { kind: 'trick' }>,
+  older: readonly LogEntry[],
+): string {
   const parts = [t('shipsLog.took', { side: e.winner })]
   if (e.skipped) {
     parts.push(t('shipsLog.skipped'))
@@ -136,30 +141,43 @@ function trickDetail(t: Translate, e: Extract<LogEntry, { kind: 'trick' }>): str
     e.move === 'towardWinner' ? (e.winner === 'you' ? 'towardYou' : 'towardBosun') : e.move
   if (move !== 'none') parts.push(t('shipsLog.move', { move }))
   if (e.onto && e.onto !== 'open') parts.push(t('shipsLog.onto', { token: e.onto }))
-  if (e.attacks.length > 0) parts.push(t('shipsLog.attacks', { n: e.attacks.length }))
+  if (e.attacks.length > 0) {
+    parts.push(krakenMoved(t, e.attacks, older) ?? t('shipsLog.attacks', { n: e.attacks.length }))
+  }
   if (parts.length === 1) parts.push(t('shipsLog.move', { move: 'none' }))
   return parts.join(' · ')
 }
 
-/**
- * "Kraken ×3, its card cycled: 3× → 4×". The track before the round end is replayed from the
- * older entries: the setup's space, moved by every Kraken card that came up before.
- */
+/** A round end's title: "Kraken ×3", with the Kraken's move when its card came up. */
 function roundEndTitle(
   t: Translate,
   e: Extract<LogEntry, { kind: 'roundEnd' }>,
   older: readonly LogEntry[],
 ): string {
-  const cycled = e.attacks.filter((a) => a.kind === 'krakenCard')
-  const last = cycled[cycled.length - 1]
-  if (!last || last.kind !== 'krakenCard') return t('shipsLog.roundEnd', { n: e.attacks.length })
-  const before = trackBefore(older)
-  const from = TRACK[before]
+  return krakenMoved(t, e.attacks, older) ?? t('shipsLog.roundEnd', { n: e.attacks.length })
+}
+
+/**
+ * "Kraken ×3, then it moved one space along its track: still 3 attacks", or null when the
+ * Kraken card didn't come up. The track reads 3, 3, 4, 5, skull, so the first move keeps 3
+ * attacks, and "3× → 3×" read as if nothing happened (#36). The track before is replayed from
+ * the older entries: the setup's space, moved by every Kraken card that came up before.
+ */
+function krakenMoved(
+  t: Translate,
+  attacks: readonly AttackEffect[],
+  older: readonly LogEntry[],
+): string | null {
+  const moves = attacks.filter((a) => a.kind === 'krakenCard')
+  const last = moves[moves.length - 1]
+  if (!last || last.kind !== 'krakenCard') return null
+  const from = TRACK[trackBefore(older)]
   const to = TRACK[last.track]
-  return t('shipsLog.roundEndCycled', {
-    n: e.attacks.length,
-    from: t('roundEnd.times', { n: String(from) }),
-    to: to === 'skull' ? t('hud.skull') : t('roundEnd.times', { n: String(to) }),
+  return t('shipsLog.krakenMoved', {
+    n: attacks.length,
+    spaces: moves.length,
+    change: to === 'skull' ? 'skull' : to === from ? 'same' : 'more',
+    attacks: to === 'skull' ? 0 : to,
   })
 }
 

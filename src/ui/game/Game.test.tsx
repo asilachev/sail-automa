@@ -10,6 +10,10 @@ beforeEach(() => localStorage.clear())
 
 const events = () => loadVoyage().voyage?.events ?? []
 const heading = () => screen.getByRole('heading', { level: 1 })
+// Round I ends with the Kraken card on top: its meeple moves from the first 3 to the second.
+const KRAKEN_FIRST_MOVE = 'x Ykc . Ykc . Ykc . Bkk @k . Bkk @k . Y!'
+// Round II ends with it on top again: from the second 3 to the 4.
+const KRAKEN_SECOND_MOVE = `${KRAKEN_FIRST_MOVE} e d x Ykc . Ykc . B!*4`
 const done = () => screen.getByRole('button', { name: /^(Done|Next|Exchange|Dealt)/ })
 
 describe('the exchange (C1)', () => {
@@ -213,10 +217,21 @@ describe('round end (C8) and the new deal (C9)', () => {
     expect(screen.getByText('You lead first this round.')).toBeInTheDocument()
   })
 
+  // The track reads 3, 3, 4, 5, skull (docs/rules.md → The Kraken track; #36).
+  it('says the Kraken moved when its first move keeps 3 attacks', () => {
+    renderGame(fromScript(KRAKEN_FIRST_MOVE))
+    expect(heading()).toHaveTextContent('ROUND I ENDS')
+    expect(screen.getByRole('img', { name: 'Attacks at round end: still 3' })).toBeInTheDocument()
+    expect(
+      screen.getByText('The Kraken moves to the next space: still 3 attacks at each round end.'),
+    ).toBeInTheDocument()
+  })
+
   it('shows the track change when the Kraken card comes up: 3× → 4×', () => {
-    renderGame(fromScript('x Ykc . Ykc . Ykc . Bkk @k . Bkk @k . Y! e d x Ykc . Ykc . B!*4'))
+    renderGame(fromScript(KRAKEN_SECOND_MOVE))
     expect(heading()).toHaveTextContent('ROUND II ENDS')
     expect(screen.getByRole('img', { name: 'Attacks at round end: 3 to 4' })).toBeInTheDocument()
+    expect(screen.getByText('From now on, 4 attacks at each round end.')).toBeInTheDocument()
   })
 
   it('goes to the result when the voyage is lost', async () => {
@@ -304,6 +319,22 @@ describe('the ship’s log (D4) and Fix the trackers (D5)', () => {
     expect(rows[0]).toHaveTextContent('Bosun took it · The Kraken is hit: card under its deck')
     expect(rows[1]).toHaveTextContent('You took it · Toward you')
     expect(rows[2]).toHaveTextContent('The exchange')
+  })
+
+  it('says the Kraken moved along its track at each round end, still 3 then 4 attacks', async () => {
+    const user = userEvent.setup()
+    renderGame(fromScript(`${KRAKEN_SECOND_MOVE} s+ e`))
+    await user.click(screen.getByRole('button', { name: 'Log' }))
+    const sheet = screen.getByRole('dialog', { name: 'SHIP’S LOG' })
+    const ends = within(sheet)
+      .getAllByRole('listitem')
+      .filter((row) => /moved/.test(row.textContent ?? ''))
+    expect(ends.map((row) => row.textContent)).toEqual([
+      expect.stringContaining('Kraken ×3, then it moved one space along its track: now 4 attacks'),
+      expect.stringContaining(
+        'Kraken ×3, then it moved one space along its track: still 3 attacks',
+      ),
+    ])
   })
 
   it('fixes the trackers into the log, and Undo takes the fix back', async () => {

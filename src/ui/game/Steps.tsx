@@ -453,10 +453,14 @@ export function RoundEndStep({ step, state, dispatch, amend, dock }: StepProps<'
                     <span
                       className={styles.fury}
                       role="img"
-                      aria-label={t('roundEnd.furyLabel', {
-                        from: String(from),
-                        to: to === 'skull' ? t('hud.skull') : String(to),
-                      })}
+                      aria-label={
+                        from === to
+                          ? t('roundEnd.furyLabelSame', { n: String(to) })
+                          : t('roundEnd.furyLabel', {
+                              from: String(from),
+                              to: to === 'skull' ? t('hud.skull') : String(to),
+                            })
+                      }
                     >
                       <span aria-hidden="true">{t('roundEnd.times', { n: String(from) })}</span>
                       <ArrowRight size={14} weight="fill" aria-hidden />
@@ -469,7 +473,10 @@ export function RoundEndStep({ step, state, dispatch, amend, dock }: StepProps<'
                       </span>
                     </span>
                     <span className={styles.hint}>
-                      {to === 'skull' ? t('roundEnd.skull') : t('roundEnd.fury', { n: to })}
+                      {to === 'skull'
+                        ? t('roundEnd.skull')
+                        : // 3, 3, 4, 5: the first move keeps 3 attacks, so say it moved (#36).
+                          t(from === to ? 'roundEnd.furySame' : 'roundEnd.fury', { n: to })}
                     </span>
                   </span>
                 </li>
