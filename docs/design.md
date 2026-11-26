@@ -145,7 +145,8 @@ The owner's words, and what each changed. New notes go at the end.
 - **Updates:** prompt mode, "A new version is ready · Reload" (F3); never a reload mid-voyage.
 - **Install:** the install card on Home (A2); a one-time iPhone sheet (F1).
 - **Standalone layout:** `viewport-fit=cover`, safe areas, the action bar and dock above the home
-  indicator, no overscroll.
+  indicator, no overscroll. The iPhone status bar is opaque (`default`), in the theme's colour:
+  under `black-translucent`, iOS 26 and later blur the page beneath it (#50).
 - **Table ergonomics:** 44 px targets, 48 for the primary action; one screen per trick.
 - **Screen awake** while a voyage is open, with a switch in the menu and Settings.
 - **Never lose a voyage:** saved after every tap under a versioned key; `persist()` at Set sail;
