@@ -145,8 +145,10 @@ The owner's words, and what each changed. New notes go at the end.
 - **Updates:** prompt mode, "A new version is ready · Reload" (F3); never a reload mid-voyage.
 - **Install:** the install card on Home (A2); a one-time iPhone sheet (F1).
 - **Standalone layout:** `viewport-fit=cover`, safe areas, the action bar and dock above the home
-  indicator, no overscroll. The iPhone status bar is opaque (`default`), in the theme's colour:
-  under `black-translucent`, iOS 26 and later blur the page beneath it (#50).
+  indicator, no overscroll. The iPhone status bar is opaque (`default`), in the theme's colour.
+  Installed from the Home Screen, iOS 26 and later still blur about 40 pt of the page below it,
+  and no CSS turns that off. So there, in portrait, a fixed 40 px band in the page colour covers
+  that strip and every screen starts below it (`--top-inset`, `global.css`; #50).
 - **Table ergonomics:** 44 px targets, 48 for the primary action; one screen per trick.
 - **Screen awake** while a voyage is open, with a switch in the menu and Settings.
 - **Never lose a voyage:** saved after every tap under a versioned key; `persist()` at Set sail;

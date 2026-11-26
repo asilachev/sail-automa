@@ -5,6 +5,8 @@
   display: flex;
   min-height: 100dvh;
   flex-direction: column;
+  /* Below the top edge's band (global.css, #50). */
+  padding-top: var(--top-inset);
   background: var(--bg);
   color: var(--text-1);
 }

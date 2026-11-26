@@ -9,7 +9,7 @@
 
 .backBar {
   display: flex;
-  padding: max(4px, env(safe-area-inset-top)) 8px 4px;
+  padding: max(4px, var(--top-inset)) 8px 4px;
 }
 
 .back {

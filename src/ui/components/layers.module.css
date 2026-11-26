@@ -30,7 +30,7 @@
   display: flex;
   width: 100%;
   max-width: 560px;
-  max-height: calc(100dvh - 48px);
+  max-height: calc(100dvh - 48px - var(--top-inset));
   margin: 0 auto;
   flex-direction: column;
   border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;

@@ -4,7 +4,7 @@
   display: flex;
   min-height: 100dvh;
   flex-direction: column;
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--top-inset);
 }
 
 .content {

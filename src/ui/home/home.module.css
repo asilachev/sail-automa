@@ -11,7 +11,7 @@
   min-height: 52px;
   align-items: center;
   gap: 6px;
-  padding: max(4px, env(safe-area-inset-top)) 12px 4px 14px;
+  padding: max(4px, var(--top-inset)) 12px 4px 14px;
 }
 
 .brand {
