@@ -49,7 +49,9 @@ a rule the docs don't cover, or contradicts them, stop and raise it in the issue
   „Пловидба“.
 - **Privacy.** No backend, accounts or network calls. The one approved analytics is Vercel Web
   Analytics: cookieless page views, only in builds made on Vercel (`__VERCEL_ANALYTICS__`).
-- **The landing page links the app.** Don't post app links on BoardGameGeek.
+- **The landing page links the app.** On BoardGameGeek the app has one thread, the owner's, in
+  Sail's General forum ([3804167](https://boardgamegeek.com/thread/3804167)); never post its link on
+  Chuck Rosselli's file or anywhere else there.
 
 ## Commands
 

@@ -3,6 +3,16 @@
 The owner's decisions about this project, newest first. A decision that belongs to another doc,
 such as a ruling in `docs/automa.md` or a screen in `docs/design.md`, lives there instead.
 
+## 2026-11-26 · One BGG thread for the app
+
+> let's draft a post to BGG
+
+The owner posted the app in Sail's General forum on BoardGameGeek
+([thread 3804167](https://boardgamegeek.com/thread/3804167)). This replaces "No app links posted
+on BoardGameGeek" in the setup entry below: the app has this one thread, the owner's, and its link
+goes nowhere else on BGG, never on Chuck Rosselli's file. Replies there are drafted for the owner,
+who posts them.
+
 ## 2026-11-26 · Chuck Rosselli agreed: post it, credit him by name
 
 > That was a reply from author
