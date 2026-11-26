@@ -160,5 +160,7 @@ they stay as they are until a link is confirmed.
 
 ## Community etiquette
 
-Don't post links to the app on BGG threads or files. Cite answers as "BGG clarification", with the
+The app's only BGG thread is the owner's, in Sail's General forum
+([3804167](https://boardgamegeek.com/thread/3804167)). Don't post links to the app on other BGG
+threads or files, including Chuck Rosselli's. Cite answers as "BGG clarification", with the
 link.
