@@ -47,7 +47,7 @@
 
 .labelDanger {
   composes: label;
-  color: var(--danger);
+  color: var(--danger-text);
 }
 
 .title {
@@ -523,7 +523,7 @@
 
 .attacksLabel {
   margin: 0;
-  color: var(--danger);
+  color: var(--danger-text);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -589,7 +589,7 @@
 .fury > svg,
 .furyTo {
   display: flex;
-  color: var(--danger);
+  color: var(--danger-text);
 }
 
 .storm {
@@ -646,6 +646,17 @@
 
 .danger {
   color: var(--danger);
+}
+
+/* D1 · Menu: End this voyage reads in the danger colour, like its icon (N7). The label is the
+   kit row's second span (Components → List Row: icon, label, value, chevron). */
+.menuGroup > :has(.danger) > span:nth-child(2) {
+  color: var(--danger-text);
+}
+
+/* C4: the Bosun's card is labelled in sky, your own in ink (C4, N4). */
+.symbols > [role='group'] + [role='group'] > span:first-child {
+  color: var(--sky);
 }
 
 .sheetLead {

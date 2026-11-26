@@ -439,7 +439,7 @@
     "attacksHint": "Casilla {n} de 4 del tablero del kraken",
     "deck": "Cartas en el mazo de jugadores",
     "invalid": "El mazo del kraken necesita al menos una carta numerada.",
-    "save": "Guardar cambios",
+    "save": "Guardar",
     "less": "Menos: {label}",
     "more": "Más: {label}"
   },

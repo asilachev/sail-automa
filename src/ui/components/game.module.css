@@ -112,7 +112,7 @@
 }
 
 .track[data-side='bosun'] .trackLabel {
-  color: #22529a;
+  color: var(--board-navy);
 }
 
 .cell {
@@ -155,6 +155,14 @@
   flex-direction: column;
   align-items: center;
   padding-top: 12px;
+}
+
+/* At 360 px the side names get 66 px, too few for "Contramaestre": the zigzag tucks its
+   diamonds 5 px into each other (high and low ones never touch), which gives the names 86 px. */
+@media (max-width: 380px) {
+  .roundSpace + .roundSpace {
+    margin-left: -6px;
+  }
 }
 
 .roundSpace[data-low='true'] {
@@ -307,7 +315,8 @@
 }
 
 .dialSpace[data-now='true'] {
-  background: var(--danger);
+  /* The board's red in both themes: white digits keep 4.5:1 (#14). */
+  background: #d9342b;
   color: #ffffff;
 }
 
