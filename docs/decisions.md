@@ -3,6 +3,16 @@
 The owner's decisions about this project, newest first. A decision that belongs to another doc,
 such as a ruling in `docs/automa.md` or a screen in `docs/design.md`, lives there instead.
 
+## 2026-11-26 · Stay with Sail Solitaire; no second variant
+
+> Ok, then we continue with solitaire.
+
+Compared with Mitch Fisher's Solo SAIL ("Persona" rules, v1.0.0, March 2026, BGG file 444697):
+Sail Solitaire keeps the Bosun's hand hidden, needs nothing beyond the box and is complete as
+written, while Solo SAIL shows the persona's whole hand each deal, needs a die and leaves about six
+gaps. Its extra-reveal difficulty dial and colour stacks were the ideas worth keeping in mind. The
+app runs Sail Solitaire only.
+
 ## 2026-11-25 · Scenarios come from the Scenario Book, picked before the start
 
 > Added scenarios PDF - we might need to add it to the game (selector before the start)
