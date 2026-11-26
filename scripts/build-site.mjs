@@ -55,6 +55,8 @@ const links = (code) => ({
   store: STORE[code] ?? PUBLISHER,
   storeHost: new URL(STORE[code] ?? PUBLISHER).host.replace(/^www\./, ''),
   bgg: 'https://boardgamegeek.com/boardgame/377470/sail',
+  // Sail Solitaire, Chuck Rosselli's file on BoardGameGeek (#16).
+  variant: 'https://boardgamegeek.com/filepage/268364/sail-solo-variant',
 })
 
 /** First visit to the English page: go to the browser's language, unless one was picked here. */

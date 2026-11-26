@@ -51,7 +51,8 @@ Or run the published image: `docker run -p 8080:8080 ghcr.io/asilachev/sail-auto
 
 - **Sail** by Akiyama Koryo and Kozu Yusei, illustrated by Weberson Santiago, published by
   [Allplay](https://allplay.com).
-- **Sail Solitaire** by Chuck Rosselli, on BoardGameGeek.
+- **Sail Solitaire** by Chuck Rosselli, on
+  [BoardGameGeek](https://boardgamegeek.com/filepage/268364/sail-solo-variant).
 - Fonts: Bitter and Fira Sans Condensed (SIL Open Font License). Icons: Phosphor (MIT).
 
 Bosun is an unofficial fan app, not affiliated with Allplay. You need your own copy of Sail.

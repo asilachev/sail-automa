@@ -145,6 +145,15 @@ describe('Credits (F4)', () => {
       'https://github.com/asilachev/sail-automa',
     )
   })
+
+  it("links Sail Solitaire to Chuck Rosselli's file on BoardGameGeek (#16)", async () => {
+    renderHome()
+    await userEvent.click(screen.getByRole('button', { name: 'Credits' }))
+    const sheet = screen.getByRole('dialog', { name: 'CREDITS' })
+    expect(
+      within(sheet).getByRole('link', { name: 'Sail Solitaire on BoardGameGeek' }),
+    ).toHaveAttribute('href', 'https://boardgamegeek.com/filepage/268364/sail-solo-variant')
+  })
 })
 
 describe('Language (F2)', () => {

@@ -7,9 +7,8 @@ import styles from './sheets.module.css'
 export const SOURCE_URL = 'https://github.com/asilachev/sail-automa'
 /** The publisher (AGENTS.md → Credit). */
 export const ALLPLAY_URL = 'https://allplay.com'
-/** Sail Solitaire's files are on BoardGameGeek; this finds Sail there. */
-export const BGG_URL =
-  'https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=Sail'
+/** Sail Solitaire, Chuck Rosselli's file on BoardGameGeek (#16). */
+export const BGG_URL = 'https://boardgamegeek.com/filepage/268364/sail-solo-variant'
 
 /**
  * F2 · Language: the five languages in their own names (languages layer order). A pick switches
