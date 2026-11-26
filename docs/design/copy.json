@@ -237,6 +237,20 @@
     "ru": "Неофициальное фанатское приложение. Нужна сама игра «Парус».",
     "sr": "Незванична апликација фанова. Потребан вам је ваш примерак игре „Пловидба“."
   },
+  "t.home.savedLearning": {
+    "en": "Learning scenario · Easy",
+    "es": "Escenario de aprendizaje · Fácil",
+    "de": "Einstiegsszenario · Leicht",
+    "ru": "Обучающий сценарий · лёгкая сложность",
+    "sr": "Сценарио за обуку · лако"
+  },
+  "t.home.krakenSkull": {
+    "en": "4 cards left · the Kraken is on the skull",
+    "es": "quedan 4 cartas · el kraken está en la calavera",
+    "de": "noch 4 Karten · der Krake steht auf dem Totenkopf",
+    "ru": "осталось 4 карты · кракен на черепе",
+    "sr": "остале 4 карте · кракен је на лобањи"
+  },
   "t.install.title": {
     "en": "Install the app",
     "es": "Instala la app",
@@ -460,6 +474,55 @@
     "de": "Leinen los",
     "ru": "Поднять паруса",
     "sr": "Исплови"
+  },
+  "t.setup.3easy": {
+    "en": "Pirate cards: two, shared, beside the board.",
+    "es": "Cartas de pirata: dos compartidas, junto al tablero.",
+    "de": "Piratenkarten: zwei für beide, neben den Plan.",
+    "ru": "Карты пиратов: две общие, рядом с полем.",
+    "sr": "Карте пирата: две заједничке, поред табле."
+  },
+  "t.setup.3easyCw": {
+    "en": "Pirate cards: two, shared, beside the board; one is the Cannon + Wheel.",
+    "es": "Cartas de pirata: dos compartidas, junto al tablero; una es Cañón + Timón.",
+    "de": "Piratenkarten: zwei für beide, neben den Plan; eine davon ist Kanone + Steuerrad.",
+    "ru": "Карты пиратов: две общие, рядом с полем; одна из них — «Пушка + штурвал».",
+    "sr": "Карте пирата: две заједничке, поред табле; једна је „Топ + кормило“."
+  },
+  "t.setup.3mediumCw": {
+    "en": "Pirate cards: one for you, the Cannon + Wheel for the Bosun.",
+    "es": "Cartas de pirata: una para ti y Cañón + Timón para el contramaestre.",
+    "de": "Piratenkarten: eine für dich, Kanone + Steuerrad für den Bootsmann.",
+    "ru": "Карты пиратов: одна вам, «Пушка + штурвал» боцману.",
+    "sr": "Карте пирата: једна вама, „Топ + кормило“ боцману."
+  },
+  "t.setup.3hard": {
+    "en": "Pirate card: one for you. The Bosun has none.",
+    "es": "Carta de pirata: una para ti. El contramaestre no tiene.",
+    "de": "Piratenkarte: eine für dich. Der Bootsmann hat keine.",
+    "ru": "Карта пирата: одна вам. У боцмана её нет.",
+    "sr": "Карта пирата: једна вама. Боцман нема."
+  },
+  "t.setup.noteLast": {
+    "en": "Tick the last line to set sail",
+    "es": "Marca la última línea para zarpar",
+    "de": "Hake die letzte Zeile ab, um abzulegen",
+    "ru": "Отметьте последний шаг, чтобы поднять паруса",
+    "sr": "Штиклирајте последњи корак да бисте испловили"
+  },
+  "t.setup.2learning": {
+    "en": "Place the Learning scenario’s tokens:\nIslands: D3, A8, G8, A10, G10\nKraken: A4, G6, D7\nEnd: C10, E10, D11\nStorm: column 5",
+    "es": "Coloca las fichas del escenario de aprendizaje:\nIslas: D3, A8, G8, A10, G10\nKraken: A4, G6, D7\nMeta: C10, E10, D11\nTormenta: columna 5",
+    "de": "Leg die Plättchen für das Einstiegsszenario aus:\nInseln: D3, A8, G8, A10, G10\nKrake: A4, G6, D7\nZiel: C10, E10, D11\nSturm: Spalte 5",
+    "ru": "Разложите жетоны обучающего сценария:\nОстрова: D3, A8, G8, A10, G10\nКракен: A4, G6, D7\nФиниш: C10, E10, D11\nШторм: столбец 5",
+    "sr": "Поставите жетоне сценарија за обуку:\nОстрва: D3, A8, G8, A10, G10\nКракен: A4, G6, D7\nЦиљ: C10, E10, D11\nОлуја: колона 5"
+  },
+  "t.setup.subLearning": {
+    "en": "Learning scenario · Medium · tick each line as you do it",
+    "es": "Escenario de aprendizaje · Normal · marca cada línea al hacerla",
+    "de": "Einstiegsszenario · Mittel · hake jede Zeile ab",
+    "ru": "Обучающий сценарий · средняя сложность · отмечайте каждый шаг",
+    "sr": "Сценарио за обуку · средње · штиклирајте сваки корак"
   },
   "t.hud.atEnd": {
     "en": "at round end",
@@ -784,11 +847,11 @@
     "sr": "ОКРЕНУТА КАРТА"
   },
   "t.cannon.tail": {
-    "en": "Move the ship one space straight forward. Then discard the card.",
-    "es": "Mueve el barco una casilla recto adelante. Luego descarta la carta.",
-    "de": "Zieh das Schiff ein Feld geradeaus. Dann leg die Karte ab.",
-    "ru": "Передвиньте корабль на 1 клетку вперёд по прямой. Затем сбросьте карту.",
-    "sr": "Померите брод једно поље право напред. Затим одбаците карту."
+    "en": "Move the ship one space straight forward.\nThen discard the flipped card.",
+    "es": "Mueve el barco una casilla recto adelante.\nLuego descarta la carta volteada.",
+    "de": "Zieh das Schiff ein Feld geradeaus.\nDann leg die aufgedeckte Karte ab.",
+    "ru": "Передвиньте корабль на 1 клетку вперёд по прямой.\nЗатем сбросьте открытую карту.",
+    "sr": "Померите брод једно поље право напред.\nЗатим одбаците окренуту карту."
   },
   "t.cannon.combo": {
     "en": "Cannon + Cannon · then Tail",
@@ -944,6 +1007,13 @@
     "ru": "Ответьте на вопрос о шторме",
     "sr": "Одговорите на проверу олује"
   },
+  "t.end.furyFirst": {
+    "en": "From now on, 3 attacks at each round end.",
+    "es": "Desde ahora, 3 ataques al final de cada ronda.",
+    "de": "Ab jetzt 3 Angriffe bei jedem Rundenende.",
+    "ru": "Теперь 3 атаки в конце каждого раунда.",
+    "sr": "Од сада 3 напада на крају сваке рунде."
+  },
   "t.deal.title": {
     "en": "ROUND III · NEW DEAL",
     "es": "RONDA III · NUEVO REPARTO",
@@ -1069,6 +1139,41 @@
     "de": "Das Schiff fährt am Ziel vorbei",
     "ru": "Корабль прошёл мимо жетона финиша",
     "sr": "Брод прође поред жетона циља"
+  },
+  "t.lose.alone": {
+    "en": "Only the Kraken card is left in the Kraken deck",
+    "es": "En el mazo del kraken solo queda su carta",
+    "de": "Im Krakenstapel liegt nur noch die Krakenkarte",
+    "ru": "В колоде кракена осталась только карта кракена",
+    "sr": "У шпилу кракена остане само карта кракена"
+  },
+  "t.lose.subStorm": {
+    "en": "The ship was still behind the storm at the end of round II.",
+    "es": "El barco seguía detrás de la tormenta al final de la ronda II.",
+    "de": "Das Schiff war am Ende von Runde II noch hinter dem Sturm.",
+    "ru": "К концу раунда II корабль не миновал шторм.",
+    "sr": "Брод је на крају рунде II још био иза олује."
+  },
+  "t.lose.subSkull": {
+    "en": "The Kraken reached the skull in round III.",
+    "es": "El kraken llegó a la calavera en la ronda III.",
+    "de": "Die Krake hat in Runde III den Totenkopf erreicht.",
+    "ru": "Фигурка кракена дошла до черепа в раунде III.",
+    "sr": "Кракен је стигао до лобање у рунди III."
+  },
+  "t.lose.subRound5": {
+    "en": "Round V ended before the ship reached the End token.",
+    "es": "Terminó la ronda V antes de que el barco llegara a la meta.",
+    "de": "Runde V ist zu Ende, bevor das Schiff das Ziel erreicht hat.",
+    "ru": "Раунд V закончился раньше, чем корабль дошёл до финиша.",
+    "sr": "Рунда V се завршила пре него што је брод стигао до циља."
+  },
+  "t.lose.subPast": {
+    "en": "The ship sailed past the End token in round IV.",
+    "es": "El barco pasó de largo la meta en la ronda IV.",
+    "de": "Das Schiff ist in Runde IV am Ziel vorbeigefahren.",
+    "ru": "Корабль прошёл мимо жетона финиша в раунде IV.",
+    "sr": "Брод је прошао поред жетона циља у рунди IV."
   },
   "t.log.title": {
     "en": "CAPTAIN'S LOG",
@@ -1223,6 +1328,27 @@
     "de": "Tag",
     "ru": "День",
     "sr": "Дан"
+  },
+  "t.menu.rulingsValue": {
+    "en": "All defaults",
+    "es": "Por defecto",
+    "de": "Alle Standard",
+    "ru": "По умолчанию",
+    "sr": "Подразумевано"
+  },
+  "t.menu.rulingsChanged": {
+    "en": "1 changed",
+    "es": "1 cambiada",
+    "de": "1 geändert",
+    "ru": "изменено: 1",
+    "sr": "промењено: 1"
+  },
+  "t.menu.themeTitle": {
+    "en": "THEME",
+    "es": "TEMA",
+    "de": "DESIGN",
+    "ru": "ТЕМА",
+    "sr": "ТЕМА"
   },
   "t.dock.undo": {
     "en": "Undo",
@@ -1524,6 +1650,13 @@
     "de": "Speichern",
     "ru": "Сохранить правки",
     "sr": "Сачувај исправке"
+  },
+  "t.fix.spaceHint": {
+    "en": "Space 3 of 4 on the Kraken track",
+    "es": "Casilla 3 de 4 del tablero del kraken",
+    "de": "Feld 3 von 4 auf der Krakenleiste",
+    "ru": "Клетка 3 из 4 на поле кракена",
+    "sr": "Поље 3 од 4 на табли кракена"
   },
   "t.cred.title": {
     "en": "CREDITS",
@@ -1841,11 +1974,11 @@
     "sr": "Узео боцман · ка боцману · кракен ×1"
   },
   "t.x.030": {
-    "en": "Cannon + Cannon, then Tail",
-    "es": "Cañón + Cañón, luego Cola",
-    "de": "Kanone + Kanone, dann Flosse",
-    "ru": "Пушка + пушка, затем хвост",
-    "sr": "Топ + топ, затим реп"
+    "en": "Cannon + Cannon · then Tail",
+    "es": "Cañón + Cañón · luego Cola",
+    "de": "Kanone + Kanone · dann Flosse",
+    "ru": "Пушка + пушка · затем хвост",
+    "sr": "Топ + топ · затим реп"
   },
   "t.x.031": {
     "en": "You took it · One space straight",
@@ -1988,11 +2121,11 @@
     "sr": "Окрените још једну карту."
   },
   "t.x.051": {
-    "en": "of 5",
-    "es": "de 5",
-    "de": "von 5",
-    "ru": "из 5",
-    "sr": "од 5"
+    "en": "of V",
+    "es": "de V",
+    "de": "von V",
+    "ru": "из V",
+    "sr": "од V"
   },
   "t.x.052": {
     "en": "you · Bosun",
@@ -2722,6 +2855,27 @@
     "ru": "Порядок в правилах; BGG, не подтверждено",
     "sr": "Редослед из правила; BGG, непотврђено"
   },
+  "t.rul.1b": {
+    "en": "Nothing happens",
+    "es": "No pasa nada",
+    "de": "Nichts passiert",
+    "ru": "Ничего не происходит",
+    "sr": "Ништа се не дешава"
+  },
+  "t.rul.3b": {
+    "en": "Any trick winner",
+    "es": "Quien gane la baza",
+    "de": "Wer den Stich gewinnt",
+    "ru": "Любой победитель взятки",
+    "sr": "Ко год добије штих"
+  },
+  "t.rul.5b": {
+    "en": "End the round first",
+    "es": "Primero termina la ronda",
+    "de": "Erst endet die Runde",
+    "ru": "Сначала завершить раунд",
+    "sr": "Прво завршити рунду"
+  },
   "t.order.past": {
     "en": "Past the End token",
     "es": "Pasó de largo la meta",
@@ -2742,6 +2896,34 @@
     "de": "Hat eine Piratenkarte den Krakenstapel verändert? Zähler korrigieren",
     "ru": "Карта пирата изменила колоду кракена? Поправьте счётчики",
     "sr": "Карта пирата је променила шпил кракена? Исправите бројаче"
+  },
+  "t.order.discard": {
+    "en": "Then discard the flipped card.",
+    "es": "Luego descarta la carta volteada.",
+    "de": "Dann leg die aufgedeckte Karte ab.",
+    "ru": "Затем сбросьте открытую карту.",
+    "sr": "Затим одбаците окренуту карту."
+  },
+  "t.order.hit": {
+    "en": "Hit the Kraken: put the Helm & Kraken card at the bottom of the Kraken deck instead of the discard pile.",
+    "es": "Golpea al kraken: pon la carta Timón y kraken debajo del mazo del kraken en lugar del descarte.",
+    "de": "Triff die Krake: leg die Karte Steuer & Krake unter den Krakenstapel statt auf die Ablage.",
+    "ru": "Удар по кракену: положите карту «штурвал и кракен» под низ колоды кракена, а не в сброс.",
+    "sr": "Ударите кракена: ставите карту „кормило и кракен“ на дно шпила кракена уместо међу одбачене."
+  },
+  "t.order.noAction": {
+    "en": "No action, no attack. The trick cube still moves.",
+    "es": "Sin acción ni ataque. El cubo de bazas avanza igual.",
+    "de": "Keine Aktion, kein Angriff. Der Stichwürfel zieht trotzdem.",
+    "ru": "Без действия, кракен не атакует. Маркер взяток всё равно сдвигается.",
+    "sr": "Без акције, без напада. Коцкица штиха се ипак помера."
+  },
+  "t.order.emptyDeck": {
+    "en": "The player deck is empty: no further effect.",
+    "es": "El mazo de jugadores está vacío: no pasa nada más.",
+    "de": "Der Spielerstapel ist leer: keine weitere Wirkung.",
+    "ru": "Колода навигации пуста: больше ничего не происходит.",
+    "sr": "Шпил за играче је празан: нема даљег дејства."
   },
   "t.trick.howFollow": {
     "en": "HOW THE BOSUN FOLLOWS",
@@ -2897,6 +3079,27 @@
     "ru": "Завершите плавание, победой или поражением, и оно появится здесь.",
     "sr": "Завршите пловидбу, победом или поразом, и биће уписана овде."
   },
+  "t.log.tagRound5": {
+    "en": "Time ran out in V",
+    "es": "Sin tiempo en V",
+    "de": "Zeit um in V",
+    "ru": "Время вышло в V",
+    "sr": "Истекло време у V"
+  },
+  "t.log.tagPast": {
+    "en": "Past the End in IV",
+    "es": "Pasó la meta en IV",
+    "de": "Vorbei in IV",
+    "ru": "Мимо финиша в IV",
+    "sr": "Мимо циља у IV"
+  },
+  "t.log.tagEnded": {
+    "en": "Ended in II",
+    "es": "Terminada en II",
+    "de": "Beendet in II",
+    "ru": "Прервано в II",
+    "sr": "Прекинуто у II"
+  },
   "t.new.hardNote": {
     "en": "On Hard the Bosun has no Pirate card.",
     "es": "En Difícil el contramaestre no tiene carta de pirata.",
@@ -2924,5 +3127,12 @@
     "de": "Einstieg",
     "ru": "Обучение",
     "sr": "Обука"
+  },
+  "t.new.rulingsChanged": {
+    "en": "5 rulings · 1 changed",
+    "es": "5 · 1 cambiada",
+    "de": "5 · 1 geändert",
+    "ru": "5 · изменено: 1",
+    "sr": "5 · промењено: 1"
   }
 }
