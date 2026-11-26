@@ -24,10 +24,10 @@ describe('the top edge on the iPhone Home Screen (#50)', () => {
     expect(raw).toEqual([])
   })
 
-  it('adds the strip only in the installed iPhone app, in portrait', () => {
-    expect(global).toMatch(/--edge-top: 0px;/)
+  it('adds the strip only in the installed iPhone app, in portrait, without trusting the inset', () => {
+    expect(global).toMatch(/:root \{\s*--top-inset: env\(safe-area-inset-top, 0px\);/)
     expect(global).toMatch(
-      /@supports \(-webkit-touch-callout: none\) \{\s*@media \(display-mode: standalone\) and \(orientation: portrait\) \{\s*:root \{\s*--edge-top: 2\.5rem;/,
+      /@supports \(-webkit-touch-callout: none\) \{\s*@media \(display-mode: standalone\) and \(orientation: portrait\) \{\s*:root \{\s*--top-inset: calc\(max\(env\(safe-area-inset-top, 0px\), 59px\) \+ 40px\);/,
     )
   })
 
